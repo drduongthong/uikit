@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vitalis Health Care — Smart Medical & Telehealth UI Kit</title>
+  <meta name="description" content="Hệ thống UI Kit y tế toàn diện: telemetry sức khỏe thời gian thực, đặt lịch khám thông minh, hồ sơ bệnh án điện tử, nhắc thuốc và AI triage." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================================================================
+       VITALIS HEALTH CARE UI KIT — Medical & Clinical Design System
+       ================================================================ */
+    :root {
+      --bg-base: #06110e;
+      --bg-surface: #0c1c17;
+      --bg-surface-2: #132a23;
+      --bg-card: rgba(12, 28, 23, 0.75);
+      --bg-glass: rgba(12, 28, 23, 0.85);
+
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+
+      --txt-primary: #f0fdf4;
+      --txt-secondary: #a7f3d0;
+      --txt-muted: #6ee7b7;
+      --txt-dark: #022c22;
+
+      --emerald: #10b981;
+      --mint: #34d399;
+      --teal: #14b8a6;
+      --cyan: #06b6d4;
+      --rose: #f43f5e;
+      --amber: #f59e0b;
+      --blue: #3b82f6;
+
+      --grad-mint: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+      --grad-card: linear-gradient(135deg, rgba(19, 42, 35, 0.7) 0%, rgba(12, 28, 23, 0.9) 100%);
+
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-lg: 24px;
+      --shadow-card: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f0fdf4;
+      --bg-surface: #ffffff;
+      --bg-surface-2: #f8fafc;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-glass: rgba(255, 255, 255, 0.9);
+
+      --border-subtle: rgba(0, 0, 0, 0.08);
+      --border-strong: rgba(0, 0, 0, 0.15);
+
+      --txt-primary: #064e3b;
+      --txt-secondary: #047857;
+      --txt-muted: #65a30d;
+
+      --grad-card: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+      --shadow-card: 0 12px 30px -10px rgba(16, 185, 129, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-base);
+      color: var(--txt-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+    /* Telemetry EKG Banner */
+    .med-telemetry {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 12px 0; font-size: 0.85rem;
+    }
+    .med-telemetry__grid {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
+    .med-vital {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .med-vital__icon {
+      width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center;
+      background: rgba(16, 185, 129, 0.15); color: var(--emerald);
+    }
+    .med-vital__label { font-size: 0.72rem; color: var(--txt-muted); text-transform: uppercase; font-weight: 700; }
+    .med-vital__val { font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem; }
+
+    /* Animated EKG pulse icon */
+    .ekg-line {
+      display: inline-block; width: 60px; height: 22px; vertical-align: middle;
+    }
+
+    /* Navbar */
+    .med-nav {
+      position: sticky; top: 0; z-index: 90;
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .med-nav__inner {
+      display: flex; align-items: center; justify-content: space-between; height: 72px;
+    }
+    .med-brand {
+      display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--txt-primary);
+    }
+    .med-brand__logo {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: var(--grad-mint); display: grid; place-items: center;
+      color: #fff; font-weight: 800; font-size: 1.25rem;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    }
+    .med-brand__name { font-weight: 700; font-size: 1.15rem; }
+    .med-brand__tag {
+      font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 2px 8px; border-radius: 99px; background: rgba(16, 185, 129, 0.2);
+      color: var(--mint); font-weight: 700; border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .med-nav__links { display: flex; align-items: center; gap: 8px; list-style: none; }
+    .med-nav__link {
+      padding: 8px 16px; border-radius: 99px; font-size: 0.9rem; font-weight: 600;
+      color: var(--txt-secondary); text-decoration: none; transition: all 0.2s;
+    }
+    .med-nav__link:hover, .med-nav__link.is-active {
+      color: var(--txt-primary); background: rgba(16, 185, 129, 0.12);
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 20px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; border: none; transition: all 0.2s ease; text-decoration: none;
+      font-family: inherit;
+    }
+    .btn--primary {
+      background: var(--grad-mint); color: #fff;
+      box-shadow: 0 6px 20px -5px rgba(16, 185, 129, 0.5);
+    }
+    .btn--primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px -4px rgba(16, 185, 129, 0.6);
+    }
+    .btn--outline {
+      background: transparent; color: var(--txt-primary);
+      border: 1px solid var(--border-strong);
+    }
+    .btn--outline:hover {
+      background: rgba(16, 185, 129, 0.1); border-color: var(--emerald);
+    }
+    .btn--ghost { background: transparent; color: var(--txt-secondary); }
+    .btn--ghost:hover { color: var(--txt-primary); background: rgba(255,255,255,0.06); }
+    .btn--sm { padding: 6px 14px; font-size: 0.82rem; }
+    .btn--icon { width: 38px; height: 38px; padding: 0; border-radius: 10px; }
+
+    /* Hero */
+    .med-hero {
+      padding: 48px 0 36px;
+    }
+    .med-hero__grid {
+      display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 36px; align-items: center;
+    }
+    .med-hero__title {
+      font-size: clamp(2.4rem, 4.5vw, 3.6rem); font-weight: 800; line-height: 1.12;
+      letter-spacing: -0.02em; margin-bottom: 18px;
+    }
+    .med-hero__title span {
+      background: var(--grad-mint); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .med-hero__desc {
+      font-size: 1.05rem; color: var(--txt-secondary); max-width: 580px; margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .med-hero__actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* Interactive Health Status Card */
+    .med-telehealth-card {
+      background: var(--grad-card); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow-card);
+      position: relative; overflow: hidden;
+    }
+    .med-telehealth-card::before {
+      content: ""; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.2), transparent 70%);
+      pointer-events: none;
+    }
+    .med-tc__badge {
+      display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px;
+      border-radius: 99px; font-size: 0.75rem; font-weight: 700;
+      background: rgba(16, 185, 129, 0.15); color: var(--mint); margin-bottom: 16px;
+    }
+    .med-tc__title { font-size: 1.25rem; font-weight: 700; margin-bottom: 6px; }
+    .med-tc__desc { font-size: 0.88rem; color: var(--txt-secondary); margin-bottom: 20px; }
+
+    .med-doctor-quick {
+      display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: var(--radius-sm);
+      background: var(--bg-surface-2); border: 1px solid var(--border-subtle); margin-bottom: 18px;
+    }
+    .med-doc-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, #10b981, #06b6d4);
+      display: grid; place-items: center; font-weight: 700; color: #fff; flex-shrink: 0;
+    }
+    .med-doc-name { font-weight: 700; font-size: 0.95rem; }
+    .med-doc-role { font-size: 0.78rem; color: var(--txt-muted); }
+
+    /* Section Styles */
+    .med-section { padding: 32px 0; }
+    .med-section__header {
+      display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .med-section__title { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; }
+    .med-section__subtitle { font-size: 0.9rem; color: var(--txt-secondary); margin-top: 4px; }
+
+    /* Doctor Filters & Grid */
+    .med-spec-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .med-spec-chip {
+      padding: 8px 18px; border-radius: 99px; font-size: 0.85rem; font-weight: 600;
+      background: var(--bg-surface); border: 1px solid var(--border-subtle);
+      color: var(--txt-secondary); cursor: pointer; transition: all 0.2s;
+    }
+    .med-spec-chip.is-active, .med-spec-chip:hover {
+      background: var(--emerald); color: #fff; border-color: var(--emerald);
+      box-shadow: 0 4px 15px -3px rgba(16, 185, 129, 0.4);
+    }
+
+    .med-doctor-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px;
+    }
+    .med-doc-card {
+      background: var(--bg-surface); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-card);
+      display: flex; flex-direction: column; justify-content: space-between;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .med-doc-card:hover {
+      transform: translateY(-4px); border-color: var(--emerald);
+    }
+    .med-doc-top { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 16px; }
+    .med-doc-img {
+      width: 60px; height: 60px; border-radius: 16px;
+      display: grid; place-items: center; font-size: 1.4rem; font-weight: 800; color: #fff;
+      flex-shrink: 0;
+    }
+    .med-doc-spec-badge {
+      display: inline-block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      padding: 2px 8px; border-radius: 6px; background: rgba(16, 185, 129, 0.15);
+      color: var(--mint); margin-bottom: 6px;
+    }
+    .med-doc-fullname { font-size: 1.1rem; font-weight: 700; margin-bottom: 2px; }
+    .med-doc-exp { font-size: 0.8rem; color: var(--txt-muted); }
+    .med-doc-stats {
+      display: flex; justify-content: space-between; padding: 12px 0; border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle); margin-bottom: 16px; font-size: 0.82rem;
+    }
+    .med-doc-fee { font-family: var(--font-mono); font-weight: 700; color: var(--emerald); font-size: 1.05rem; }
+
+    /* Interactive Appointment Booking Slot Matrix */
+    .med-slot-box {
+      background: var(--bg-surface); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow-card);
+      margin-top: 32px;
+    }
+    .med-mode-toggle {
+      display: inline-flex; background: var(--bg-surface-2); padding: 4px; border-radius: 99px;
+      margin-bottom: 20px; border: 1px solid var(--border-subtle);
+    }
+    .med-mode-btn {
+      padding: 8px 18px; border-radius: 99px; font-size: 0.85rem; font-weight: 600;
+      border: none; background: transparent; color: var(--txt-muted); cursor: pointer;
+    }
+    .med-mode-btn.is-active { background: var(--emerald); color: #fff; }
+
+    .med-date-row { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 20px; }
+    .med-date-pill {
+      min-width: 90px; padding: 12px 10px; border-radius: 12px; text-align: center;
+      background: var(--bg-surface-2); border: 1px solid var(--border-subtle);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .med-date-pill.is-active, .med-date-pill:hover {
+      background: var(--emerald); color: #fff; border-color: var(--emerald);
+    }
+    .med-date-day { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; opacity: 0.8; }
+    .med-date-num { font-size: 1.25rem; font-weight: 800; font-family: var(--font-mono); margin-top: 2px; }
+
+    .med-slots-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px;
+    }
+    .med-slot-btn {
+      padding: 10px; border-radius: 10px; text-align: center;
+      background: var(--bg-surface-2); border: 1px solid var(--border-subtle);
+      color: var(--txt-primary); font-family: var(--font-mono); font-weight: 600;
+      font-size: 0.9rem; cursor: pointer; transition: all 0.2s;
+    }
+    .med-slot-btn:hover { border-color: var(--emerald); background: rgba(16, 185, 129, 0.1); }
+    .med-slot-btn.is-selected {
+      background: var(--emerald); color: #fff; border-color: var(--emerald);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    }
+    .med-slot-btn.is-disabled {
+      opacity: 0.4; cursor: not-allowed; pointer-events: none; text-decoration: line-through;
+    }
+
+    /* EHR & Prescriptions Matrix */
+    .med-ehr-grid {
+      display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; margin-top: 32px;
+    }
+    .med-ehr-box {
+      background: var(--bg-surface); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-card);
+    }
+    .med-prescription-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 16px; border-radius: var(--radius-sm); background: var(--bg-surface-2);
+      border: 1px solid var(--border-subtle); margin-bottom: 12px;
+    }
+    .med-rx-info { display: flex; align-items: center; gap: 12px; }
+    .med-rx-icon {
+      width: 40px; height: 40px; border-radius: 10px; background: rgba(6, 182, 212, 0.15);
+      color: var(--cyan); display: grid; place-items: center; flex-shrink: 0;
+    }
+
+    /* AI Symptom Triage Box */
+    .med-ai-box {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(6, 182, 212, 0.08) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.3); border-radius: var(--radius);
+      padding: 24px; margin-top: 32px;
+    }
+    .med-symptoms-tags {
+      display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0;
+    }
+    .med-sym-tag {
+      padding: 6px 14px; border-radius: 99px; font-size: 0.8rem; font-weight: 600;
+      background: var(--bg-surface); border: 1px solid var(--border-subtle);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .med-sym-tag.is-active {
+      background: var(--emerald); color: #fff; border-color: var(--emerald);
+    }
+
+    /* Modal */
+    .med-modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(6px);
+      z-index: 990; display: none; place-items: center; padding: 20px;
+    }
+    .med-modal-backdrop.is-open { display: grid; }
+    .med-modal {
+      background: var(--bg-surface); border: 1px solid var(--emerald);
+      border-radius: var(--radius); max-width: 500px; width: 100%; padding: 30px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6); position: relative;
+      animation: modalPop 0.25s cubic-bezier(0.2, 0, 0.2, 1);
+    }
+    @keyframes modalPop { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    /* Toast */
+    .med-toast {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      background: var(--bg-surface); border: 1px solid var(--emerald);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(16, 185, 129, 0.3);
+      padding: 14px 22px; border-radius: 12px; color: var(--txt-primary);
+      display: flex; align-items: center; gap: 12px; font-size: 0.9rem; font-weight: 600;
+      transform: translateY(100px); opacity: 0; pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+    }
+    .med-toast.is-show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+
+    @media (max-width: 900px) {
+      .med-hero__grid, .med-ehr-grid { grid-template-columns: 1fr; }
+      .med-nav__links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Live Health Telemetry Bar -->
+  <div class="med-telemetry">
+    <div class="container med-telemetry__grid">
+      <div class="med-vital">
+        <div class="med-vital__icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        </div>
+        <div>
+          <div class="med-vital__label">Nhịp tim thời gian thực</div>
+          <div class="med-vital__val">
+            74 BPM
+            <svg class="ekg-line" viewBox="0 0 60 22">
+              <path d="M0,11 L18,11 L23,3 L27,19 L32,8 L36,14 L40,11 L60,11" fill="none" stroke="#10b981" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="med-vital">
+        <div class="med-vital__icon" style="color:var(--cyan);background:rgba(6,182,212,0.15)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div>
+          <div class="med-vital__label">Huyết áp động mạch</div>
+          <div class="med-vital__val">118 / 76 mmHg <span style="color:var(--emerald);font-size:0.75rem;">(Chuẩn)</span></div>
+        </div>
+      </div>
+
+      <div class="med-vital">
+        <div class="med-vital__icon" style="color:var(--blue);background:rgba(59,130,246,0.15)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        </div>
+        <div>
+          <div class="med-vital__label">Nồng độ Oxy SpO2</div>
+          <div class="med-vital__val">98.5% <span style="color:var(--emerald);font-size:0.75rem;">(Tối ưu)</span></div>
+        </div>
+      </div>
+
+      <div class="med-vital">
+        <button class="btn btn--outline btn--sm" style="color:var(--rose);border-color:rgba(244,63,94,0.4);" id="btnSos">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Cấp cứu 115 SOS
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="med-nav">
+    <div class="container med-nav__inner">
+      <a class="med-brand" href="../index.html">
+        <div class="med-brand__logo">V</div>
+        <span class="med-brand__name">Vitalis Health</span>
+        <span class="med-brand__tag">TeleMed 2.0</span>
+      </a>
+
+      <ul class="med-nav__links">
+        <li><a class="med-nav__link is-active" href="#doctors">Bác sĩ chuyên khoa</a></li>
+        <li><a class="med-nav__link" href="#booking">Đặt lịch hẹn</a></li>
+        <li><a class="med-nav__link" href="#records">Hồ sơ bệnh án</a></li>
+        <li><a class="med-nav__link" href="#triage">AI Triage</a></li>
+      </ul>
+
+      <div style="display:flex;align-items:center;gap:12px;">
+        <a class="btn btn--outline btn--sm" href="../index.html">← Showroom</a>
+        <button class="btn btn--ghost btn--icon" id="themeToggle" title="Đổi giao diện">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="btn btn--primary btn--sm" id="btnQuickConsult">Tư vấn khẩn cấp</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="container">
+    <section class="med-hero">
+      <div class="med-hero__grid">
+        <div>
+          <h1 class="med-hero__title">
+            Chăm sóc sức khỏe <span>thông minh</span> cho cả gia đình bạn
+          </h1>
+          <p class="med-hero__desc">
+            Kết nối với hơn 250+ Bác sĩ Chuyên khoa hàng đầu, đặt lịch khám tại bệnh viện hoặc tư vấn Telehealth trực tuyến HD với bệnh án điện tử mã hóa an toàn đạt chuẩn y tế.
+          </p>
+          <div class="med-hero__actions">
+            <button class="btn btn--primary" id="btnCtaBooking">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Đặt lịch khám ngay
+            </button>
+            <button class="btn btn--outline" id="btnSymptomAI">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Kiểm tra triệu chứng AI
+            </button>
+          </div>
+        </div>
+
+        <!-- Telehealth Preview Widget -->
+        <div class="med-telehealth-card">
+          <div class="med-tc__badge">
+            <span style="width:6px;height:6px;border-radius:50%;background:#10b981;"></span>
+            Telehealth Trực tuyến
+          </div>
+          <h3 class="med-tc__title">Bác sĩ sẵn sàng tư vấn</h3>
+          <p class="med-tc__desc">Thời gian chờ trung bình: &lt; 3 phút. Hỗ trợ đơn thuốc điện tử giao tận nhà.</p>
+
+          <div class="med-doctor-quick">
+            <div class="med-doc-avatar">TA</div>
+            <div style="flex:1;">
+              <div class="med-doc-name">BS. CKII Nguyễn Tuấn Anh</div>
+              <div class="med-doc-role">Trưởng khoa Tim mạch · BV ĐHYD TP.HCM</div>
+            </div>
+            <button class="btn btn--primary btn--sm" id="btnCallDoctor">Gọi Video</button>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;font-size:0.8rem;color:var(--txt-muted);">
+            <span>Bảo mật dữ liệu HIPAA</span>
+            <span>Đánh giá 4.98 ★ (420+ lượt)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section class="med-section" id="doctors">
+      <div class="med-section__header">
+        <div>
+          <h2 class="med-section__title">Đội ngũ Bác sĩ Chuyên khoa</h2>
+          <p class="med-section__subtitle">Chọn bác sĩ uy tín phù hợp với nhu cầu điều trị của bạn</p>
+        </div>
+      </div>
+
+      <!-- Specialty Filter Chips -->
+      <div class="med-spec-chips" id="specChips">
+        <button class="med-spec-chip is-active" data-spec="all">Tất cả chuyên khoa</button>
+        <button class="med-spec-chip" data-spec="cardio">Tim mạch</button>
+        <button class="med-spec-chip" data-spec="pedia">Nhi khoa</button>
+        <button class="med-spec-chip" data-spec="derma">Da liễu</button>
+        <button class="med-spec-chip" data-spec="neuro">Thần kinh</button>
+        <button class="med-spec-chip" data-spec="ortho">Cơ xương khớp</button>
+      </div>
+
+      <!-- Doctor Cards Grid -->
+      <div class="med-doctor-grid" id="doctorGrid">
+
+        <!-- Card 1 -->
+        <div class="med-doc-card" data-spec="cardio">
+          <div>
+            <div class="med-doc-top">
+              <div class="med-doc-img" style="background:linear-gradient(135deg,#10b981,#059669);">TA</div>
+              <div>
+                <span class="med-doc-spec-badge">Tim mạch học</span>
+                <h3 class="med-doc-fullname">BS. CKII Nguyễn Tuấn Anh</h3>
+                <div class="med-doc-exp">15 năm kinh nghiệm · BV Đại học Y Dược</div>
+              </div>
+            </div>
+            <div class="med-doc-stats">
+              <span>Đánh giá: <strong>4.9 ★ (340)</strong></span>
+              <span>Lịch khám gần nhất: <strong style="color:var(--emerald);">Hôm nay</strong></span>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:0.75rem;color:var(--txt-muted)">Phí khám</div>
+              <div class="med-doc-fee">350.000₫</div>
+            </div>
+            <button class="btn btn--primary btn--sm book-trigger" data-doctor="BS. CKII Nguyễn Tuấn Anh">Đặt lịch</button>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="med-doc-card" data-spec="pedia">
+          <div>
+            <div class="med-doc-top">
+              <div class="med-doc-img" style="background:linear-gradient(135deg,#ec4899,#db2777);">ML</div>
+              <div>
+                <span class="med-doc-spec-badge" style="background:rgba(236,72,153,0.15);color:#ec4899;">Nhi khoa</span>
+                <h3 class="med-doc-fullname">ThS. BS Trần Mai Linh</h3>
+                <div class="med-doc-exp">9 năm kinh nghiệm · BV Nhi Đồng 1</div>
+              </div>
+            </div>
+            <div class="med-doc-stats">
+              <span>Đánh giá: <strong>5.0 ★ (512)</strong></span>
+              <span>Lịch khám gần nhất: <strong style="color:var(--emerald);">Ngày mai</strong></span>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:0.75rem;color:var(--txt-muted)">Phí khám</div>
+              <div class="med-doc-fee">300.000₫</div>
+            </div>
+            <button class="btn btn--primary btn--sm book-trigger" data-doctor="ThS. BS Trần Mai Linh">Đặt lịch</button>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="med-doc-card" data-spec="derma">
+          <div>
+            <div class="med-doc-top">
+              <div class="med-doc-img" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">HQ</div>
+              <div>
+                <span class="med-doc-spec-badge" style="background:rgba(59,130,246,0.15);color:#3b82f6;">Da liễu &amp; Thẩm mỹ</span>
+                <h3 class="med-doc-fullname">BS. CKI Hoàng Quốc Hưng</h3>
+                <div class="med-doc-exp">11 năm kinh nghiệm · BV Da Liễu TP.HCM</div>
+              </div>
+            </div>
+            <div class="med-doc-stats">
+              <span>Đánh giá: <strong>4.8 ★ (280)</strong></span>
+              <span>Lịch khám gần nhất: <strong style="color:var(--emerald);">Hôm nay</strong></span>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:0.75rem;color:var(--txt-muted)">Phí khám</div>
+              <div class="med-doc-fee">400.000₫</div>
+            </div>
+            <button class="btn btn--primary btn--sm book-trigger" data-doctor="BS. CKI Hoàng Quốc Hưng">Đặt lịch</button>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="med-doc-card" data-spec="neuro">
+          <div>
+            <div class="med-doc-top">
+              <div class="med-doc-img" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">VK</div>
+              <div>
+                <span class="med-doc-spec-badge" style="background:rgba(139,92,246,0.15);color:#8b5cf6;">Nội thần kinh</span>
+                <h3 class="med-doc-fullname">PGS. TS Vũ Kim Dung</h3>
+                <div class="med-doc-exp">22 năm kinh nghiệm · BV Chợ Rẫy</div>
+              </div>
+            </div>
+            <div class="med-doc-stats">
+              <span>Đánh giá: <strong>4.9 ★ (640)</strong></span>
+              <span>Lịch khám gần nhất: <strong style="color:var(--emerald);">Thứ 6</strong></span>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:0.75rem;color:var(--txt-muted)">Phí khám</div>
+              <div class="med-doc-fee">500.000₫</div>
+            </div>
+            <button class="btn btn--primary btn--sm book-trigger" data-doctor="PGS. TS Vũ Kim Dung">Đặt lịch</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Interactive Booking Console -->
+    <section class="med-section" id="booking">
+      <div class="med-slot-box">
+        <div class="med-section__header">
+          <div>
+            <h2 class="med-section__title">Chọn khung giờ khám phù hợp</h2>
+            <p class="med-section__subtitle">Nhận thông báo nhắc lịch và chỉ đường tự động qua SMS &amp; Ứng dụng</p>
+          </div>
+          <div class="med-mode-toggle">
+            <button class="med-mode-btn is-active" id="btnInPerson">Khám tại phòng khám</button>
+            <button class="med-mode-btn" id="btnTelehealth">Tư vấn Telehealth HD</button>
+          </div>
+        </div>
+
+        <label style="font-size:0.85rem;font-weight:700;color:var(--txt-secondary);margin-bottom:12px;display:block;">Chọn ngày khám</label>
+        <div class="med-date-row" id="dateRow">
+          <div class="med-date-pill is-active" data-day="15 Th10">
+            <div class="med-date-day">Hôm nay</div>
+            <div class="med-date-num">15</div>
+          </div>
+          <div class="med-date-pill" data-day="16 Th10">
+            <div class="med-date-day">Thứ Năm</div>
+            <div class="med-date-num">16</div>
+          </div>
+          <div class="med-date-pill" data-day="17 Th10">
+            <div class="med-date-day">Thứ Sáu</div>
+            <div class="med-date-num">17</div>
+          </div>
+          <div class="med-date-pill" data-day="18 Th10">
+            <div class="med-date-day">Thứ Bảy</div>
+            <div class="med-date-num">18</div>
+          </div>
+          <div class="med-date-pill" data-day="19 Th10">
+            <div class="med-date-day">Chủ Nhật</div>
+            <div class="med-date-num">19</div>
+          </div>
+        </div>
+
+        <label style="font-size:0.85rem;font-weight:700;color:var(--txt-secondary);margin:18px 0 12px;display:block;">Khung giờ còn trống</label>
+        <div class="med-slots-grid" id="slotsGrid">
+          <button class="med-slot-btn">08:00</button>
+          <button class="med-slot-btn">08:45</button>
+          <button class="med-slot-btn is-selected">09:30</button>
+          <button class="med-slot-btn is-disabled">10:15</button>
+          <button class="med-slot-btn">11:00</button>
+          <button class="med-slot-btn">13:30</button>
+          <button class="med-slot-btn">14:15</button>
+          <button class="med-slot-btn">15:00</button>
+          <button class="med-slot-btn">16:00</button>
+          <button class="med-slot-btn">17:30</button>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:20px;border-top:1px solid var(--border-subtle);flex-wrap:wrap;gap:14px;">
+          <div>
+            <span style="font-size:0.85rem;color:var(--txt-muted);">Thời gian đã chọn:</span>
+            <strong style="margin-left:6px;font-family:var(--font-mono);color:var(--mint);" id="selectedSlotPreview">09:30 · Hôm nay (15 Th10)</strong>
+          </div>
+          <button class="btn btn--primary" id="btnConfirmBookingModal">
+            Tiếp tục điền thông tin khám
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EHR & Prescriptions Matrix -->
+    <section class="med-section" id="records">
+      <div class="med-ehr-grid">
+
+        <!-- Active Prescriptions -->
+        <div class="med-ehr-box">
+          <div class="med-section__header" style="margin-bottom:16px;">
+            <h3 style="font-size:1.15rem;font-weight:700;">Đơn thuốc đang dùng</h3>
+            <span style="font-size:0.8rem;color:var(--mint);font-weight:700;">Nhắc nhở tự động</span>
+          </div>
+
+          <div class="med-prescription-row">
+            <div class="med-rx-info">
+              <div class="med-rx-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+              </div>
+              <div>
+                <strong style="display:block;font-size:0.95rem;">Amoxicillin 500mg</strong>
+                <span style="font-size:0.75rem;color:var(--txt-muted);">Uống 1 viên sau ăn · 2 lần / ngày</span>
+              </div>
+            </div>
+            <button class="btn btn--outline btn--sm rx-check-btn">Đã uống</button>
+          </div>
+
+          <div class="med-prescription-row">
+            <div class="med-rx-info">
+              <div class="med-rx-icon" style="background:rgba(245,158,11,0.15);color:var(--amber);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              </div>
+              <div>
+                <strong style="display:block;font-size:0.95rem;">Vitamin C &amp; Kẽm ZinC</strong>
+                <span style="font-size:0.75rem;color:var(--txt-muted);">1 viên buổi sáng trước 9h</span>
+              </div>
+            </div>
+            <button class="btn btn--outline btn--sm rx-check-btn">Đã uống</button>
+          </div>
+        </div>
+
+        <!-- Electronic Lab Test Records -->
+        <div class="med-ehr-box">
+          <div class="med-section__header" style="margin-bottom:16px;">
+            <h3 style="font-size:1.15rem;font-weight:700;">Kết quả xét nghiệm gần nhất</h3>
+            <button class="btn btn--ghost btn--sm" id="btnDownloadAll">Tải PDF tất cả</button>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="padding:12px 14px;border-radius:10px;background:var(--bg-surface-2);border:1px solid var(--border-subtle);display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <div style="font-weight:700;font-size:0.9rem;">Tổng phân tích tế bào máu ngoại vi</div>
+                <div style="font-size:0.75rem;color:var(--txt-muted);">10 Th10, 2026 · BV Chợ Rẫy</div>
+              </div>
+              <span style="color:var(--emerald);font-weight:700;font-size:0.8rem;">Bình thường</span>
+            </div>
+
+            <div style="padding:12px 14px;border-radius:10px;background:var(--bg-surface-2);border:1px solid var(--border-subtle);display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <div style="font-weight:700;font-size:0.9rem;">Đường huyết đói Fasting Glucose</div>
+                <div style="font-size:0.75rem;color:var(--txt-muted);">10 Th10, 2026 · 5.1 mmol/L</div>
+              </div>
+              <span style="color:var(--emerald);font-weight:700;font-size:0.8rem;">Rất tốt</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- AI Triage Symptom Checker -->
+    <section class="med-section" id="triage">
+      <div class="med-ai-box">
+        <h3 style="font-size:1.25rem;font-weight:800;margin-bottom:6px;">Trợ lý sàng lọc triệu chứng bằng AI</h3>
+        <p style="font-size:0.88rem;color:var(--txt-secondary);">Chọn các biểu hiện bất thường gần đây để nhận khuyến nghị phân khoa và đánh giá mức độ khẩn cấp:</p>
+
+        <div class="med-symptoms-tags" id="symptomsList">
+          <span class="med-sym-tag">Đau đầu dữ dội</span>
+          <span class="med-sym-tag">Sốt trên 38.5°C</span>
+          <span class="med-sym-tag">Ho khan kéo dài</span>
+          <span class="med-sym-tag">Khó thở / Tức ngực</span>
+          <span class="med-sym-tag">Chóng mặt hoa mắt</span>
+          <span class="med-sym-tag">Phát ban ngứa</span>
+          <span class="med-sym-tag">Đau dạ dày / Buồn nôn</span>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:center;margin-top:16px;">
+          <button class="btn btn--primary btn--sm" id="btnRunTriage">Phân tích chẩn đoán AI</button>
+          <span style="font-size:0.8rem;color:var(--txt-muted);" id="triageResultText">Chưa chọn triệu chứng</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Booking Confirmation Modal -->
+  <div class="med-modal-backdrop" id="bookingModal">
+    <div class="med-modal">
+      <h3 style="font-size:1.3rem;font-weight:800;margin-bottom:8px;">Xác nhận đặt lịch khám</h3>
+      <p style="font-size:0.85rem;color:var(--txt-secondary);margin-bottom:18px;" id="modalSubtitle">Vui lòng điền thông tin bệnh nhân</p>
+
+      <div style="margin-bottom:14px;">
+        <label style="display:block;font-size:0.8rem;font-weight:600;margin-bottom:4px;">Họ và tên bệnh nhân *</label>
+        <input type="text" id="patientName" value="Dương Minh Thông" style="width:100%;height:44px;border-radius:8px;background:var(--bg-surface-2);border:1px solid var(--border-subtle);padding:0 12px;color:var(--txt-primary);outline:none;" />
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="display:block;font-size:0.8rem;font-weight:600;margin-bottom:4px;">Số điện thoại liên hệ *</label>
+        <input type="tel" id="patientPhone" value="0918 223 889" style="width:100%;height:44px;border-radius:8px;background:var(--bg-surface-2);border:1px solid var(--border-subtle);padding:0 12px;color:var(--txt-primary);outline:none;" />
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <label style="display:block;font-size:0.8rem;font-weight:600;margin-bottom:4px;">Triệu chứng tóm tắt</label>
+        <input type="text" id="patientSymptoms" placeholder="Khám định kỳ, kiểm tra huyết áp..." style="width:100%;height:44px;border-radius:8px;background:var(--bg-surface-2);border:1px solid var(--border-subtle);padding:0 12px;color:var(--txt-primary);outline:none;" />
+      </div>
+
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button class="btn btn--outline" id="btnCancelModal">Hủy bỏ</button>
+        <button class="btn btn--primary" id="btnSubmitBooking">Hoàn tất đặt lịch</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="med-toast" id="medToast">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="toastMsg">Thao tác thành công</span>
+  </div>
+
+  <footer style="border-top:1px solid var(--border-subtle);padding:32px 0;margin-top:60px;font-size:0.85rem;color:var(--txt-muted);">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+      <div>© 2026 Vitalis Health Care UI Kit — Thiết kế chuẩn mực cho hệ thống bệnh viện, phòng khám &amp; Telehealth.</div>
+      <div><a href="../index.html" style="color:var(--mint);text-decoration:none;font-weight:600;">← Quay lại Showroom</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle
+    const htmlEl = document.documentElement;
+    const themeBtn = document.getElementById('themeToggle');
+    let curTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', curTheme);
+
+    themeBtn.addEventListener('click', () => {
+      curTheme = curTheme === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', curTheme);
+      localStorage.setItem('theme', curTheme);
+      showToast(curTheme === 'dark' ? 'Đã bật Dark Mode' : 'Đã bật Light Mode');
+    });
+
+    // Toast
+    const toast = document.getElementById('medToast');
+    const toastMsg = document.getElementById('toastMsg');
+    let tTimeout;
+    function showToast(msg) {
+      toastMsg.textContent = msg;
+      toast.classList.add('is-show');
+      clearTimeout(tTimeout);
+      tTimeout = setTimeout(() => toast.classList.remove('is-show'), 2600);
+    }
+
+    // Specialty filter
+    document.querySelectorAll('#specChips .med-spec-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('#specChips .med-spec-chip').forEach(c => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+        const spec = chip.dataset.spec;
+        document.querySelectorAll('#doctorGrid .med-doc-card').forEach(card => {
+          if (spec === 'all' || card.dataset.spec === spec) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Appointment dates & slots
+    let selectedDate = 'Hôm nay (15 Th10)';
+    let selectedTime = '09:30';
+    let chosenDoctor = 'BS. CKII Nguyễn Tuấn Anh';
+    const slotPreview = document.getElementById('selectedSlotPreview');
+
+    document.querySelectorAll('#dateRow .med-date-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('#dateRow .med-date-pill').forEach(p => p.classList.remove('is-active'));
+        pill.classList.add('is-active');
+        selectedDate = pill.dataset.day;
+        slotPreview.textContent = `${selectedTime} · ${selectedDate}`;
+      });
+    });
+
+    document.querySelectorAll('#slotsGrid .med-slot-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#slotsGrid .med-slot-btn').forEach(b => b.classList.remove('is-selected'));
+        btn.classList.add('is-selected');
+        selectedTime = btn.textContent.trim();
+        slotPreview.textContent = `${selectedTime} · ${selectedDate}`;
+      });
+    });
+
+    // Mode toggle
+    const btnInPerson = document.getElementById('btnInPerson');
+    const btnTelehealth = document.getElementById('btnTelehealth');
+    btnInPerson.addEventListener('click', () => {
+      btnInPerson.classList.add('is-active');
+      btnTelehealth.classList.remove('is-active');
+      showToast('Đã chọn hình thức: Khám tại viện');
+    });
+    btnTelehealth.addEventListener('click', () => {
+      btnTelehealth.classList.add('is-active');
+      btnInPerson.classList.remove('is-active');
+      showToast('Đã chọn hình thức: Telehealth trực tuyến HD');
+    });
+
+    // Booking modal handling
+    const modalBackdrop = document.getElementById('bookingModal');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+
+    document.querySelectorAll('.book-trigger').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        chosenDoctor = trigger.dataset.doctor;
+        openModal();
+      });
+    });
+
+    document.getElementById('btnConfirmBookingModal').addEventListener('click', openModal);
+    document.getElementById('btnCtaBooking').addEventListener('click', () => {
+      document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    function openModal() {
+      modalSubtitle.textContent = `Bác sĩ: ${chosenDoctor} · Thời gian: ${selectedTime} (${selectedDate})`;
+      modalBackdrop.classList.add('is-open');
+    }
+
+    document.getElementById('btnCancelModal').addEventListener('click', () => {
+      modalBackdrop.classList.remove('is-open');
+    });
+
+    document.getElementById('btnSubmitBooking').addEventListener('click', () => {
+      const name = document.getElementById('patientName').value || 'Quý khách';
+      modalBackdrop.classList.remove('is-open');
+      showToast(`Chúc mừng ${name}! Lịch khám đã được xác nhận.`);
+    });
+
+    // Prescription 'Đã uống'
+    document.querySelectorAll('.rx-check-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.textContent = '✓ Hoàn thành';
+        btn.style.color = 'var(--emerald)';
+        btn.style.borderColor = 'var(--emerald)';
+        showToast('Đã ghi nhận nhắc thuốc thành công!');
+      });
+    });
+
+    // Symptom AI
+    const symptomsList = document.querySelectorAll('#symptomsList .med-sym-tag');
+    symptomsList.forEach(tag => {
+      tag.addEventListener('click', () => {
+        tag.classList.toggle('is-active');
+      });
+    });
+
+    document.getElementById('btnRunTriage').addEventListener('click', () => {
+      const activeCount = document.querySelectorAll('#symptomsList .med-sym-tag.is-active').length;
+      const resultText = document.getElementById('triageResultText');
+      if (activeCount === 0) {
+        showToast('Vui lòng chọn ít nhất 1 triệu chứng');
+        return;
+      }
+      resultText.innerHTML = `<strong style="color:var(--emerald);">Khuyến nghị AI:</strong> Phát hiện ${activeCount} dấu hiệu. Đề xuất: Khám Tim mạch hoặc Nội tổng quát trong 24h tới.`;
+      showToast('Đã hoàn tất sàng lọc triệu chứng bằng AI');
+    });
+
+    document.getElementById('btnSymptomAI').addEventListener('click', () => {
+      document.getElementById('triage').scrollIntoView({ behavior: 'smooth' });
+    });
+    document.getElementById('btnCallDoctor').addEventListener('click', () => {
+      showToast('Đang kết nối phòng khám Video Telehealth với BS. Tuấn Anh...');
+    });
+    document.getElementById('btnSos').addEventListener('click', () => {
+      showToast('Đang kết nối đường dây nóng Cấp cứu Y tế 115...');
+    });
+    document.getElementById('btnQuickConsult').addEventListener('click', () => {
+      showToast('Bác sĩ trực tổng đài đang sẵn sàng: 1900 6868');
+    });
+    document.getElementById('btnDownloadAll').addEventListener('click', () => {
+      showToast('Đang tải xuống bộ hồ sơ bệnh án mã hóa PDF...');
+    });
+  </script>
+</body>
+</html>

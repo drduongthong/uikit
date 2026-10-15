@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Synapse Home — Next-Gen Smart Home &amp; IoT Automation UI Kit</title>
+  <meta name="description" content="Bộ UI Kit Nhà thông minh (Smart Home) thế hệ mới: Điều khiển HVAC Thermostat, Chiếu sáng thông minh RGB, Camera an ninh CCTV và Tự động hoá IoT." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/tokens.css" />
+
+  <style>
+    /* ================================================================
+       SYNAPSE HOME UI KIT — Futuristic Ambient Smart Home System
+       ================================================================ */
+    :root {
+      --bg-base: #07090e;
+      --bg-surface: #0e121a;
+      --bg-surface-2: #141a26;
+      --bg-card: rgba(20, 26, 38, 0.85);
+      --bg-glass: rgba(14, 18, 26, 0.88);
+
+      --border: rgba(255, 255, 255, 0.08);
+      --border-bright: rgba(245, 158, 11, 0.35);
+
+      --sh-amber: #f59e0b;
+      --sh-cyan: #06b6d4;
+      --sh-emerald: #10b981;
+      --sh-purple: #8b5cf6;
+      --sh-rose: #f43f5e;
+
+      --glow-amber: rgba(245, 158, 11, 0.35);
+      --glow-cyan: rgba(6, 182, 212, 0.35);
+
+      --txt-primary: #f8fafc;
+      --txt-secondary: #94a3b8;
+      --txt-muted: #64748b;
+
+      --font-body: 'Be Vietnam Pro', 'Plus Jakarta Sans', sans-serif;
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+      --radius-pill: 9999px;
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-2: #f1f5f9;
+      --bg-card: rgba(255, 255, 255, 0.95);
+      --bg-glass: rgba(255, 255, 255, 0.9);
+
+      --border: rgba(15, 23, 42, 0.08);
+      --border-bright: rgba(245, 158, 11, 0.4);
+
+      --txt-primary: #0f172a;
+      --txt-secondary: #334155;
+      --txt-muted: #64748b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-base);
+      color: var(--txt-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .sh-bg-mesh {
+      position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(245, 158, 11, 0.1) 0%, transparent 45%),
+        radial-gradient(circle at 85% 15%, rgba(6, 182, 212, 0.1) 0%, transparent 45%),
+        radial-gradient(circle at 50% 85%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+    }
+
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Quick Status Bar */
+    .sh-top-bar {
+      background: #06080d;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 24px;
+      font-size: 0.82rem;
+      display: flex; align-items: center; justify-content: space-between;
+      color: var(--txt-secondary);
+    }
+    .home-status-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--sh-emerald);
+      color: var(--sh-emerald);
+      padding: 2px 10px; border-radius: var(--radius-pill);
+      font-weight: 700; font-size: 0.75rem;
+    }
+
+    /* Navbar */
+    .sh-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .sh-nav__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+    }
+    .sh-brand {
+      display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--txt-primary);
+    }
+    .sh-brand__icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--sh-amber), var(--sh-purple));
+      display: grid; place-items: center;
+      color: #fff; box-shadow: 0 0 24px var(--glow-amber);
+    }
+    .sh-brand__title {
+      font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em;
+    }
+    .sh-brand__title span { color: var(--sh-amber); }
+
+    .sh-nav__menu {
+      display: flex; align-items: center; gap: 8px; list-style: none;
+    }
+    .sh-nav__link {
+      padding: 8px 16px; border-radius: var(--radius-sm);
+      font-size: 0.9rem; font-weight: 600; color: var(--txt-secondary);
+      text-decoration: none; transition: all 0.2s;
+    }
+    .sh-nav__link:hover, .sh-nav__link.active {
+      color: var(--sh-amber);
+      background: rgba(245, 158, 11, 0.08);
+    }
+    .sh-nav__actions {
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    /* Buttons */
+    .btn-sh {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-size: 0.85rem; font-weight: 600;
+      padding: 9px 18px; border-radius: var(--radius-sm);
+      cursor: pointer; transition: all 0.2s ease;
+      text-decoration: none; border: 1px solid transparent;
+    }
+    .btn-sh-amber {
+      background: linear-gradient(135deg, var(--sh-amber), #ea580c);
+      color: #fff; box-shadow: 0 0 20px var(--glow-amber);
+    }
+    .btn-sh-amber:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px var(--glow-amber);
+    }
+    .btn-sh-ghost {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--border);
+      color: var(--txt-secondary);
+    }
+    .btn-sh-ghost:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--txt-primary);
+    }
+
+    /* Scenario Routine Quick Trigger Bar */
+    .scene-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .scene-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: flex; align-items: center; gap: 14px;
+      cursor: pointer; transition: all 0.2s ease;
+    }
+    .scene-card:hover, .scene-card.active {
+      border-color: var(--sh-amber);
+      background: rgba(245, 158, 11, 0.08);
+      transform: translateY(-2px);
+    }
+    .scene-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--bg-surface-2);
+      display: grid; place-items: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .scene-title { font-weight: 700; font-size: 0.95rem; }
+    .scene-desc { font-size: 0.75rem; color: var(--txt-muted); }
+
+    /* Main Grid */
+    .sh-main-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .sh-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      backdrop-filter: blur(12px);
+    }
+    .sh-panel-title {
+      font-size: 1.15rem; font-weight: 700;
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    /* Room Cards */
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .room-tile {
+      background: var(--bg-surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .room-tile.active {
+      border-color: var(--sh-amber);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+    }
+    .room-tile-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 12px;
+    }
+    .room-tile-name { font-weight: 700; font-size: 1rem; }
+    .room-toggle-switch {
+      width: 40px; height: 22px; border-radius: 11px;
+      background: rgba(255, 255, 255, 0.15);
+      position: relative; cursor: pointer; transition: background 0.3s;
+    }
+    .room-toggle-switch.is-on { background: var(--sh-amber); }
+    .room-toggle-switch::after {
+      content: ''; position: absolute; top: 2px; left: 2px;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: #fff; transition: transform 0.25s;
+    }
+    .room-toggle-switch.is-on::after { transform: translateX(18px); }
+
+    /* Interactive Thermostat Arc Dial */
+    .thermostat-section {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 24px;
+      align-items: center;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+    .thermostat-dial-wrap {
+      position: relative; width: 200px; height: 200px; margin: 0 auto;
+    }
+    .thermo-svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .thermo-bg-arc {
+      fill: none; stroke: rgba(255, 255, 255, 0.08); stroke-width: 14;
+    }
+    .thermo-meter-arc {
+      fill: none; stroke: var(--sh-amber); stroke-width: 14;
+      stroke-linecap: round;
+      stroke-dasharray: 502;
+      stroke-dashoffset: 200;
+      transition: stroke-dashoffset 0.4s ease, stroke 0.3s;
+    }
+    .thermo-center-text {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .thermo-temp-display {
+      font-size: 2.8rem; font-weight: 800; font-family: var(--font-display);
+      line-height: 1;
+    }
+    .thermo-mode-btns {
+      display: flex; gap: 8px; margin-top: 16px;
+    }
+    .thermo-mode-btn {
+      flex: 1; padding: 8px; border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-surface-2);
+      color: var(--txt-secondary);
+      font-size: 0.8rem; font-weight: 600; cursor: pointer;
+      text-align: center; transition: all 0.2s;
+    }
+    .thermo-mode-btn.active {
+      border-color: var(--sh-cyan);
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--sh-cyan);
+    }
+
+    /* Lighting RGB Controls */
+    .light-controls {
+      display: flex; flex-direction: column; gap: 16px;
+      margin-top: 20px;
+    }
+    .color-presets {
+      display: flex; gap: 10px;
+    }
+    .color-dot {
+      width: 32px; height: 32px; border-radius: 50%;
+      cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+      border: 2px solid transparent;
+    }
+    .color-dot:hover, .color-dot.active {
+      transform: scale(1.15);
+      border-color: #fff;
+    }
+
+    /* CCTV Security Matrix */
+    .cctv-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .cctv-tile {
+      background: #04060a;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      position: relative;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 10px;
+    }
+    .cctv-scanline {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      background-size: 100% 4px, 6px 100%;
+    }
+    .cctv-label {
+      font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;
+      color: #fff; background: rgba(0, 0, 0, 0.6);
+      padding: 2px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .cctv-live-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--sh-rose);
+      animation: blink 1s infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    /* Energy Widget */
+    .solar-card {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(20, 26, 38, 0.95));
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-top: 24px;
+    }
+
+    /* Toast */
+    .toast-container {
+      position: fixed; bottom: 24px; right: 24px; z-index: 1000;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .toast {
+      background: #0e121a;
+      border: 1px solid var(--sh-amber);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      display: flex; align-items: center; gap: 10px;
+      opacity: 0; transform: translateY(10px);
+      transition: all 0.25s ease;
+    }
+    .toast.is-show { opacity: 1; transform: translateY(0); }
+
+    /* Footer */
+    .sh-footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      margin-top: 60px;
+      font-size: 0.85rem;
+      color: var(--txt-muted);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    @media (max-width: 1024px) {
+      .sh-main-grid { grid-template-columns: 1fr; }
+      .scene-strip { grid-template-columns: repeat(2, 1fr); }
+      .rooms-grid { grid-template-columns: 1fr; }
+      .thermostat-section { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sh-bg-mesh"></div>
+
+  <!-- Top Strip -->
+  <aside class="sh-top-bar" aria-label="Trạng thái ngôi nhà thông minh">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <span class="home-status-pill">🏠 NHÀ RIÊNG: VILLA SUNSHINE</span>
+      <span>CHẾ ĐỘ: <strong>BẢO VỆ TỐI ƯU</strong></span>
+      <span>THIẾT BỊ HOẠT ĐỘNG: <strong>28/32</strong></span>
+    </div>
+    <div style="display:flex;gap:18px;">
+      <span>NHIỆT ĐỘ NGOÀI TRỜI: <strong>32°C (Nắng đẹp)</strong></span>
+      <span>PIN MẶT TRỜI: <strong style="color:var(--sh-emerald);">88% (4.8 kW)</strong></span>
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="sh-nav">
+    <div class="container sh-nav__inner">
+      <a href="../index.html" class="sh-brand">
+        <div class="sh-brand__icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="sh-brand__title">SYNAPSE <span>HOME</span></div>
+      </a>
+
+      <nav>
+        <ul class="sh-nav__menu">
+          <li><a href="#rooms" class="sh-nav__link active">KHU VỰC PHÒNG</a></li>
+          <li><a href="#climate" class="sh-nav__link">ĐIỀU HOÀ CLIMATE</a></li>
+          <li><a href="#lighting" class="sh-nav__link">ÁNH SÁNG RGB</a></li>
+          <li><a href="#cctv" class="sh-nav__link">AN NINH CCTV</a></li>
+        </ul>
+      </nav>
+
+      <div class="sh-nav__actions">
+        <button class="btn-sh btn-sh-ghost" id="soundToggle">
+          <span id="soundIcon">🔊</span> SFX
+        </button>
+        <button class="btn-sh btn-sh-ghost" id="themeToggle">
+          🌓 THEME
+        </button>
+        <button class="btn-sh btn-sh-amber" id="btnMasterPower">
+          ⚡ TẮT HẾT ĐÈN (LEAVE)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- One-Touch Scene Automations Strip -->
+    <section class="scene-strip">
+      <div class="scene-card active" data-scene="home">
+        <div class="scene-icon">🌅</div>
+        <div>
+          <div class="scene-title">Về Nhà (Welcome)</div>
+          <div class="scene-desc">Bật đèn vàng ấm, điều hoà 24°C</div>
+        </div>
+      </div>
+
+      <div class="scene-card" data-scene="movie">
+        <div class="scene-icon">🎬</div>
+        <div>
+          <div class="scene-title">Xem Phim (Cinema)</div>
+          <div class="scene-desc">Đèn mờ 20% tím, đóng rèm cửa</div>
+        </div>
+      </div>
+
+      <div class="scene-card" data-scene="sleep">
+        <div class="scene-icon">🌙</div>
+        <div>
+          <div class="scene-title">Đi Ngủ (Goodnight)</div>
+          <div class="scene-desc">Khoá cửa 360°, chế độ Night Mode</div>
+        </div>
+      </div>
+
+      <div class="scene-card" data-scene="party">
+        <div class="scene-icon">🎉</div>
+        <div>
+          <div class="scene-title">Tiệc Tùng (Party)</div>
+          <div class="scene-desc">Đổi màu đèn Neon theo nhạc</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Workspace -->
+    <div class="sh-main-grid">
+      <!-- Left Column: Rooms & HVAC Thermostat -->
+      <div>
+        <!-- Room Tiles -->
+        <section class="sh-panel" id="rooms">
+          <div class="sh-panel-title">
+            <svg width="20" height="20" fill="none" stroke="var(--sh-amber)" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            DANH SÁCH KHU VỰC PHÒNG (ROOM MATRIX)
+          </div>
+
+          <div class="rooms-grid">
+            <div class="room-tile active" id="roomLiving">
+              <div class="room-tile-header">
+                <span class="room-tile-name">Phòng Khách</span>
+                <div class="room-toggle-switch is-on" data-target="living"></div>
+              </div>
+              <div style="font-size:0.8rem;color:var(--txt-muted);">4 thiết bị đang bật</div>
+              <div style="margin-top:8px;font-size:0.85rem;color:var(--sh-amber);font-weight:600;">24°C • Đèn vàng 80%</div>
+            </div>
+
+            <div class="room-tile" id="roomMaster">
+              <div class="room-tile-header">
+                <span class="room-tile-name">Phòng Ngủ Master</span>
+                <div class="room-toggle-switch is-on" data-target="master"></div>
+              </div>
+              <div style="font-size:0.8rem;color:var(--txt-muted);">2 thiết bị đang bật</div>
+              <div style="margin-top:8px;font-size:0.85rem;color:var(--sh-cyan);font-weight:600;">22°C • Rèm đã đóng</div>
+            </div>
+
+            <div class="room-tile" id="roomKitchen">
+              <div class="room-tile-header">
+                <span class="room-tile-name">Phòng Bếp &amp; Ăn</span>
+                <div class="room-toggle-switch" data-target="kitchen"></div>
+              </div>
+              <div style="font-size:0.8rem;color:var(--txt-muted);">Tất cả thiết bị tắt</div>
+              <div style="margin-top:8px;font-size:0.85rem;color:var(--txt-muted);font-weight:600;">28°C • Chế độ nghỉ</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- HVAC Smart Thermostat Arc Dial -->
+        <section class="sh-panel" style="margin-top:24px;" id="climate">
+          <div class="sh-panel-title">
+            <svg width="20" height="20" fill="none" stroke="var(--sh-cyan)" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            ĐIỀU HOÀ KHÔNG KHÍ &amp; NHIỆT ĐỘ (SMART HVAC THERMOSTAT)
+          </div>
+
+          <div class="thermostat-section">
+            <div class="thermostat-dial-wrap">
+              <svg class="thermo-svg" viewBox="0 0 200 200">
+                <circle class="thermo-bg-arc" cx="100" cy="100" r="80"/>
+                <circle class="thermo-meter-arc" id="thermoArc" cx="100" cy="100" r="80"/>
+              </svg>
+              <div class="thermo-center-text">
+                <div class="thermo-temp-display" id="thermoDisplay">24°</div>
+                <div style="font-size:0.75rem;color:var(--txt-muted);text-transform:uppercase;">COOLING</div>
+              </div>
+            </div>
+
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <span style="font-weight:700;">Nhiệt độ cài đặt mục tiêu</span>
+                <div style="display:flex;gap:8px;">
+                  <button class="btn-sh btn-sh-ghost" id="btnTempMinus" style="padding:4px 14px;font-size:1.2rem;">−</button>
+                  <button class="btn-sh btn-sh-ghost" id="btnTempPlus" style="padding:4px 14px;font-size:1.2rem;">+</button>
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px;">
+                <div style="background:var(--bg-surface-2);padding:10px;border-radius:8px;">
+                  <div style="font-size:0.75rem;color:var(--txt-muted);">Độ ẩm không khí</div>
+                  <div style="font-size:1.2rem;font-weight:700;color:var(--sh-cyan);">55% (Lý tưởng)</div>
+                </div>
+                <div style="background:var(--bg-surface-2);padding:10px;border-radius:8px;">
+                  <div style="font-size:0.75rem;color:var(--txt-muted);">Chất lượng không khí AQI</div>
+                  <div style="font-size:1.2rem;font-weight:700;color:var(--sh-emerald);">18 (Rất trong lành)</div>
+                </div>
+              </div>
+
+              <div class="thermo-mode-btns">
+                <div class="thermo-mode-btn active" data-mode="cool">❄️ Làm Mát</div>
+                <div class="thermo-mode-btn" data-mode="eco">🌿 Eco Xanh</div>
+                <div class="thermo-mode-btn" data-mode="turbo">⚡ Turbo Siêu Tốc</div>
+                <div class="thermo-mode-btn" data-mode="dry">💧 Hút Ẩm</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Smart Lighting RGB Matrix -->
+        <section class="sh-panel" style="margin-top:24px;" id="lighting">
+          <div class="sh-panel-title">
+            <svg width="20" height="20" fill="none" stroke="var(--sh-amber)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+            ÁNH SÁNG &amp; MÀU SẮC THÔNG MINH (RGB MATRIX)
+          </div>
+
+          <div class="light-controls">
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:8px;">
+                <span>Độ sáng đèn (Dimmer Level)</span>
+                <strong id="dimmerVal" style="color:var(--sh-amber);">80%</strong>
+              </div>
+              <input type="range" id="sliderDimmer" min="0" max="100" value="80" style="width:100%;height:6px;-webkit-appearance:none;background:rgba(255,255,255,0.1);border-radius:99px;" />
+            </div>
+
+            <div>
+              <div style="font-size:0.85rem;margin-bottom:10px;">Gam màu bầu không khí (Ambient Color Presets)</div>
+              <div class="color-presets">
+                <div class="color-dot active" style="background:#f59e0b;" data-color="amber" title="Vàng Nắng Ấm (Warm Amber)"></div>
+                <div class="color-dot" style="background:#06b6d4;" data-color="cyan" title="Xanh Băng Tuyết (Ice Blue)"></div>
+                <div class="color-dot" style="background:#8b5cf6;" data-color="purple" title="Tím Neon Cyber (Purple)"></div>
+                <div class="color-dot" style="background:#f43f5e;" data-color="rose" title="Hoàng Hôn (Sunset Glow)"></div>
+                <div class="color-dot" style="background:#10b981;" data-color="emerald" title="Xanh Sinh Thái (Eco Green)"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: CCTV Security & Green Energy -->
+      <aside>
+        <!-- CCTV 4-Channel Matrix -->
+        <div class="sh-panel" id="cctv">
+          <div class="sh-panel-title" style="justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <svg width="20" height="20" fill="none" stroke="var(--sh-rose)" stroke-width="2" viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              CAMERA AN NINH 24/7
+            </div>
+            <button class="btn-sh btn-sh-ghost" id="btnSnapshot" style="padding:4px 10px;font-size:0.75rem;">📸 CHỤP ẢNH</button>
+          </div>
+
+          <div class="cctv-grid">
+            <div class="cctv-tile">
+              <div class="cctv-scanline"></div>
+              <div class="cctv-label"><span class="cctv-live-dot"></span> CỔNG TRƯỚC</div>
+              <div style="font-size:0.65rem;color:var(--txt-muted);font-family:var(--font-mono);z-index:2;">CAM 01 • 1080P</div>
+            </div>
+
+            <div class="cctv-tile">
+              <div class="cctv-scanline"></div>
+              <div class="cctv-label"><span class="cctv-live-dot"></span> GARA XE</div>
+              <div style="font-size:0.65rem;color:var(--txt-muted);font-family:var(--font-mono);z-index:2;">CAM 02 • 1080P</div>
+            </div>
+
+            <div class="cctv-tile">
+              <div class="cctv-scanline"></div>
+              <div class="cctv-label"><span class="cctv-live-dot"></span> SÂN VƯỜN</div>
+              <div style="font-size:0.65rem;color:var(--txt-muted);font-family:var(--font-mono);z-index:2;">CAM 03 • 1080P</div>
+            </div>
+
+            <div class="cctv-tile">
+              <div class="cctv-scanline"></div>
+              <div class="cctv-label"><span class="cctv-live-dot"></span> PHÒNG KHÁCH</div>
+              <div style="font-size:0.65rem;color:var(--txt-muted);font-family:var(--font-mono);z-index:2;">CAM 04 • 1080P</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Green Energy Telemetry -->
+        <div class="solar-card">
+          <div style="font-size:1.15rem;font-weight:700;display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+            <svg width="20" height="20" fill="none" stroke="var(--sh-emerald)" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            NĂNG LƯỢNG MẶT TRỜI &amp; LƯỚI ĐIỆN
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:16px;">
+            <div>
+              <div style="font-size:0.75rem;color:var(--txt-muted);">Phát điện Solar</div>
+              <div style="font-size:1.6rem;font-weight:800;color:var(--sh-emerald);">4.8 kW</div>
+            </div>
+            <div>
+              <div style="font-size:0.75rem;color:var(--txt-muted);">Tiêu thụ toàn nhà</div>
+              <div style="font-size:1.6rem;font-weight:800;color:var(--sh-amber);">2.1 kW</div>
+            </div>
+            <div>
+              <div style="font-size:0.75rem;color:var(--txt-muted);">Phát ngược lên lưới</div>
+              <div style="font-size:1.6rem;font-weight:800;color:var(--sh-cyan);">2.7 kW</div>
+            </div>
+          </div>
+
+          <div style="background:var(--bg-surface-2);padding:12px;border-radius:8px;font-size:0.8rem;display:flex;justify-content:space-between;align-items:center;">
+            <span>🔋 Bộ trữ pin gia đình Powerwall:</span>
+            <strong style="color:var(--sh-emerald);">88% (Đầy sau 1.2h)</strong>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="container sh-footer">
+    <div>
+      <strong>Synapse Home UI Kit</strong> — Giao diện Điều khiển Nhà thông minh &amp; Tự động hoá IoT tương lai.
+    </div>
+    <div style="display:flex;gap:20px;">
+      <a href="../index.html" style="color:var(--txt-secondary);text-decoration:none;">Về Showroom chính</a>
+      <a href="mobility.html" style="color:var(--txt-secondary);text-decoration:none;">Apex EV Cockpit</a>
+      <a href="cybersec.html" style="color:var(--txt-secondary);text-decoration:none;">Aegis CyberSec</a>
+    </div>
+  </footer>
+
+  <script>
+    // Web Audio Synthesizer for Smart Home Audio Feedback
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    let soundEnabled = true;
+
+    function playSmartSound(type = 'ping') {
+      if (!soundEnabled) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        if (type === 'ping') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.15);
+        } else if (type === 'chime') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(659.25, audioCtx.currentTime);
+          osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1);
+          gain.gain.setValueAtTime(0.09, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.3);
+        }
+      } catch (e) {}
+    }
+
+    function showToast(msg, icon = '🏠') {
+      const c = document.getElementById('toastContainer');
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.innerHTML = `<span>${icon}</span> <span>${msg}</span>`;
+      c.appendChild(t);
+      setTimeout(() => t.classList.add('is-show'), 10);
+      playSmartSound('ping');
+      setTimeout(() => {
+        t.classList.remove('is-show');
+        setTimeout(() => t.remove(), 3500);
+      }, 3500);
+    }
+
+    // Toggle Sound
+    document.getElementById('soundToggle').addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      document.getElementById('soundIcon').textContent = soundEnabled ? '🔊' : '🔇';
+      showToast(soundEnabled ? 'Đã bật âm thanh điều khiển' : 'Đã tắt âm thanh', soundEnabled ? '🔊' : '🔇');
+    });
+
+    // Theme Toggle
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme');
+      const next = cur === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      showToast(`Đã chuyển theme: ${next === 'light' ? 'Sáng' : 'Tối'}`, '🌓');
+    });
+
+    // Scene Automations
+    document.querySelectorAll('.scene-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.scene-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        const scene = card.getAttribute('data-scene');
+        playSmartSound('chime');
+
+        if (scene === 'home') {
+          currentTemp = 24;
+          updateThermoUI();
+          showToast('Kịch bản Về Nhà: Đèn vàng 80%, điều hoà 24°C, mở rèm cửa!', '🌅');
+        } else if (scene === 'movie') {
+          currentTemp = 22;
+          updateThermoUI();
+          showToast('Kịch bản Rạp Phim: Đèn mờ tím 20%, TV kích hoạt!', '🎬');
+        } else if (scene === 'sleep') {
+          currentTemp = 21;
+          updateThermoUI();
+          showToast('Kịch bản Đi Ngủ: Khoá cửa thông minh, tắt toàn bộ đèn chính!', '🌙');
+        } else if (scene === 'party') {
+          currentTemp = 20;
+          updateThermoUI();
+          showToast('Kịch bản Tiệc Tùng: Bật đèn RGB nhịp điệu âm nhạc!', '🎉');
+        }
+      });
+    });
+
+    // Room Switches
+    document.querySelectorAll('.room-toggle-switch').forEach(sw => {
+      sw.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sw.classList.toggle('is-on');
+        const target = sw.getAttribute('data-target');
+        playSmartSound('ping');
+        showToast(`Đã ${sw.classList.contains('is-on') ? 'bật' : 'tắt'} toàn bộ thiết bị khu vực ${target}!`, '💡');
+      });
+    });
+
+    // Thermostat Controls
+    let currentTemp = 24;
+    const thermoArc = document.getElementById('thermoArc');
+    const thermoDisplay = document.getElementById('thermoDisplay');
+
+    function updateThermoUI() {
+      thermoDisplay.textContent = `${currentTemp}°`;
+      // Formula: Map 18°C to 30°C onto stroke-dashoffset (from 350 to 100)
+      const offset = 350 - ((currentTemp - 18) / 12) * 250;
+      thermoArc.style.strokeDashoffset = offset;
+    }
+
+    document.getElementById('btnTempMinus').addEventListener('click', () => {
+      if (currentTemp > 18) {
+        currentTemp--;
+        updateThermoUI();
+        playSmartSound('ping');
+        showToast(`Đã giảm nhiệt độ xuống ${currentTemp}°C`, '❄️');
+      }
+    });
+
+    document.getElementById('btnTempPlus').addEventListener('click', () => {
+      if (currentTemp < 30) {
+        currentTemp++;
+        updateThermoUI();
+        playSmartSound('ping');
+        showToast(`Đã tăng nhiệt độ lên ${currentTemp}°C`, '🔥');
+      }
+    });
+
+    // Thermo Modes
+    document.querySelectorAll('.thermo-mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.thermo-mode-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        playSmartSound('ping');
+        showToast(`Chế độ điều hoà: ${btn.textContent.trim()}`, '💨');
+      });
+    });
+
+    // Dimmer Slider
+    document.getElementById('sliderDimmer').addEventListener('input', (e) => {
+      const val = e.target.value;
+      document.getElementById('dimmerVal').textContent = `${val}%`;
+    });
+
+    // Color Presets
+    document.querySelectorAll('.color-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+        dot.classList.add('active');
+        playSmartSound('chime');
+        showToast(`Đã chuyển gam màu ánh sáng: ${dot.getAttribute('title')}`, '🎨');
+      });
+    });
+
+    // Snapshot CCTV
+    document.getElementById('btnSnapshot').addEventListener('click', () => {
+      playSmartSound('ping');
+      showToast('Đã lưu ảnh chụp nhanh 4 kênh camera an ninh vào thư viện!', '📸');
+    });
+
+    // Master Power
+    document.getElementById('btnMasterPower').addEventListener('click', () => {
+      playSmartSound('chime');
+      document.querySelectorAll('.room-toggle-switch').forEach(sw => sw.classList.remove('is-on'));
+      showToast('Đã tắt toàn bộ thiết bị chiếu sáng trong nhà!', '🌙');
+    });
+  </script>
+</body>
+</html>

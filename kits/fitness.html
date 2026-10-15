@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitPulse Pro — Athletic &amp; Fitness UI Kit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,700;0,800;0,900;1,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/tokens.css" />
+  <style>
+    :root {
+      --bg: #090b0e;
+      --bg-alt: #10141a;
+      --surface: #141922;
+      --surface2: #1b222e;
+      --surface3: #242e3e;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-bright: rgba(255, 255, 255, 0.16);
+      --text: #f0f4f8;
+      --text-muted: #8292a4;
+      --text-dim: #546476;
+      
+      --neon-lime: #39ff14;
+      --neon-lime-glow: rgba(57, 255, 20, 0.35);
+      --neon-cyan: #00e5ff;
+      --neon-cyan-glow: rgba(0, 229, 255, 0.35);
+      --neon-orange: #ff6b35;
+      --neon-orange-glow: rgba(255, 107, 53, 0.35);
+      --neon-crimson: #ff2a5f;
+      
+      --grad-volt: linear-gradient(135deg, #39ff14, #00e5ff);
+      --grad-burn: linear-gradient(135deg, #ff6b35, #ff2a5f);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-pill: 9999px;
+    }
+
+    [data-theme="light"] {
+      --bg: #f4f7fa;
+      --bg-alt: #e9eff5;
+      --surface: #ffffff;
+      --surface2: #e2eaf2;
+      --surface3: #d1dde8;
+      --border: rgba(0, 0, 0, 0.08);
+      --border-bright: rgba(0, 0, 0, 0.16);
+      --text: #0e1726;
+      --text-muted: #5e6f82;
+      --text-dim: #8b9baa;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* Scanline athletic grid effect */
+    .bg-scanline {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background: linear-gradient(rgba(14, 23, 38, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 4px, 40px 100%;
+      opacity: 0.7;
+    }
+
+    /* Navbar */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(9, 11, 14, 0.86); backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px;
+    }
+    [data-theme="light"] .nav { background: rgba(244, 247, 250, 0.88); }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px; text-decoration: none;
+    }
+    .brand-logo {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--grad-volt); display: grid; place-items: center;
+      color: #000; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.3rem;
+      box-shadow: 0 0 20px var(--neon-lime-glow);
+    }
+    .brand-title {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 1.6rem; font-weight: 800;
+      letter-spacing: 0.02em; text-transform: uppercase;
+      color: var(--text);
+    }
+    .brand-title span { color: var(--neon-lime); }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.04em; transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--neon-lime); }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+
+    /* Action buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 22px; border-radius: var(--radius-sm);
+      font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.04em; text-decoration: none;
+      cursor: pointer; border: 1px solid transparent; transition: all 0.2s;
+    }
+    .btn-volt {
+      background: var(--neon-lime); color: #000;
+      box-shadow: 0 4px 18px var(--neon-lime-glow);
+    }
+    .btn-volt:hover { background: #46ff26; transform: translateY(-2px); box-shadow: 0 6px 24px var(--neon-lime-glow); }
+    .btn-outline {
+      background: transparent; color: var(--text); border-color: var(--border-bright);
+    }
+    .btn-outline:hover { border-color: var(--neon-cyan); color: var(--neon-cyan); }
+    .btn-sm { padding: 6px 14px; font-size: 0.85rem; }
+
+    /* Hero */
+    .hero {
+      padding: 56px 0 32px; text-align: center;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; border-radius: var(--radius-pill);
+      background: rgba(57, 255, 20, 0.1); border: 1px solid rgba(57, 255, 20, 0.3);
+      color: var(--neon-lime); font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2.8rem, 6.5vw, 4.8rem);
+      font-weight: 900; line-height: 1.05; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 16px;
+    }
+    .hero h1 span.volt { color: var(--neon-lime); text-shadow: 0 0 25px var(--neon-lime-glow); }
+    .hero h1 span.cyan { color: var(--neon-cyan); text-shadow: 0 0 25px var(--neon-cyan-glow); }
+    .hero p {
+      font-size: 1.15rem; color: var(--text-muted); max-width: 640px; margin: 0 auto 30px; line-height: 1.6;
+    }
+
+    /* TELEMETRY BIOMETRICS BAR */
+    .telemetry-strip {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;
+      margin-bottom: 40px;
+    }
+    .tele-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 20px; display: flex; flex-direction: column; justify-content: space-between;
+      position: relative; overflow: hidden;
+    }
+    .tele-card::after {
+      content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+      background: var(--t-color, var(--neon-lime));
+    }
+    .tele-label {
+      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--text-muted); font-weight: 700; display: flex; align-items: center; justify-content: space-between;
+    }
+    .tele-val {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 2.2rem; font-weight: 900;
+      margin: 8px 0 4px; display: flex; align-items: baseline; gap: 6px;
+    }
+    .tele-val span.unit { font-size: 0.95rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-muted); }
+    .tele-badge {
+      display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 4px;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      background: rgba(255,255,255,0.06); color: var(--t-color, var(--neon-lime));
+    }
+
+    /* Pulsing EKG Graph Line */
+    .ekg-line-box {
+      width: 100%; height: 28px; margin-top: 6px; overflow: hidden; position: relative;
+    }
+    .ekg-svg {
+      width: 100%; height: 100%; stroke: var(--neon-crimson); stroke-width: 2; fill: none;
+      animation: ekgPulse 2.4s linear infinite;
+    }
+    @keyframes ekgPulse {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* MAIN WORKOUT WORKBENCH */
+    .workout-grid {
+      display: grid; grid-template-columns: 1.6fr 1.1fr; gap: 28px; margin-bottom: 48px;
+    }
+    @media (max-width: 960px) {
+      .workout-grid { grid-template-columns: 1fr; }
+    }
+
+    .section-box {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 28px; box-shadow: 0 16px 36px rgba(0,0,0,0.3);
+    }
+    .box-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+    }
+    .box-title {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.04em; display: flex; align-items: center; gap: 10px;
+    }
+
+    /* Routine Exercises List */
+    .exercise-list {
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .exercise-card {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;
+      transition: all 0.2s;
+    }
+    .exercise-card:hover { border-color: var(--neon-lime); transform: translateX(4px); }
+    .exercise-card.completed {
+      opacity: 0.6; background: rgba(57, 255, 20, 0.05); border-color: rgba(57, 255, 20, 0.3);
+    }
+    .exercise-card.completed .ex-name { text-decoration: line-through; }
+    .ex-info { display: flex; align-items: center; gap: 16px; }
+    .ex-check {
+      width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--border-bright);
+      display: grid; place-items: center; cursor: pointer; transition: all 0.2s;
+      background: var(--surface3); color: transparent;
+    }
+    .exercise-card.completed .ex-check {
+      background: var(--neon-lime); border-color: var(--neon-lime); color: #000;
+    }
+    .ex-name { font-weight: 700; font-size: 1.05rem; }
+    .ex-meta { font-size: 0.82rem; color: var(--text-muted); margin-top: 2px; }
+    .ex-weight-wrap { display: flex; align-items: center; gap: 8px; }
+    .weight-chip {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; font-weight: 700;
+      padding: 4px 10px; border-radius: var(--radius-sm); background: var(--surface3); color: var(--neon-cyan);
+    }
+
+    /* REST TIMER STOPWATCH */
+    .timer-card {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      background: var(--surface2); border-radius: var(--radius-md); padding: 24px;
+      margin-bottom: 24px; border: 1px solid var(--border);
+    }
+    .timer-ring-box {
+      position: relative; width: 170px; height: 170px; margin: 16px 0;
+    }
+    .timer-svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .timer-svg-bg { stroke: var(--surface3); stroke-width: 8; fill: none; }
+    .timer-svg-progress {
+      stroke: var(--neon-orange); stroke-width: 8; fill: none; stroke-linecap: round;
+      stroke-dasharray: 471; stroke-dashoffset: 0; transition: stroke-dashoffset 0.5s linear;
+    }
+    .timer-digits {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+    .timer-sec {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 3.4rem; font-weight: 900;
+      line-height: 1; color: var(--neon-orange); text-shadow: 0 0 20px var(--neon-orange-glow);
+    }
+    .timer-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+    .timer-controls { display: flex; gap: 10px; }
+
+    /* WATER HYDRATION TRACKER */
+    .water-box {
+      background: var(--surface2); border-radius: var(--radius-md); padding: 20px;
+      border: 1px solid var(--border); margin-bottom: 24px;
+    }
+    .water-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+    .water-amount { font-family: 'Barlow Condensed', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--neon-cyan); }
+    .water-bar-track {
+      height: 14px; background: var(--surface3); border-radius: var(--radius-pill); overflow: hidden; margin-bottom: 14px;
+    }
+    .water-bar-fill {
+      height: 100%; width: 68%; background: var(--grad-volt); border-radius: var(--radius-pill);
+      transition: width 0.3s ease;
+    }
+    .water-buttons { display: flex; gap: 10px; }
+
+    /* NUTRITION & MACROS */
+    .macro-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px;
+    }
+    .macro-item {
+      background: var(--surface3); padding: 12px; border-radius: var(--radius-sm); text-align: center;
+    }
+    .macro-name { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
+    .macro-val { font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 800; margin-top: 2px; }
+
+    /* WEEKLY STREAK HEATMAP */
+    .streak-section {
+      padding: 0 0 60px;
+    }
+    .streak-days-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-top: 16px;
+    }
+    .day-pill {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 16px 8px; text-align: center; transition: all 0.2s;
+    }
+    .day-pill.done {
+      border-color: var(--neon-lime); background: rgba(57, 255, 20, 0.08);
+      box-shadow: 0 0 14px rgba(57, 255, 20, 0.15);
+    }
+    .day-pill.today { border-color: var(--neon-cyan); box-shadow: 0 0 16px var(--neon-cyan-glow); }
+    .day-name { font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; }
+    .day-check-icon { font-size: 1.3rem; margin: 8px 0 4px; }
+    .day-cal { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted); }
+
+    /* Footer */
+    .kit-footer {
+      border-top: 1px solid var(--border); padding: 40px 0; text-align: center; color: var(--text-muted); font-size: 0.85rem;
+    }
+    .footer-links { display: flex; justify-content: center; gap: 20px; margin-top: 12px; }
+    .footer-links a { color: var(--neon-lime); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <div class="bg-scanline"></div>
+
+  <!-- Navbar -->
+  <header class="nav">
+    <a class="nav-brand" href="../index.html">
+      <div class="brand-logo">FP</div>
+      <div class="brand-title">Fit<span>Pulse</span> Pro</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#workout" class="active">Live Workout</a></li>
+      <li><a href="#telemetry">Biometrics</a></li>
+      <li><a href="#streak">Weekly Streak</a></li>
+      <li><a href="../index.html">← Showroom</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn btn-outline btn-sm" id="themeToggle">Giao diện</button>
+      <a href="../index.html" class="btn btn-volt btn-sm">UI Kit Showroom</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main class="container">
+    <section class="hero">
+      <div class="hero-tag">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Athletic High-Performance Telemetry UI Kit
+      </div>
+      <h1>Luyện Tập Đỉnh Cao • <span class="volt">Năng Lượng Số</span><br>Kiểm Soát <span class="cyan">Sinh Hiệu Realtime</span></h1>
+      <p>Hệ thống theo dõi thể thao chuyên nghiệp với bộ đếm hiệp &amp; tạ tương tác, đồng hồ nghỉ HIIT bằng Web Audio, biểu đồ nhịp tim EKG động và bộ quản lý dinh dưỡng toàn diện.</p>
+    </section>
+
+    <!-- BIOMETRIC TELEMETRY BAR -->
+    <section class="telemetry-strip" id="telemetry">
+      <!-- Heart Rate -->
+      <div class="tele-card" style="--t-color: var(--neon-crimson)">
+        <div class="tele-label">
+          <span>Nhịp Tim (BPM)</span>
+          <span class="tele-badge" id="hrZoneBadge">Zone 3: Cardio</span>
+        </div>
+        <div class="tele-val"><span id="hrBpmVal">142</span> <span class="unit">bpm</span></div>
+        <div class="ekg-line-box">
+          <svg class="ekg-svg" viewBox="0 0 400 30">
+            <path d="M0,15 L40,15 L50,5 L60,25 L70,10 L80,20 L90,15 L140,15 L150,2 L160,28 L170,8 L180,22 L190,15 L240,15 L250,5 L260,25 L270,10 L280,20 L290,15 L340,15 L350,2 L360,28 L370,8 L380,22 L390,15 L400,15"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Active Calories -->
+      <div class="tele-card" style="--t-color: var(--neon-orange)">
+        <div class="tele-label">
+          <span>Calo Tiêu Hao</span>
+          <span class="tele-badge">Mục tiêu: 800 kcal</span>
+        </div>
+        <div class="tele-val"><span id="calBurnVal">584</span> <span class="unit">kcal</span></div>
+        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">
+          ⚡ Đốt trung bình: <b>11.2 kcal/phút</b>
+        </div>
+      </div>
+
+      <!-- Workout Duration -->
+      <div class="tele-card" style="--t-color: var(--neon-lime)">
+        <div class="tele-label">
+          <span>Thời Gian Tập</span>
+          <span class="tele-badge">Đang ghi nhận</span>
+        </div>
+        <div class="tele-val"><span id="workoutDurationVal">48:32</span> <span class="unit">phút</span></div>
+        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">
+          Đã hoàn thành: <b id="completionPercent">60%</b> bài tập
+        </div>
+      </div>
+
+      <!-- Peak Power -->
+      <div class="tele-card" style="--t-color: var(--neon-cyan)">
+        <div class="tele-label">
+          <span>Tổng Tải Trọng</span>
+          <span class="tele-badge">Khối lượng</span>
+        </div>
+        <div class="tele-val">4,850 <span class="unit">kg</span></div>
+        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">
+          Kỷ lục mới (PR): <b>Bench Press 105kg</b>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKOUT WORKBENCH -->
+    <section class="workout-grid" id="workout">
+      <!-- Left: Interactive Routine List -->
+      <div class="section-box">
+        <div class="box-header">
+          <div class="box-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 5v14M18 5v14M2 9h4M18 9h4M2 15h4M18 15h4M6 12h12"/></svg>
+            Giáo Trình: Upper Body Hypertrophy
+          </div>
+          <button class="btn btn-volt btn-sm" id="btnAddExercise">+ Thêm Bài</button>
+        </div>
+
+        <div class="exercise-list" id="exerciseList">
+          <!-- Exercise 1 -->
+          <div class="exercise-card completed" data-id="1">
+            <div class="ex-info">
+              <div class="ex-check">✓</div>
+              <div>
+                <div class="ex-name">Barbell Bench Press (Ngực Ngang)</div>
+                <div class="ex-meta">4 Hiệp • 8-10 Reps • Nghỉ 90s</div>
+              </div>
+            </div>
+            <div class="ex-weight-wrap">
+              <span class="weight-chip">100 kg</span>
+              <button class="btn btn-outline btn-sm ex-toggle-btn">Xong</button>
+            </div>
+          </div>
+
+          <!-- Exercise 2 -->
+          <div class="exercise-card completed" data-id="2">
+            <div class="ex-info">
+              <div class="ex-check">✓</div>
+              <div>
+                <div class="ex-name">Incline Dumbbell Press (Ngực Trên)</div>
+                <div class="ex-meta">3 Hiệp • 10-12 Reps • Nghỉ 60s</div>
+              </div>
+            </div>
+            <div class="ex-weight-wrap">
+              <span class="weight-chip">36 kg x 2</span>
+              <button class="btn btn-outline btn-sm ex-toggle-btn">Xong</button>
+            </div>
+          </div>
+
+          <!-- Exercise 3 -->
+          <div class="exercise-card completed" data-id="3">
+            <div class="ex-info">
+              <div class="ex-check">✓</div>
+              <div>
+                <div class="ex-name">Standing Cable Flyes (Ép Cáp)</div>
+                <div class="ex-meta">3 Hiệp • 12-15 Reps • Nghỉ 45s</div>
+              </div>
+            </div>
+            <div class="ex-weight-wrap">
+              <span class="weight-chip">25 kg x 2</span>
+              <button class="btn btn-outline btn-sm ex-toggle-btn">Xong</button>
+            </div>
+          </div>
+
+          <!-- Exercise 4 -->
+          <div class="exercise-card" data-id="4">
+            <div class="ex-info">
+              <div class="ex-check">✓</div>
+              <div>
+                <div class="ex-name">Barbell Overhead Press (Vai Trước)</div>
+                <div class="ex-meta">4 Hiệp • 8-10 Reps • Nghỉ 90s</div>
+              </div>
+            </div>
+            <div class="ex-weight-wrap">
+              <span class="weight-chip">60 kg</span>
+              <button class="btn btn-volt btn-sm ex-toggle-btn">Tập</button>
+            </div>
+          </div>
+
+          <!-- Exercise 5 -->
+          <div class="exercise-card" data-id="5">
+            <div class="ex-info">
+              <div class="ex-check">✓</div>
+              <div>
+                <div class="ex-name">Triceps Rope Pushdown (Tay Sau)</div>
+                <div class="ex-meta">3 Hiệp • 12 Reps • Nghỉ 45s</div>
+              </div>
+            </div>
+            <div class="ex-weight-wrap">
+              <span class="weight-chip">35 kg</span>
+              <button class="btn btn-outline btn-sm ex-toggle-btn">Tập</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Rest Interval Timer & Hydration Tracker -->
+      <div>
+        <!-- Rest Timer -->
+        <div class="section-box timer-card">
+          <div class="box-title" style="font-size:1.25rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            HIIT &amp; Rest Interval Timer
+          </div>
+
+          <div class="timer-ring-box">
+            <svg class="timer-svg" viewBox="0 0 160 160">
+              <circle class="timer-svg-bg" cx="80" cy="80" r="70" />
+              <circle class="timer-svg-progress" id="timerProgressCircle" cx="80" cy="80" r="70" />
+            </svg>
+            <div class="timer-digits">
+              <div class="timer-sec" id="timerDigits">60</div>
+              <div class="timer-label">GIÂY NGHỈ</div>
+            </div>
+          </div>
+
+          <div class="timer-controls">
+            <button class="btn btn-volt btn-sm" id="timerStartBtn">BẮT ĐẦU</button>
+            <button class="btn btn-outline btn-sm" id="timerPlus30Btn">+30 Giây</button>
+            <button class="btn btn-outline btn-sm" id="timerResetBtn">Đặt Lại</button>
+          </div>
+        </div>
+
+        <!-- Water Tracker -->
+        <div class="section-box water-box">
+          <div class="water-header">
+            <div class="box-title" style="font-size:1.15rem; color:var(--neon-cyan)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+              Hydration Tracker
+            </div>
+            <div class="water-amount"><span id="waterCurrVal">1,750</span> / 2,500 <span style="font-size:0.85rem">ml</span></div>
+          </div>
+          <div class="water-bar-track">
+            <div class="water-bar-fill" id="waterBarFill"></div>
+          </div>
+          <div class="water-buttons">
+            <button class="btn btn-outline btn-sm" id="btnWater250">+250 ml</button>
+            <button class="btn btn-outline btn-sm" id="btnWater500">+500 ml</button>
+            <button class="btn btn-outline btn-sm" id="btnWaterReset" style="margin-left:auto;">Reset</button>
+          </div>
+        </div>
+
+        <!-- Daily Nutrition Macros -->
+        <div class="section-box" style="padding:20px;">
+          <div class="box-title" style="font-size:1.1rem; justify-content:space-between;">
+            <span>Dinh Dưỡng Hôm Nay</span>
+            <span style="font-family:'Barlow Condensed',sans-serif; color:var(--neon-lime)">2,450 KCAL</span>
+          </div>
+          <div class="macro-row">
+            <div class="macro-item">
+              <div class="macro-name">Protein</div>
+              <div class="macro-val" style="color:var(--neon-crimson)">185g</div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-name">Carbs</div>
+              <div class="macro-val" style="color:var(--neon-orange)">220g</div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-name">Fats</div>
+              <div class="macro-val" style="color:var(--neon-cyan)">62g</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WEEKLY STREAK & HEATMAP -->
+    <section class="streak-section" id="streak">
+      <div class="section-box">
+        <div class="box-header">
+          <div class="box-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+            Chuỗi Kỷ Lục: 14 Ngày Tập Liên Tiếp 🔥
+          </div>
+          <span style="font-size:0.85rem; color:var(--neon-lime); font-weight:700;">Tuần Này: 5/7 Buổi Đạt Chuẩn</span>
+        </div>
+
+        <div class="streak-days-grid">
+          <div class="day-pill done">
+            <div class="day-name">Thứ 2</div>
+            <div class="day-check-icon">🔥</div>
+            <div class="day-cal">Legs • 680k</div>
+          </div>
+          <div class="day-pill done">
+            <div class="day-name">Thứ 3</div>
+            <div class="day-check-icon">🔥</div>
+            <div class="day-cal">Back • 540k</div>
+          </div>
+          <div class="day-pill done">
+            <div class="day-name">Thứ 4</div>
+            <div class="day-check-icon">🔥</div>
+            <div class="day-cal">HIIT • 620k</div>
+          </div>
+          <div class="day-pill done">
+            <div class="day-name">Thứ 5</div>
+            <div class="day-check-icon">🔥</div>
+            <div class="day-cal">Shoulders</div>
+          </div>
+          <div class="day-pill today done">
+            <div class="day-name" style="color:var(--neon-cyan)">Hôm nay</div>
+            <div class="day-check-icon">⚡</div>
+            <div class="day-cal">Chest • 584k</div>
+          </div>
+          <div class="day-pill">
+            <div class="day-name">Thứ 7</div>
+            <div class="day-check-icon">💤</div>
+            <div class="day-cal">Active Rest</div>
+          </div>
+          <div class="day-pill">
+            <div class="day-name">Chủ Nhật</div>
+            <div class="day-check-icon">🏃</div>
+            <div class="day-cal">Long Run</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="kit-footer">
+    <div class="container">
+      <p><b>FitPulse Pro Athletic UI Kit 2026</b> — Chuyên Nghiệp Hóa Giao Diện Thể Thao &amp; Sinh Hiệu</p>
+      <div class="footer-links">
+        <a href="../index.html">← Trở về Showroom UI Kit</a>
+        <a href="music.html">Music Vibes (Full 18 Genres)</a>
+        <a href="fintech.html">FinTech Pro</a>
+        <a href="health.html">Vitalis Health</a>
+        <a href="social.html">SocialPulse</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Audio Context for Interval Beep
+    let audioCtx = null;
+    function playBeep(freq = 880, dur = 0.2) {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + dur);
+    }
+
+    // Exercise completion toggle
+    const exerciseCards = document.querySelectorAll('.exercise-card');
+    function updateCompletionStatus() {
+      const total = exerciseCards.length;
+      const done = document.querySelectorAll('.exercise-card.completed').length;
+      const pct = Math.round((done / total) * 100);
+      document.getElementById('completionPercent').textContent = pct + '%';
+    }
+
+    exerciseCards.forEach(card => {
+      const toggle = () => {
+        card.classList.toggle('completed');
+        const btn = card.querySelector('.ex-toggle-btn');
+        if (card.classList.contains('completed')) {
+          btn.textContent = 'Xong';
+          btn.className = 'btn btn-outline btn-sm ex-toggle-btn';
+          playBeep(600, 0.1);
+        } else {
+          btn.textContent = 'Tập';
+          btn.className = 'btn btn-volt btn-sm ex-toggle-btn';
+        }
+        updateCompletionStatus();
+      };
+      card.querySelector('.ex-check').addEventListener('click', toggle);
+      card.querySelector('.ex-toggle-btn').addEventListener('click', toggle);
+    });
+
+    // Rest Timer Logic
+    let timerTotal = 60;
+    let timerRemaining = 60;
+    let timerRunning = false;
+    let timerInterval = null;
+    const digitsEl = document.getElementById('timerDigits');
+    const circleEl = document.getElementById('timerProgressCircle');
+    const startBtn = document.getElementById('timerStartBtn');
+    const circLen = 2 * Math.PI * 70; // ~440
+
+    function updateTimerUI() {
+      digitsEl.textContent = timerRemaining;
+      const offset = circLen * (1 - (timerRemaining / timerTotal));
+      circleEl.style.strokeDashoffset = offset;
+    }
+
+    startBtn.addEventListener('click', () => {
+      if (timerRunning) {
+        clearInterval(timerInterval);
+        timerRunning = false;
+        startBtn.textContent = 'TIẾP TỤC';
+        startBtn.className = 'btn btn-volt btn-sm';
+      } else {
+        timerRunning = true;
+        startBtn.textContent = 'TẠM DỪNG';
+        startBtn.className = 'btn btn-outline btn-sm';
+        timerInterval = setInterval(() => {
+          if (timerRemaining > 0) {
+            timerRemaining--;
+            updateTimerUI();
+          } else {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            startBtn.textContent = 'BẮT ĐẦU';
+            startBtn.className = 'btn btn-volt btn-sm';
+            playBeep(1200, 0.4);
+            alert('⏱️ Hết giờ nghỉ! Bắt đầu hiệp tập tiếp theo!');
+          }
+        }, 1000);
+      }
+    });
+
+    document.getElementById('timerPlus30Btn').addEventListener('click', () => {
+      timerRemaining += 30;
+      timerTotal = Math.max(timerTotal, timerRemaining);
+      updateTimerUI();
+      playBeep(800, 0.08);
+    });
+
+    document.getElementById('timerResetBtn').addEventListener('click', () => {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      timerTotal = 60;
+      timerRemaining = 60;
+      startBtn.textContent = 'BẮT ĐẦU';
+      startBtn.className = 'btn btn-volt btn-sm';
+      updateTimerUI();
+    });
+
+    // Hydration Tracker
+    let waterMl = 1750;
+    const waterGoal = 2500;
+    function updateWaterUI() {
+      document.getElementById('waterCurrVal').textContent = waterMl.toLocaleString();
+      const pct = Math.min(100, Math.round((waterMl / waterGoal) * 100));
+      document.getElementById('waterBarFill').style.width = pct + '%';
+    }
+
+    document.getElementById('btnWater250').addEventListener('click', () => {
+      waterMl = Math.min(3500, waterMl + 250);
+      updateWaterUI();
+      playBeep(700, 0.1);
+    });
+    document.getElementById('btnWater500').addEventListener('click', () => {
+      waterMl = Math.min(3500, waterMl + 500);
+      updateWaterUI();
+      playBeep(850, 0.1);
+    });
+    document.getElementById('btnWaterReset').addEventListener('click', () => {
+      waterMl = 0;
+      updateWaterUI();
+    });
+
+    // Live Heart Rate Fluctuation simulator
+    setInterval(() => {
+      const base = 142;
+      const jitter = Math.floor(Math.random() * 7) - 3;
+      const cur = base + jitter;
+      document.getElementById('hrBpmVal').textContent = cur;
+    }, 2000);
+
+    // Theme toggle
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme');
+      document.documentElement.setAttribute('data-theme', cur === 'light' ? 'dark' : 'light');
+    });
+
+    updateCompletionStatus();
+    updateWaterUI();
+    updateTimerUI();
+  </script>
+</body>
+</html>

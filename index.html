@@ -1,0 +1,3043 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UI Kit Showroom — Next-Gen Component Library</title>
+  <meta name="description" content="Showroom UI kit thế hệ mới: dark mode cinematic, neon glow, glassmorphism, animation mượt mà — 19 bộ kit chuyên nghiệp cho mọi ngành nghề." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <style>
+  /* ================================================================
+     NEXT-GEN SHOWROOM — Full Responsive Dark & Light Design System
+     100% Native Vietnamese Typography with Be Vietnam Pro + Plus Jakarta Sans
+     ================================================================ */
+
+  :root {
+    --theme: dark;
+
+    /* Core background palette */
+    --bg-0:      #060608;
+    --bg-1:      #0c0c12;
+    --bg-2:      #12121c;
+    --bg-3:      #1a1a28;
+
+    /* Navbar & chrome */
+    --nav-bg:     rgba(6,6,8,0.75);
+    --nav-border: rgba(255,255,255,0.08);
+
+    /* Neon accents */
+    --neon-v:    #7c3aed;   /* violet */
+    --neon-b:    #2563eb;   /* blue */
+    --neon-c:    #06b6d4;   /* cyan */
+    --neon-g:    #10b981;   /* green */
+    --neon-p:    #ec4899;   /* pink */
+    --neon-o:    #f59e0b;   /* amber */
+
+    /* Glow */
+    --glow-v:    rgba(124,58,237,0.35);
+    --glow-c:    rgba(6,182,212,0.3);
+    --glow-p:    rgba(236,72,153,0.3);
+    --glow-g:    rgba(16,185,129,0.25);
+
+    /* Glass & borders */
+    --glass-bg:  rgba(255,255,255,0.04);
+    --glass-bd:  rgba(255,255,255,0.08);
+    --glass-hv:  rgba(255,255,255,0.07);
+    --hover-bd:  rgba(255,255,255,0.22);
+
+    /* Cards & shadows */
+    --card-bg:           var(--bg-1);
+    --card-shadow:       0 30px 80px rgba(0,0,0,0.6);
+    --card-hover-shadow: 0 30px 70px rgba(0,0,0,0.5);
+
+    /* Text */
+    --txt:       #f0f0ff;
+    --txt-2:     rgba(240,240,255,0.7);
+    --txt-3:     rgba(240,240,255,0.45);
+
+    /* Hero elements */
+    --stat-grad:         linear-gradient(90deg, #ffffff 0%, rgba(240,240,255,0.7) 100%);
+    --hero-card-a:       rgba(15,15,22,0.95);
+    --hero-card-b:       rgba(12,12,18,0.9);
+    --hero-card-c:       rgba(12,12,18,0.85);
+    --hero-card-shadow:  0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.08);
+    --badge-bg:          rgba(15,15,22,0.9);
+    --badge-shadow:      0 10px 40px rgba(0,0,0,0.4);
+
+    /* Backgrounds */
+    --grid-line:   rgba(255,255,255,0.025);
+    --orb-opacity: 0.18;
+
+    /* Code block */
+    --code-bg:        #07071a;
+    --code-header-bg: #0f1022;
+    --code-border:    rgba(255,255,255,0.08);
+
+    /* CTA banner */
+    --cta-bg:    linear-gradient(135deg, #0d0d1a 0%, #1a0a2e 40%, #0a1a2e 100%);
+
+    /* Motion */
+    --ease-out:    cubic-bezier(0.22,1,0.36,1);
+    --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
+    --ease-io:     cubic-bezier(0.65,0,0.35,1);
+
+    /* Typography — 100% native Vietnamese support */
+    --font-h:    'Plus Jakarta Sans', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-b:    'Be Vietnam Pro', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-m:    'JetBrains Mono', monospace;
+
+    /* Sizes */
+    --r-sm: 8px;
+    --r-md: 14px;
+    --r-lg: 20px;
+    --r-xl: 28px;
+    --r-pill: 9999px;
+    --container: 1280px;
+    --gutter: 24px;
+  }
+
+  /* ================================================================
+     LIGHT THEME TOKENS & OVERRIDES
+     ================================================================ */
+  [data-theme="light"] {
+    --theme: light;
+
+    /* Crisp Slate & Pearl background */
+    --bg-0:      #f6f8fb;
+    --bg-1:      #ffffff;
+    --bg-2:      #edf2f7;
+    --bg-3:      #e2e8f0;
+
+    /* Navbar & chrome */
+    --nav-bg:     rgba(255,255,255,0.85);
+    --nav-border: rgba(15,23,42,0.08);
+
+    /* Rich neon tones tuned for light background contrast */
+    --neon-v:    #6d28d9;
+    --neon-b:    #1d4ed8;
+    --neon-c:    #0891b2;
+    --neon-g:    #059669;
+    --neon-p:    #db2777;
+    --neon-o:    #d97706;
+
+    /* Glows */
+    --glow-v:    rgba(109,40,217,0.2);
+    --glow-c:    rgba(8,145,178,0.2);
+    --glow-p:    rgba(219,39,119,0.2);
+    --glow-g:    rgba(5,150,105,0.2);
+
+    /* Glass & borders */
+    --glass-bg:  rgba(15,23,42,0.035);
+    --glass-bd:  rgba(15,23,42,0.09);
+    --glass-hv:  rgba(15,23,42,0.06);
+    --hover-bd:  rgba(109,40,217,0.35);
+
+    /* Cards & shadows */
+    --card-bg:           #ffffff;
+    --card-shadow:       0 10px 30px rgba(15,23,42,0.06), 0 1px 3px rgba(15,23,42,0.04);
+    --card-hover-shadow: 0 20px 45px rgba(15,23,42,0.12);
+
+    /* Slate typography */
+    --txt:       #0f172a;       /* Slate 900 */
+    --txt-2:     #334155;       /* Slate 700 */
+    --txt-3:     #64748b;       /* Slate 500 */
+
+    /* Hero elements */
+    --stat-grad:         linear-gradient(135deg, #0f172a 0%, #334155 100%);
+    --hero-card-a:       rgba(255,255,255,0.98);
+    --hero-card-b:       rgba(248,250,252,0.95);
+    --hero-card-c:       rgba(241,245,249,0.9);
+    --hero-card-shadow:  0 30px 70px rgba(15,23,42,0.12), 0 0 0 1px rgba(15,23,42,0.08), inset 0 1px 0 rgba(255,255,255,1);
+    --badge-bg:          rgba(255,255,255,0.95);
+    --badge-shadow:      0 10px 30px rgba(15,23,42,0.1);
+
+    /* Backgrounds */
+    --grid-line:   rgba(15,23,42,0.045);
+    --orb-opacity: 0.11;
+
+    /* Code block */
+    --code-bg:        #0c0e18;
+    --code-header-bg: #141728;
+    --code-border:    rgba(15,23,42,0.12);
+
+    /* CTA banner */
+    --cta-bg:    linear-gradient(135deg, #1e1b4b 0%, #311042 50%, #082f49 100%);
+  }
+
+  /* ---- Reset ---- */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--font-b);
+    background: var(--bg-0);
+    color: var(--txt);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: none; background: none; }
+  p, h1, h2, h3, h4 { margin: 0; }
+  ::selection { background: var(--neon-v); color: #fff; }
+
+  /* ---- Layout ---- */
+  .container {
+    width: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  /* ================================================================
+     ANIMATED BACKGROUND SYSTEM
+     ================================================================ */
+  .bg-canvas {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    overflow: hidden;
+  }
+  .bg-orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(90px); opacity: var(--orb-opacity);
+    animation: orbFloat 20s ease-in-out infinite alternate;
+    transition: opacity 0.4s ease;
+  }
+  .bg-orb--1 {
+    width: 700px; height: 700px;
+    top: -20%; left: -10%;
+    background: radial-gradient(circle, var(--neon-v), transparent 70%);
+    animation-duration: 22s;
+  }
+  .bg-orb--2 {
+    width: 600px; height: 600px;
+    bottom: -15%; right: -8%;
+    background: radial-gradient(circle, var(--neon-c), transparent 70%);
+    animation-duration: 18s; animation-delay: -7s;
+  }
+  .bg-orb--3 {
+    width: 500px; height: 500px;
+    top: 40%; left: 35%;
+    background: radial-gradient(circle, var(--neon-p), transparent 70%);
+    animation-duration: 25s; animation-delay: -12s; opacity: calc(var(--orb-opacity) * 0.7);
+  }
+  @keyframes orbFloat {
+    0%   { transform: translate(0, 0) scale(1); }
+    33%  { transform: translate(40px, -60px) scale(1.08); }
+    66%  { transform: translate(-30px, 30px) scale(0.94); }
+    100% { transform: translate(20px, -20px) scale(1.04); }
+  }
+
+  /* Grid lines */
+  .bg-grid {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 80%);
+    transition: background-image 0.3s ease;
+  }
+
+  /* Noise texture */
+  .bg-noise {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ================================================================
+     TICKER BAR
+     ================================================================ */
+  .ticker {
+    position: relative; z-index: 10;
+    background: linear-gradient(90deg, var(--neon-v), var(--neon-b), var(--neon-c), var(--neon-b), var(--neon-v));
+    background-size: 400% 100%;
+    animation: tickerGrad 8s linear infinite;
+    padding: 7px 0; overflow: hidden;
+    color: #ffffff;
+  }
+  @keyframes tickerGrad { to { background-position: -400% 0; } }
+  .ticker__track {
+    display: flex; gap: 64px; width: max-content;
+    animation: tickerScroll 30s linear infinite;
+  }
+  .ticker__item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; white-space: nowrap; opacity: 0.95;
+  }
+  .ticker__item svg { opacity: 0.85; }
+  @keyframes tickerScroll { to { transform: translateX(-50%); } }
+
+  /* ================================================================
+     NAVBAR
+     ================================================================ */
+  .navbar {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 var(--gutter);
+    height: 64px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid var(--nav-border);
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .navbar.is-scrolled {
+    border-bottom-color: var(--hover-bd);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .navbar__brand {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-h); font-size: 18px; font-weight: 800;
+    letter-spacing: -0.02em; color: var(--txt);
+  }
+  .brand-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--neon-v), var(--neon-c));
+    display: grid; place-items: center;
+    box-shadow: 0 0 20px var(--glow-v);
+    animation: brandPulse 3s ease-in-out infinite;
+    color: #ffffff;
+  }
+  @keyframes brandPulse {
+    0%,100% { box-shadow: 0 0 20px var(--glow-v); }
+    50% { box-shadow: 0 0 36px rgba(124,58,237,0.6), 0 0 60px var(--glow-c); }
+  }
+  .navbar__nav {
+    display: flex; align-items: center; gap: 4px;
+    position: absolute; left: 50%; transform: translateX(-50%);
+  }
+  .nav-link {
+    padding: 6px 14px; border-radius: var(--r-pill);
+    font-size: 13px; font-weight: 500; color: var(--txt-2);
+    transition: all 200ms var(--ease-out);
+    position: relative;
+  }
+  .nav-link:hover { color: var(--txt); }
+  .nav-link.is-active {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-bd);
+    color: var(--txt);
+  }
+  .navbar__actions {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .btn-ghost {
+    padding: 7px 16px; border-radius: var(--r-pill);
+    font-size: 13px; font-weight: 500; color: var(--txt-2);
+    border: 1px solid var(--glass-bd);
+    background: var(--glass-bg);
+    transition: all 200ms;
+  }
+  .btn-ghost:hover { color: var(--txt); border-color: var(--hover-bd); background: var(--glass-hv); }
+
+  .btn-neon {
+    padding: 7px 18px; border-radius: var(--r-pill);
+    font-size: 13px; font-weight: 600;
+    background: linear-gradient(135deg, var(--neon-v), var(--neon-c));
+    color: #fff;
+    box-shadow: 0 0 20px var(--glow-v);
+    transition: all 250ms var(--ease-out);
+    position: relative; overflow: hidden;
+  }
+  .btn-neon::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transform: translateX(-100%);
+    transition: transform 600ms;
+  }
+  .btn-neon:hover { transform: translateY(-1px); box-shadow: 0 4px 30px var(--glow-v); }
+  .btn-neon:hover::after { transform: translateX(100%); }
+
+  .theme-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid var(--glass-bd); background: var(--glass-bg);
+    display: grid; place-items: center; color: var(--txt-2);
+    transition: all 200ms;
+  }
+  .theme-btn:hover { color: var(--txt); border-color: var(--hover-bd); background: var(--glass-hv); }
+
+  .menu-btn {
+    display: none; width: 36px; height: 36px;
+    border-radius: 8px; border: 1px solid var(--glass-bd);
+    background: var(--glass-bg); color: var(--txt-2);
+    place-items: center;
+  }
+
+  /* Mobile menu */
+  .mobile-nav {
+    display: none; position: fixed; top: 64px; left: 0; right: 0; z-index: 99;
+    background: var(--nav-bg); backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--nav-border);
+    padding: 12px var(--gutter);
+    flex-direction: column; gap: 4px;
+    box-shadow: var(--card-shadow);
+  }
+  .mobile-nav.is-open { display: flex; }
+  .mobile-nav .nav-link { padding: 10px 14px; }
+
+  /* ================================================================
+     HERO
+     ================================================================ */
+  .hero {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: grid; align-items: center;
+    padding: 80px 0 60px;
+    overflow: hidden;
+  }
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+  }
+
+  /* Badge */
+  .hero__badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: var(--r-pill);
+    background: var(--glass-bg); border: 1px solid var(--glass-bd);
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--txt-2); margin-bottom: 24px;
+    animation: fadeUp 0.8s var(--ease-out) both;
+  }
+  .badge-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--neon-g);
+    box-shadow: 0 0 8px var(--neon-g);
+    animation: dotBlink 2s ease-in-out infinite;
+  }
+  @keyframes dotBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  /* Title */
+  .hero__title {
+    font-family: var(--font-h);
+    font-size: clamp(38px, 5.2vw, 72px);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.035em;
+    margin-bottom: 24px;
+    animation: fadeUp 0.9s var(--ease-out) 0.08s both;
+  }
+  .grad-text {
+    background: linear-gradient(90deg, var(--neon-v) 0%, var(--neon-c) 50%, var(--neon-p) 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: gradShift 5s ease-in-out infinite;
+  }
+  @keyframes gradShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+  .hero__sub {
+    font-size: 16px; line-height: 1.65; color: var(--txt-2);
+    max-width: 480px; margin-bottom: 36px;
+    animation: fadeUp 1s var(--ease-out) 0.16s both;
+  }
+
+  /* CTA group */
+  .hero__cta {
+    display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+    margin-bottom: 48px;
+    animation: fadeUp 1s var(--ease-out) 0.24s both;
+  }
+  .cta-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 28px; border-radius: var(--r-pill);
+    font-size: 15px; font-weight: 600; color: #fff;
+    background: linear-gradient(135deg, var(--neon-v), var(--neon-c));
+    box-shadow: 0 0 30px var(--glow-v), 0 4px 20px rgba(0,0,0,0.3);
+    transition: all 300ms var(--ease-out); position: relative; overflow: hidden;
+  }
+  .cta-primary::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--neon-c), var(--neon-p));
+    opacity: 0; transition: opacity 300ms;
+  }
+  .cta-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 40px var(--glow-v); }
+  .cta-primary:hover::before { opacity: 1; }
+  .cta-primary span, .cta-primary svg { position: relative; }
+
+  .cta-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 24px; border-radius: var(--r-pill);
+    font-size: 15px; font-weight: 500; color: var(--txt-2);
+    border: 1px solid var(--glass-bd);
+    background: var(--glass-bg); backdrop-filter: blur(12px);
+    transition: all 250ms;
+  }
+  .cta-secondary:hover { color: var(--txt); border-color: var(--hover-bd); transform: translateY(-2px); }
+
+  /* Stats */
+  .hero__stats {
+    display: flex; gap: 32px;
+    animation: fadeUp 1s var(--ease-out) 0.32s both;
+  }
+  .stat-item { text-align: left; }
+  .stat-num {
+    font-family: var(--font-h); font-size: 36px; font-weight: 800;
+    line-height: 1; letter-spacing: -0.03em;
+    background: var(--stat-grad);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .stat-label {
+    font-size: 11px; font-weight: 600; color: var(--txt-3);
+    text-transform: uppercase; letter-spacing: 0.08em; margin-top: 6px;
+  }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ---- Hero visual: 3D Kit Stack ---- */
+  .hero__visual {
+    position: relative;
+    animation: fadeUp 1s var(--ease-out) 0.12s both;
+  }
+  .hero-stage {
+    position: relative; perspective: 1200px;
+    width: 100%; aspect-ratio: 1;
+    max-width: 520px; margin: 0 auto;
+  }
+
+  /* Orbit rings */
+  .orbit-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px dashed rgba(124,58,237,0.3);
+    animation: orbitSpin 20s linear infinite;
+  }
+  .orbit-ring--1 { inset: -8%; animation-duration: 28s; }
+  .orbit-ring--2 { inset: -16%; border-color: rgba(6,182,212,0.2); animation-direction: reverse; animation-duration: 40s; }
+  .orbit-dot {
+    position: absolute; border-radius: 50%;
+    top: -5px; left: 50%; transform: translateX(-50%);
+  }
+  .orbit-dot--1 { width: 10px; height: 10px; background: var(--neon-v); box-shadow: 0 0 16px var(--neon-v); }
+  .orbit-dot--2 { width: 7px; height: 7px; background: var(--neon-c); box-shadow: 0 0 12px var(--neon-c); }
+  @keyframes orbitSpin { to { transform: rotate(360deg); } }
+
+  /* Stack cards */
+  .kit-stack {
+    position: absolute; inset: 8%;
+    transform-style: preserve-3d;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .kit-card {
+    position: absolute; inset: 0;
+    border-radius: var(--r-xl);
+    border: 1px solid var(--glass-bd);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 24px;
+    overflow: hidden;
+    transition: transform 0.7s var(--ease-out), opacity 0.5s, background 0.3s ease, box-shadow 0.3s ease;
+  }
+  .kit-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .kit-card--c {
+    background: var(--hero-card-c);
+    transform: rotateY(-14deg) rotateX(5deg) translateZ(-90px) translateX(-20px);
+    opacity: 0.6; filter: blur(1.5px);
+  }
+  .kit-card--b {
+    background: var(--hero-card-b);
+    transform: rotateY(-6deg) rotateX(2deg) translateZ(-30px) translateX(-10px);
+    opacity: 0.85;
+  }
+  .kit-card--a {
+    background: var(--hero-card-a);
+    transform: rotateY(0deg) rotateX(0deg) translateZ(30px);
+    animation: cardFloat 7s ease-in-out infinite;
+    box-shadow: var(--hero-card-shadow);
+  }
+  @keyframes cardFloat {
+    0%,100% { transform: rotateY(0deg) rotateX(0deg) translateZ(30px) translateY(0); }
+    50% { transform: rotateY(3deg) rotateX(-2deg) translateZ(30px) translateY(-14px); }
+  }
+
+  .kit-card__header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+  }
+  .kit-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: grid; place-items: center; font-size: 22px;
+    position: relative; overflow: hidden; color: #fff;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+  }
+  .kit-icon svg { position: relative; z-index: 1; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35)); }
+  .kit-icon::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent);
+  }
+  .kit-card__title { font-family: var(--font-h); font-size: 18px; font-weight: 700; color: var(--txt); }
+  .kit-card__sub { font-size: 12px; color: var(--txt-3); margin-top: 2px; }
+
+  /* Mini UI inside card */
+  .mini-ui { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .mini-bar {
+    height: 6px; border-radius: 3px; background: var(--glass-bg);
+    position: relative; overflow: hidden;
+  }
+  .mini-bar::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, var(--neon-v), var(--neon-c));
+    transform: translateX(-100%);
+    animation: barFill 3s ease-in-out infinite;
+  }
+  @keyframes barFill { 0%,100% { transform: translateX(-100%); } 50% { transform: translateX(0%); } }
+  .mini-block {
+    height: 56px; border-radius: 10px;
+    background: var(--glass-bg); border: 1px solid var(--glass-bd);
+    display: grid; place-items: center;
+    position: relative; overflow: hidden;
+    transition: transform 300ms var(--ease-spring), border-color 200ms ease, background 200ms ease;
+  }
+  .mini-block svg { transition: transform 300ms var(--ease-spring); }
+  .mini-block:hover { transform: scale(1.05); border-color: var(--hover-bd); background: var(--glass-hv); }
+  .mini-block:hover svg { transform: scale(1.16); }
+
+  /* Floating badges on visual */
+  .float-badge {
+    position: absolute; z-index: 5;
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 16px 8px 10px; border-radius: var(--r-pill);
+    background: var(--badge-bg);
+    border: 1px solid var(--glass-bd);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    font-size: 12px; font-weight: 600;
+    box-shadow: var(--badge-shadow);
+    animation: badgeFloat 5s ease-in-out infinite;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .float-badge--1 { top: 5%; right: -8%; animation-delay: 0s; }
+  .float-badge--2 { bottom: 15%; left: -10%; animation-delay: -2.5s; }
+  .float-badge--3 { top: 50%; right: -12%; animation-delay: -4s; }
+  @keyframes badgeFloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .fb-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 9999px;
+    background: rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+  .fb-label { color: var(--txt-3); }
+  .fb-val { color: var(--txt); font-weight: 700; }
+
+  /* ================================================================
+     KITS SECTION
+     ================================================================ */
+  .section { position: relative; z-index: 1; padding: 100px 0; }
+
+  .section-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-m); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--neon-c); margin-bottom: 16px;
+  }
+  .section-eyebrow::before {
+    content: ''; display: block;
+    width: 24px; height: 1px; background: var(--neon-c);
+    box-shadow: 0 0 8px var(--neon-c);
+  }
+  .section-title {
+    font-family: var(--font-h);
+    font-size: clamp(30px, 3.5vw, 52px);
+    font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
+    margin-bottom: 16px; color: var(--txt);
+  }
+  .section-sub {
+    font-size: 15px; color: var(--txt-2); line-height: 1.65; max-width: 560px;
+    margin-bottom: 48px;
+  }
+
+  /* Filter chips */
+  .filter-bar {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px;
+  }
+  .filter-chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 16px; border-radius: var(--r-pill);
+    font-size: 13px; font-weight: 500; color: var(--txt-2);
+    border: 1px solid var(--glass-bd); background: var(--glass-bg);
+    cursor: pointer; transition: all 200ms var(--ease-out);
+  }
+  .filter-chip svg { flex-shrink: 0; transition: transform 200ms ease; }
+  .filter-chip:hover { color: var(--txt); border-color: var(--hover-bd); }
+  .filter-chip:hover svg { transform: scale(1.15); }
+  .filter-chip.is-on {
+    color: #fff; background: linear-gradient(135deg, var(--neon-v), var(--neon-b));
+    border-color: transparent;
+    box-shadow: 0 0 20px var(--glow-v);
+  }
+
+  /* Kits grid */
+  .kits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .kit-tile {
+    position: relative;
+    border-radius: var(--r-xl); overflow: hidden;
+    border: 1px solid var(--glass-bd);
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.4s var(--ease-out), box-shadow 0.4s, border-color 0.3s, background-color 0.3s;
+    cursor: pointer;
+    will-change: transform;
+  }
+  .kit-tile:hover {
+    transform: translateY(-8px);
+    border-color: var(--hover-bd);
+    box-shadow: var(--card-hover-shadow);
+  }
+
+  /* Preview area */
+  .kit-preview {
+    position: relative;
+    aspect-ratio: 16/10; overflow: hidden;
+    display: grid; place-items: center;
+    transition: filter 0.3s ease;
+  }
+  .kit-preview__screen {
+    width: 72%; height: 65%;
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex; flex-direction: column; gap: 6px;
+    padding: 10px;
+    transform: perspective(800px) rotateX(6deg);
+    transition: transform 0.4s var(--ease-out), box-shadow 0.3s ease;
+    position: relative; z-index: 2;
+  }
+  .kit-tile:hover .kit-preview__screen { transform: perspective(800px) rotateX(0deg) translateY(-4px); }
+  .kit-preview__bar { height: 5px; border-radius: 3px; }
+  .kit-preview__row { display: flex; gap: 5px; flex: 1; }
+  .kit-preview__block { border-radius: 6px; }
+
+  /* Glow blob in preview */
+  .kit-preview__blob {
+    position: absolute; border-radius: 50%; filter: blur(40px); opacity: 0.5;
+    width: 120px; height: 120px; top: 10%; right: 10%;
+    animation: blobPulse 4s ease-in-out infinite;
+  }
+  @keyframes blobPulse { 0%,100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.3); opacity: 0.3; } }
+
+  /* Badge on tile */
+  .kit-badge {
+    position: absolute; top: 12px; left: 12px; z-index: 3;
+    padding: 4px 10px; border-radius: var(--r-pill);
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  }
+
+  /* Body */
+  .kit-body {
+    padding: 18px 20px 20px;
+  }
+  .kit-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .kit-name { font-family: var(--font-h); font-size: 18px; font-weight: 700; color: var(--txt); }
+  .kit-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .kit-tag {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.05em;
+    padding: 3px 8px; border-radius: var(--r-pill);
+    background: var(--glass-bg); border: 1px solid var(--glass-bd); color: var(--txt-3);
+  }
+  .kit-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 14px; padding: 8px 16px; border-radius: var(--r-pill);
+    font-size: 12px; font-weight: 600; color: var(--txt-2);
+    border: 1px solid var(--glass-bd); background: var(--glass-bg);
+    transition: all 200ms;
+  }
+  .kit-cta:hover { color: var(--txt); border-color: var(--hover-bd); }
+
+  /* Badge variants */
+  .b-featured { background: linear-gradient(135deg, var(--neon-o), #f97316); color: #fff; }
+  .b-new { background: linear-gradient(135deg, var(--neon-v), var(--neon-b)); color: #fff; }
+  .b-hot { background: linear-gradient(135deg, #ef4444, #f97316); color: #fff; }
+  .b-pro { background: linear-gradient(135deg, #059669, var(--neon-g)); color: #fff; }
+  .b-trending { background: linear-gradient(135deg, var(--neon-p), #f43f5e); color: #fff; }
+  .b-fresh { background: linear-gradient(135deg, #0d9488, #06b6d4); color: #fff; }
+
+  /* ================================================================
+     COMPONENT LAB
+     ================================================================ */
+  .lab-wrap {
+    border-radius: var(--r-xl); overflow: hidden;
+    border: 1px solid var(--glass-bd);
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  .lab-tabs {
+    display: flex; border-bottom: 1px solid var(--glass-bd);
+    background: var(--bg-2);
+    transition: background-color 0.3s ease;
+  }
+  .lab-tab {
+    flex: 1; padding: 16px 20px;
+    font-size: 13px; font-weight: 600; text-align: center;
+    color: var(--txt-3); cursor: pointer;
+    transition: all 200ms; position: relative;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .lab-tab:hover { color: var(--txt-2); }
+  .lab-tab.is-on {
+    color: var(--txt); background: var(--bg-1);
+  }
+  .lab-tab.is-on::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+    background: linear-gradient(90deg, var(--neon-v), var(--neon-c));
+    box-shadow: 0 0 8px var(--neon-c);
+  }
+  .lab-panel { padding: 36px; display: none; }
+  .lab-panel.is-on { display: block; animation: panelIn 0.35s var(--ease-out); }
+  @keyframes panelIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Component showcase */
+  .comp-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 24px; }
+
+  /* Buttons */
+  .demo-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 22px; border-radius: var(--r-pill);
+    font-size: 14px; font-weight: 600; transition: all 250ms var(--ease-out);
+    position: relative; overflow: hidden;
+  }
+  .demo-btn--v {
+    background: linear-gradient(135deg, var(--neon-v), var(--neon-b));
+    color: #fff; box-shadow: 0 0 20px var(--glow-v);
+  }
+  .demo-btn--v:hover { transform: translateY(-2px); box-shadow: 0 6px 30px var(--glow-v); }
+  .demo-btn--c {
+    background: linear-gradient(135deg, var(--neon-b), var(--neon-c));
+    color: #fff; box-shadow: 0 0 20px var(--glow-c);
+  }
+  .demo-btn--c:hover { transform: translateY(-2px); }
+  .demo-btn--p {
+    background: linear-gradient(135deg, var(--neon-p), #f43f5e);
+    color: #fff; box-shadow: 0 0 20px var(--glow-p);
+  }
+  .demo-btn--p:hover { transform: translateY(-2px); }
+  .demo-btn--g {
+    background: linear-gradient(135deg, var(--neon-g), #34d399);
+    color: #fff; box-shadow: 0 0 18px var(--glow-g);
+  }
+  .demo-btn--g:hover { transform: translateY(-2px); }
+  .demo-btn--outline {
+    background: transparent; color: var(--txt-2);
+    border: 1px solid var(--glass-bd);
+  }
+  .demo-btn--outline:hover { border-color: var(--neon-v); color: var(--txt); box-shadow: 0 0 12px var(--glow-v); }
+  .demo-btn--glass {
+    background: var(--glass-bg); color: var(--txt-2);
+    border: 1px solid var(--glass-bd); backdrop-filter: blur(12px);
+  }
+  .demo-btn--glass:hover { color: var(--txt); background: var(--glass-hv); }
+
+  /* Toggle */
+  .demo-toggle {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; font-weight: 500; color: var(--txt-2); cursor: pointer;
+  }
+  .toggle-track {
+    width: 44px; height: 24px; border-radius: 12px;
+    background: var(--glass-bg); border: 1px solid var(--glass-bd);
+    position: relative; transition: all 250ms var(--ease-out);
+  }
+  .toggle-track::after {
+    content: ''; position: absolute;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--txt-3); top: 2px; left: 2px;
+    transition: all 250ms var(--ease-spring);
+  }
+  .demo-toggle.is-on .toggle-track {
+    background: linear-gradient(135deg, var(--neon-v), var(--neon-c));
+    border-color: transparent;
+    box-shadow: 0 0 16px var(--glow-v);
+  }
+  .demo-toggle.is-on .toggle-track::after {
+    background: #fff; left: 24px;
+  }
+
+  /* Input */
+  .demo-input {
+    width: 100%; padding: 12px 16px;
+    background: var(--bg-2); border: 1px solid var(--glass-bd);
+    border-radius: var(--r-md); color: var(--txt);
+    font-family: var(--font-b); font-size: 14px;
+    outline: none; transition: all 250ms;
+  }
+  .demo-input:focus { border-color: var(--neon-v); box-shadow: 0 0 0 3px rgba(124,58,237,0.15); }
+  .demo-input::placeholder { color: var(--txt-3); }
+  .demo-label { font-size: 12px; font-weight: 600; color: var(--txt-3); margin-bottom: 6px; display: block; letter-spacing: 0.05em; }
+  .demo-field { margin-bottom: 20px; }
+
+  /* Cards in lab */
+  .demo-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  .demo-card {
+    border-radius: var(--r-lg); border: 1px solid var(--glass-bd);
+    background: var(--bg-2); overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: all 300ms var(--ease-out);
+  }
+  .demo-card:hover { transform: translateY(-4px); border-color: var(--hover-bd); box-shadow: var(--card-hover-shadow); }
+  .demo-card__img { aspect-ratio: 4/3; display: grid; place-items: center; font-size: 48px; }
+  .demo-card__body { padding: 16px; }
+  .demo-card__name { font-weight: 700; font-size: 15px; margin-bottom: 4px; color: var(--txt); }
+  .demo-card__meta { font-size: 12px; color: var(--txt-3); }
+  .demo-card__foot { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
+  .demo-card__price { font-family: var(--font-h); font-size: 18px; font-weight: 700; }
+  .add-btn {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--neon-v), var(--neon-c));
+    color: #fff; display: grid; place-items: center;
+    font-size: 18px; line-height: 1;
+    transition: all 200ms var(--ease-spring);
+  }
+  .add-btn:hover { transform: rotate(90deg) scale(1.1); box-shadow: 0 0 16px var(--glow-v); }
+
+  /* ================================================================
+     MOTION SECTION
+     ================================================================ */
+  .motion-grid {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 16px;
+  }
+  .motion-card {
+    border-radius: var(--r-lg); border: 1px solid var(--glass-bd);
+    background: var(--card-bg); padding: 28px 20px;
+    text-align: center;
+    box-shadow: var(--card-shadow);
+    transition: all 300ms var(--ease-out);
+  }
+  .motion-card:hover { transform: translateY(-6px); border-color: var(--hover-bd); box-shadow: var(--card-hover-shadow); }
+  .motion-stage {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--bg-2); margin: 0 auto 16px;
+    display: grid; place-items: center; position: relative; overflow: hidden;
+  }
+  .motion-shape {
+    width: 28px; height: 28px; border-radius: 8px;
+  }
+  /* float */
+  .m-float { background: linear-gradient(135deg, var(--neon-v), var(--neon-c)); box-shadow: 0 0 16px var(--glow-v); animation: mFloat 3s ease-in-out infinite; }
+  @keyframes mFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+  /* shimmer */
+  .m-shimmer { background: linear-gradient(90deg, var(--neon-b), var(--neon-c), var(--neon-b)); background-size:200% 100%; animation: mShimmer 1.8s linear infinite; }
+  @keyframes mShimmer { to{background-position:-200% 0} }
+  /* spin */
+  .m-spin { border-radius: 50%; background: linear-gradient(135deg, var(--neon-p), var(--neon-v)); animation: mSpin 1.2s linear infinite; }
+  @keyframes mSpin { to{transform:rotate(360deg)} }
+  /* morph */
+  .m-morph { background: linear-gradient(135deg, var(--neon-g), var(--neon-c)); border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; animation: mMorph 4s ease-in-out infinite; }
+  @keyframes mMorph {
+    0%,100%{border-radius:60% 40% 30% 70% / 60% 30% 70% 40%}
+    33%{border-radius:40% 60% 70% 30%}
+    66%{border-radius:70% 30% 40% 60%}
+  }
+  /* pulse */
+  .m-pulse { border-radius: 50%; background: var(--neon-o); box-shadow: 0 0 0 0 rgba(245,158,11,0.4); animation: mPulse 1.6s ease-in-out infinite; width: 28px; height: 28px; }
+  @keyframes mPulse { 0%{box-shadow:0 0 0 0 rgba(245,158,11,0.4)} 70%{box-shadow:0 0 0 16px transparent} 100%{box-shadow:0 0 0 0 transparent} }
+  /* bounce */
+  .m-bounce { background: linear-gradient(135deg, #ef4444, var(--neon-o)); animation: mBounce 0.9s cubic-bezier(0.34,1.56,0.64,1) infinite; }
+  @keyframes mBounce { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-12px) scale(0.9)} }
+  /* wave */
+  .m-wave { width: 100%; height: 100%; display:flex; gap: 3px; align-items: flex-end; padding: 8px; border-radius: 0; }
+  .wave-bar {
+    flex: 1; border-radius: 2px; min-height: 4px;
+    background: linear-gradient(to top, var(--neon-c), var(--neon-v));
+    animation: mWave 1.2s ease-in-out infinite;
+  }
+  .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+  .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+  .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+  .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+  @keyframes mWave { 0%,100%{height:30%} 50%{height:80%} }
+  /* skeleton */
+  .m-skeleton { width: 100%; height: 100%; border-radius: 0; background: linear-gradient(90deg, var(--bg-3), var(--glass-hv), var(--bg-3)); background-size: 200% 100%; animation: mSkel 1.5s linear infinite; }
+  @keyframes mSkel { to{background-position:-200% 0} }
+
+  .motion-name { font-weight: 700; font-size: 14px; margin-bottom: 4px; color: var(--txt); }
+  .motion-desc { font-size: 12px; color: var(--txt-3); }
+
+  /* ================================================================
+     TOKEN SECTION
+     ================================================================ */
+  .tokens-grid {
+    display: grid; grid-template-columns: repeat(5,1fr); gap: 12px;
+    margin-bottom: 48px;
+  }
+  .token-swatch {
+    border-radius: var(--r-md); aspect-ratio: 2/1;
+    position: relative; overflow: hidden; cursor: pointer;
+    transition: transform 300ms var(--ease-spring);
+    border: 1px solid var(--glass-bd);
+  }
+  .token-swatch:hover { transform: scale(1.06) rotate(-2deg); }
+  .token-swatch::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent 60%);
+  }
+  .token-label {
+    position: absolute; bottom: 6px; left: 8px;
+    font-family: var(--font-m); font-size: 10px; font-weight: 600;
+    color: rgba(255,255,255,0.9); z-index: 1; letter-spacing: 0.05em;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  }
+
+  /* Code block */
+  .code-block {
+    border-radius: var(--r-xl); overflow: hidden;
+    border: 1px solid var(--code-border);
+    background: var(--code-bg);
+    font-family: var(--font-m); font-size: 14px; line-height: 1.8;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+  }
+  .code-block__header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px; background: var(--code-header-bg);
+    border-bottom: 1px solid var(--code-border);
+  }
+  .code-dots { display: flex; gap: 6px; }
+  .code-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .code-dot--r { background: #ff5f57; }
+  .code-dot--y { background: #febc2e; }
+  .code-dot--g { background: #28c840; }
+  .code-lang { font-size: 11px; color: rgba(240,240,255,0.6); letter-spacing: 0.05em; }
+  .code-copy {
+    font-size: 11px; font-weight: 600; color: var(--neon-c);
+    padding: 4px 10px; border-radius: 6px;
+    border: 1px solid rgba(6,182,212,0.3);
+    cursor: pointer; transition: all 150ms;
+  }
+  .code-copy:hover { background: rgba(6,182,212,0.15); }
+  .code-body { padding: 24px; color: #f0f0ff; }
+  .code-line { display: flex; gap: 16px; }
+  .code-ln { color: rgba(240,240,255,0.35); user-select: none; min-width: 20px; text-align: right; }
+  .kw { color: #c792ea; }
+  .fn { color: #82aaff; }
+  .str { color: #c3e88d; }
+  .tag { color: #89ddff; }
+  .cm { color: rgba(255,255,255,0.4); font-style: italic; }
+  .cursor { display:inline-block; width: 8px; height: 15px; background: var(--neon-c); animation: blink 1.1s step-end infinite; margin-left: 2px; }
+  @keyframes blink { 50%{opacity:0} }
+
+  /* ================================================================
+     FOOTER CTA
+     ================================================================ */
+  .footer-cta {
+    position: relative; border-radius: var(--r-xl); overflow: hidden;
+    padding: 80px 60px; text-align: center;
+    margin-bottom: 80px;
+    background: var(--cta-bg);
+    border: 1px solid var(--glass-bd);
+    box-shadow: var(--card-shadow);
+    color: #ffffff;
+  }
+  .footer-cta::before {
+    content: ''; position: absolute; inset: -50%;
+    background:
+      radial-gradient(circle at 30% 50%, rgba(124,58,237,0.25), transparent 60%),
+      radial-gradient(circle at 70% 50%, rgba(6,182,212,0.2), transparent 60%);
+    animation: ctaBg 10s ease-in-out infinite alternate;
+  }
+  @keyframes ctaBg { 0%{transform:translate(0,0)} 100%{transform:translate(30px,-20px)} }
+  .footer-cta__content { position: relative; z-index: 1; }
+  .footer-cta__title {
+    font-family: var(--font-h);
+    font-size: clamp(30px, 4vw, 54px);
+    font-weight: 800; letter-spacing: -0.03em;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #fff 0%, rgba(255,255,255,0.85) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  /* ================================================================
+     FOOTER
+     ================================================================ */
+  .footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--glass-bd);
+    padding: 60px 0 32px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px; margin-bottom: 48px;
+  }
+  .footer-brand { font-family: var(--font-h); font-size: 22px; font-weight: 800; margin-bottom: 12px; color: var(--txt); }
+  .footer-desc { font-size: 14px; color: var(--txt-3); line-height: 1.6; max-width: 280px; }
+  .footer-col h5 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--txt-3); margin-bottom: 16px; }
+  .footer-col a { display: block; font-size: 14px; color: var(--txt-2); margin-bottom: 10px; transition: color 200ms; }
+  .footer-col a:hover { color: var(--txt); }
+  .footer-bottom {
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--glass-bd); padding-top: 24px;
+    font-size: 13px; color: var(--txt-3);
+  }
+  .socials { display: flex; gap: 8px; }
+  .social-btn {
+    width: 36px; height: 36px; border-radius: 10px;
+    border: 1px solid var(--glass-bd); background: var(--glass-bg);
+    display: grid; place-items: center; color: var(--txt-3);
+    transition: all 200ms;
+  }
+  .social-btn:hover { color: var(--txt); border-color: var(--hover-bd); background: var(--glass-hv); }
+
+  /* ================================================================
+     OVERLAYS (Modal / Drawer / Toast)
+     ================================================================ */
+  .overlay-bg {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0; pointer-events: none; transition: opacity 250ms;
+  }
+  .overlay-bg.is-open { opacity: 1; pointer-events: all; }
+
+  .modal {
+    position: fixed; z-index: 201;
+    top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.92);
+    width: 90%; max-width: 520px;
+    background: var(--bg-1); border: 1px solid var(--glass-bd);
+    border-radius: var(--r-xl); padding: 36px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+    opacity: 0; pointer-events: none;
+    transition: all 300ms var(--ease-spring);
+    color: var(--txt);
+  }
+  .modal.is-open { opacity: 1; pointer-events: all; transform: translate(-50%,-50%) scale(1); }
+  .modal__close {
+    position: absolute; top: 16px; right: 16px;
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--glass-bg); border: 1px solid var(--glass-bd);
+    display: grid; place-items: center; color: var(--txt-2);
+    transition: all 200ms;
+  }
+  .modal__close:hover { color: var(--txt); background: var(--glass-hv); }
+
+  .drawer {
+    position: fixed; z-index: 201;
+    top: 0; right: 0; bottom: 0; width: 380px;
+    background: var(--bg-1); border-left: 1px solid var(--glass-bd);
+    transform: translateX(100%); transition: transform 350ms var(--ease-out);
+    display: flex; flex-direction: column;
+    box-shadow: -20px 0 60px rgba(0,0,0,0.4);
+    color: var(--txt);
+  }
+  .drawer.is-open { transform: translateX(0); }
+  .drawer__head { padding: 20px 24px; border-bottom: 1px solid var(--glass-bd); display: flex; align-items: center; justify-content: space-between; }
+  .drawer__body { flex: 1; padding: 24px; overflow-y: auto; }
+  .drawer__foot { padding: 20px 24px; border-top: 1px solid var(--glass-bd); }
+
+  /* Toasts */
+  .toast-area { position: fixed; bottom: 24px; right: 24px; z-index: 300; display: flex; flex-direction: column; gap: 8px; }
+  .toast {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 20px; border-radius: var(--r-lg);
+    background: var(--bg-1); border: 1px solid var(--glass-bd);
+    box-shadow: var(--card-hover-shadow), 0 0 0 1px var(--glass-bd);
+    font-size: 14px; font-weight: 500; color: var(--txt);
+    animation: toastIn 0.4s var(--ease-spring) both;
+    max-width: 320px;
+  }
+  .toast.is-out { animation: toastOut 0.3s var(--ease-io) both; }
+  @keyframes toastIn { from { opacity:0; transform: translateX(40px); } to { opacity:1; transform:translateX(0); } }
+  @keyframes toastOut { to { opacity:0; transform: translateX(20px); } }
+  .toast__icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: grid; place-items: center; font-size: 14px;
+    flex-shrink: 0;
+  }
+  .toast__icon--ok { background: rgba(16,185,129,0.15); color: var(--neon-g); border: 1px solid rgba(16,185,129,0.3); }
+
+  /* ================================================================
+     REVEAL ON SCROLL
+     ================================================================ */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  }
+  .reveal.is-in { opacity: 1; transform: translateY(0); }
+
+  /* ================================================================
+     LIGHT THEME REFINEMENTS
+     ================================================================ */
+  [data-theme="light"] .demo-input {
+    background: #ffffff;
+    border-color: rgba(15,23,42,0.14);
+    color: #0f172a;
+  }
+  [data-theme="light"] .demo-input:focus {
+    border-color: var(--neon-v);
+    box-shadow: 0 0 0 3px rgba(109,40,217,0.15);
+  }
+  [data-theme="light"] .kit-preview {
+    filter: saturate(1.08) brightness(1.03);
+  }
+  [data-theme="light"] .kit-preview__screen {
+    box-shadow: 0 12px 28px rgba(0,0,0,0.22);
+    border-color: rgba(255,255,255,0.15);
+  }
+  [data-theme="light"] .footer-cta {
+    box-shadow: 0 25px 60px rgba(15,23,42,0.15);
+  }
+  [data-theme="light"] .footer-cta__title {
+    background: linear-gradient(90deg, #ffffff 0%, rgba(255,255,255,0.95) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  [data-theme="light"] .modal {
+    box-shadow: 0 25px 70px rgba(15,23,42,0.2);
+  }
+  [data-theme="light"] .drawer {
+    box-shadow: -15px 0 50px rgba(15,23,42,0.12);
+  }
+  [data-theme="light"] .overlay-bg {
+    background: rgba(15,23,42,0.5);
+  }
+
+  /* ================================================================
+     RESPONSIVE
+     ================================================================ */
+  @media (max-width: 1024px) {
+    .kits-grid { grid-template-columns: repeat(2,1fr); }
+    .motion-grid { grid-template-columns: repeat(2,1fr); }
+    .tokens-grid { grid-template-columns: repeat(4,1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    .hero__inner { grid-template-columns: 1fr; }
+    .hero__visual { display: none; }
+    .navbar__nav { display: none; }
+    .menu-btn { display: grid; }
+    .kits-grid { grid-template-columns: 1fr; }
+    .motion-grid { grid-template-columns: repeat(2,1fr); }
+    .demo-cards { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .tokens-grid { grid-template-columns: repeat(3,1fr); }
+    .footer-cta { padding: 48px 24px; }
+  }
+
+  /* ================================================================
+     SCROLLBAR
+     ================================================================ */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg-0); }
+  ::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--glass-hv); }
+
+  /* ================================================================
+     SECTION DIVIDER
+     ================================================================ */
+  .divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--glass-bd), transparent);
+    position: relative; z-index: 1;
+  }
+
+  /* ================================================================
+     FEATURES BAR
+     ================================================================ */
+  .features-bar {
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: 1px; background: var(--glass-bd);
+    border: 1px solid var(--glass-bd);
+    border-radius: var(--r-xl); overflow: hidden;
+    margin: 80px 0;
+    box-shadow: var(--card-shadow);
+  }
+  .feature-item {
+    background: var(--bg-1);
+    padding: 32px 28px;
+    display: flex; flex-direction: column; gap: 12px;
+    transition: background 250ms;
+  }
+  .feature-item:hover { background: var(--bg-2); }
+  .feature-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: grid; place-items: center;
+    background: var(--glass-bg); border: 1px solid var(--glass-bd);
+  }
+  .feature-title { font-weight: 700; font-size: 15px; color: var(--txt); }
+  .feature-desc { font-size: 13px; color: var(--txt-3); line-height: 1.55; }
+
+  @media (max-width: 768px) {
+    .features-bar { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .features-bar { grid-template-columns: 1fr; }
+  }
+  </style>
+</head>
+<body>
+
+  <!-- ============================
+       BACKGROUND SYSTEM
+       ============================ -->
+  <div class="bg-canvas">
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-orb bg-orb--3"></div>
+  </div>
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+
+  <!-- ============================
+       TICKER
+       ============================ -->
+  <div class="ticker">
+    <div class="ticker__track">
+      <div class="ticker__item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        14 Premium UI Kits
+      </div>
+      <div class="ticker__item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        750+ Components
+      </div>
+      <div class="ticker__item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Dark / Light Mode
+      </div>
+      <div class="ticker__item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Micro Animations
+      </div>
+      <div class="ticker__item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        WCAG AA Accessible
+      </div>
+      <div class="ticker__item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        CSS Token System
+      </div>
+      <!-- repeat for seamless loop -->
+      <div class="ticker__item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        14 Premium UI Kits
+      </div>
+      <div class="ticker__item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        750+ Components
+      </div>
+      <div class="ticker__item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Dark / Light Mode
+      </div>
+      <div class="ticker__item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Micro Animations
+      </div>
+      <div class="ticker__item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        WCAG AA Accessible
+      </div>
+      <div class="ticker__item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        CSS Token System
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================
+       NAVBAR
+       ============================ -->
+  <nav class="navbar" id="navbar">
+    <a class="navbar__brand" href="#top">
+      <div class="brand-icon" aria-hidden="true">
+        <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+      </div>
+      UI Kit Showroom
+    </a>
+
+    <div class="navbar__nav">
+      <a class="nav-link is-active" href="#kits" id="nl-kits">Kits</a>
+      <a class="nav-link" href="#lab" id="nl-lab">Lab</a>
+      <a class="nav-link" href="#motion" id="nl-motion">Motion</a>
+      <a class="nav-link" href="#tokens" id="nl-tokens">Tokens</a>
+      <a class="nav-link" href="#start" id="nl-start">Bắt đầu</a>
+    </div>
+
+    <div class="navbar__actions">
+      <a class="btn-ghost" href="showcase.html">Showcase →</a>
+      <button class="theme-btn" id="themeBtn" aria-label="Đổi theme">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+      </button>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a class="nav-link" href="#kits">Kits</a>
+    <a class="nav-link" href="#lab">Lab</a>
+    <a class="nav-link" href="#motion">Motion</a>
+    <a class="nav-link" href="#tokens">Tokens</a>
+    <a class="nav-link" href="#start">Bắt đầu</a>
+  </div>
+
+  <!-- ============================
+       HERO
+       ============================ -->
+  <section class="hero" id="top">
+    <div class="container hero__inner">
+
+      <!-- Left: Text -->
+      <div class="hero__text">
+        <div class="hero__badge">
+          <span class="badge-dot"></span>
+          Next-Gen UI Library · 2026
+        </div>
+
+        <h1 class="hero__title">
+          Giao diện<br/>
+          <span class="grad-text">thế hệ mới</span><br/>
+          cho mọi sản phẩm
+        </h1>
+
+        <p class="hero__sub">
+          19 bộ kit chuyên nghiệp. 1,000+ component sẵn sàng. Animation mượt mà, dark mode hoàn hảo, token-driven.
+        </p>
+
+        <div class="hero__cta">
+          <a class="cta-primary" href="#kits">
+            <span>Khám phá Kits</span>
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a class="cta-secondary" href="#lab">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            Live Lab
+          </a>
+        </div>
+
+        <div class="hero__stats">
+          <div class="stat-item">
+            <div class="stat-num" data-count="19">0</div>
+            <div class="stat-label">UI Kits</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" data-count="1000">0</div>
+            <div class="stat-label">Components</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" data-count="18">0</div>
+            <div class="stat-label">Animations</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" data-count="100">0</div>
+            <div class="stat-label">% Dark Score</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Visual -->
+      <div class="hero__visual" id="heroVisual">
+        <div class="hero-stage" id="heroStage">
+          <!-- Orbit rings -->
+          <div class="orbit-ring orbit-ring--1">
+            <span class="orbit-dot orbit-dot--1"></span>
+          </div>
+          <div class="orbit-ring orbit-ring--2">
+            <span class="orbit-dot orbit-dot--2"></span>
+          </div>
+
+          <!-- Card stack -->
+          <div class="kit-stack" id="kitStack">
+            <!-- Back card: FinTech -->
+            <div class="kit-card kit-card--c">
+              <div class="kit-card__header">
+                <div class="kit-icon" style="background:linear-gradient(135deg,#1e3a5f,#2563eb)">
+                  <svg width="22" height="22" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                </div>
+                <div>
+                  <div class="kit-card__title">FinTech Pro</div>
+                  <div class="kit-card__sub">Finance · Dashboard</div>
+                </div>
+              </div>
+              <div class="mini-ui">
+                <div class="mini-bar"></div><div class="mini-bar" style="animation-delay:-1s"></div>
+                <div class="mini-block" style="color:var(--neon-c)" title="Chart">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </div>
+                <div class="mini-block" style="color:var(--neon-b)" title="Card">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mid card: Health -->
+            <div class="kit-card kit-card--b">
+              <div class="kit-card__header">
+                <div class="kit-icon" style="background:linear-gradient(135deg,#064e3b,#10b981)">
+                  <svg width="22" height="22" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4.5 3v5a4.5 4.5 0 0 0 9 0V3"/><path d="M9 12.5v2.5a4 4 0 0 0 4 4h1a3 3 0 0 0 3-3v-1a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1a5 5 0 0 1-5 5h-1a6 6 0 0 1-6-6v-2.5"/><circle cx="20" cy="10" r="2"/></svg>
+                </div>
+                <div>
+                  <div class="kit-card__title">Health Care</div>
+                  <div class="kit-card__sub">Medical · Booking</div>
+                </div>
+              </div>
+              <div class="mini-ui">
+                <div class="mini-block" style="color:#f43f5e" title="Pulse">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+                <div class="mini-block" style="color:var(--neon-g)" title="Pharma">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+                </div>
+                <div class="mini-bar" style="animation-delay:-0.5s"></div><div class="mini-bar"></div>
+              </div>
+            </div>
+
+            <!-- Front card: Café Luxe -->
+            <div class="kit-card kit-card--a">
+              <div class="kit-card__header">
+                <div class="kit-icon" style="background:linear-gradient(135deg,#3b1c0a,#c9a227)">
+                  <svg width="22" height="22" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                </div>
+                <div>
+                  <div class="kit-card__title">Café Luxe</div>
+                  <div class="kit-card__sub">Beverage · Commerce</div>
+                </div>
+                <span class="kit-badge b-featured" style="position:relative;margin-left:auto;font-size:9px;">Featured</span>
+              </div>
+              <div class="mini-ui">
+                <div class="mini-bar"></div><div class="mini-bar" style="animation-delay:-1.5s"></div>
+                <div class="mini-block" style="color:#e6c96b" title="Beverage">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 8l1.75 12.28A2 2 0 0 0 9.74 22h4.52a2 2 0 0 0 1.99-1.72L18 8H6Z"/><line x1="4" y1="8" x2="20" y2="8"/><line x1="10" y1="8" x2="14" y2="2"/></svg>
+                </div>
+                <div class="mini-block" style="color:#10b981" title="Tea">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                </div>
+                <div class="mini-block" style="color:#06b6d4" title="Ice">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/><line x1="19.07" y1="4.93" x2="4.93" y2="19.07"/></svg>
+                </div>
+                <div class="mini-block" style="color:#ec4899" title="Fruit">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2v3M9.5 4a6.5 6.5 0 0 0-5 6.3c0 4.2 3.8 8.7 7.5 10.7 3.7-2 7.5-6.5 7.5-10.7A6.5 6.5 0 0 0 14.5 4"/><path d="M12 9v.01M9.5 12v.01M14.5 12v.01M12 15v.01"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating badges -->
+        <div class="float-badge float-badge--1">
+          <span class="fb-icon" style="color:var(--neon-o)">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </span>
+          <div><div class="fb-val">320+</div><div class="fb-label">Components</div></div>
+        </div>
+        <div class="float-badge float-badge--2">
+          <span class="fb-icon" style="color:var(--neon-p)">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+          </span>
+          <div><div class="fb-val">Dark Mode</div><div class="fb-label">Native</div></div>
+        </div>
+        <div class="float-badge float-badge--3">
+          <span class="fb-icon" style="color:var(--neon-c)">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+          </span>
+          <div><div class="fb-val">18</div><div class="fb-label">Animations</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features bar -->
+  <section style="position:relative;z-index:1;padding:0 0 20px">
+    <div class="container">
+      <div class="features-bar reveal">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg width="22" height="22" fill="none" stroke="var(--neon-v)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <div class="feature-title">Animation Engine</div>
+          <div class="feature-desc">Spring, morph, float — 18 primitives.</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg width="22" height="22" fill="none" stroke="var(--neon-c)" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <div class="feature-title">Token System</div>
+          <div class="feature-desc">CSS variables — đổi theme trong giây.</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg width="22" height="22" fill="none" stroke="var(--neon-g)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="feature-title">Accessibility</div>
+          <div class="feature-desc">WCAG AA contrast, ARIA roles.</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg width="22" height="22" fill="none" stroke="var(--neon-p)" stroke-width="1.8" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+          </div>
+          <div class="feature-title">Responsive</div>
+          <div class="feature-desc">Mobile-first, 3 breakpoints.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       KITS SECTION
+       ============================ -->
+  <section class="section" id="kits">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">Bộ sưu tập</div>
+        <h2 class="section-title">Chọn kit cho<br/>sản phẩm của bạn</h2>
+        <p class="section-sub">Mỗi kit là một hệ thống hoàn chỉnh: tokens, components, patterns và motion.</p>
+      </div>
+
+      <!-- Filters -->
+      <div class="filter-bar reveal" id="kitFilters">
+        <button class="filter-chip is-on" data-cat="all">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          Tất cả
+        </button>
+        <button class="filter-chip" data-cat="commerce">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          Commerce
+        </button>
+        <button class="filter-chip" data-cat="finance">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          Finance
+        </button>
+        <button class="filter-chip" data-cat="health">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          Health
+        </button>
+        <button class="filter-chip" data-cat="travel">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+          Travel
+        </button>
+        <button class="filter-chip" data-cat="admin">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Admin
+        </button>
+        <button class="filter-chip" data-cat="music">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          Music
+        </button>
+        <button class="filter-chip" data-cat="property">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Property
+        </button>
+        <button class="filter-chip" data-cat="food">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          Food
+        </button>
+        <button class="filter-chip" data-cat="education">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          Education
+        </button>
+        <button class="filter-chip" data-cat="fitness">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Fitness
+        </button>
+        <button class="filter-chip" data-cat="social">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          Social
+        </button>
+        <button class="filter-chip" data-cat="ai">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12A10 10 0 0 1 12 2z"/><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="3"/></svg>
+          AI Studio
+        </button>
+        <button class="filter-chip" data-cat="gaming">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Gaming
+        </button>
+        <button class="filter-chip" data-cat="mobility">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          EV Mobility
+        </button>
+        <button class="filter-chip" data-cat="cybersec">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          CyberSec
+        </button>
+        <button class="filter-chip" data-cat="devops">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          DevOps &amp; Cloud
+        </button>
+        <button class="filter-chip" data-cat="smarthome">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          Smart Home
+        </button>
+        <button class="filter-chip" data-cat="web3">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Web3 DEX
+        </button>
+        <button class="filter-chip" data-cat="creative">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          Creative Suite
+        </button>
+      </div>
+
+      <!-- Grid -->
+      <div class="kits-grid" id="kitGrid">
+
+        <!-- Café Luxe -->
+        <article class="kit-tile reveal" data-cat="commerce">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#1a1000,#2a1a05)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,#c9a227,transparent 70%);"></div>
+            <div class="kit-preview__screen" style="background:#1f1407">
+              <div class="kit-preview__bar" style="background:linear-gradient(90deg,#c9a227,#e6c96b);width:50%"></div>
+              <div class="kit-preview__row">
+                <div class="kit-preview__block" style="flex:1;background:rgba(201,162,39,0.15);border:1px solid rgba(201,162,39,0.25);display:grid;place-items:center;padding:10px;color:#e6c96b">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                </div>
+                <div class="kit-preview__block" style="flex:1;background:rgba(201,162,39,0.15);border:1px solid rgba(201,162,39,0.25);display:grid;place-items:center;padding:10px;color:#e6c96b">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 8l1.75 12.28A2 2 0 0 0 9.74 22h4.52a2 2 0 0 0 1.99-1.72L18 8H6Z"/><line x1="4" y1="8" x2="20" y2="8"/><line x1="10" y1="8" x2="14" y2="2"/></svg>
+                </div>
+              </div>
+              <div class="kit-preview__bar" style="background:rgba(201,162,39,0.3);width:70%"></div>
+            </div>
+          </div>
+          <span class="kit-badge b-featured">Featured</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">Café Luxe</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">48 components</span>
+              <span class="kit-tag">Dark mode</span>
+              <span class="kit-tag">Commerce</span>
+            </div>
+            <a class="kit-cta" href="cafe-luxe.html">
+              Xem demo
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- FinTech Pro -->
+        <article class="kit-tile reveal" data-cat="finance" style="transition-delay:40ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#00111e,#001a2e)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,var(--neon-b),transparent 70%);right:5%;top:5%"></div>
+            <div class="kit-preview__screen" style="background:#040e1a">
+              <div class="kit-preview__bar" style="background:linear-gradient(90deg,var(--neon-b),var(--neon-c));width:55%"></div>
+              <div class="kit-preview__row">
+                <div class="kit-preview__block" style="flex:2;background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.2);display:flex;align-items:flex-end;gap:3px;padding:6px">
+                  <div style="flex:1;background:var(--neon-b);height:40%;border-radius:2px;opacity:.6"></div>
+                  <div style="flex:1;background:var(--neon-b);height:65%;border-radius:2px;opacity:.8"></div>
+                  <div style="flex:1;background:var(--neon-c);height:50%;border-radius:2px"></div>
+                  <div style="flex:1;background:var(--neon-c);height:80%;border-radius:2px"></div>
+                  <div style="flex:1;background:var(--neon-b);height:45%;border-radius:2px;opacity:.7"></div>
+                </div>
+                <div class="kit-preview__block" style="flex:1;background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.25);display:grid;place-items:center;color:var(--neon-c)">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="kit-badge b-new">New v2.5</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">FinTech Pro</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">62 components</span>
+              <span class="kit-tag">Thẻ ảo 3D</span>
+              <span class="kit-tag">Live Charts</span>
+            </div>
+            <a class="kit-cta" href="kits/fintech.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- Health Care -->
+        <article class="kit-tile reveal" data-cat="health" style="transition-delay:80ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#001a0e,#00261a)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,var(--neon-g),transparent 70%)"></div>
+            <div class="kit-preview__screen" style="background:#040f09">
+              <div class="kit-preview__bar" style="background:linear-gradient(90deg,var(--neon-g),#34d399);width:60%"></div>
+              <div class="kit-preview__row">
+                <div style="width:44px;height:44px;border-radius:50%;background:rgba(16,185,129,0.15);border:2px solid rgba(16,185,129,0.4);display:grid;place-items:center;color:var(--neon-g);flex-shrink:0">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4.5 3v5a4.5 4.5 0 0 0 9 0V3"/><path d="M9 12.5v2.5a4 4 0 0 0 4 4h1a3 3 0 0 0 3-3v-1a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1a5 5 0 0 1-5 5h-1a6 6 0 0 1-6-6v-2.5"/><circle cx="20" cy="10" r="2"/></svg>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:5px;justify-content:center">
+                  <div class="kit-preview__bar" style="background:rgba(16,185,129,0.4);width:90%"></div>
+                  <div class="kit-preview__bar" style="background:rgba(16,185,129,0.2);width:65%"></div>
+                </div>
+              </div>
+              <div class="kit-preview__bar" style="background:rgba(16,185,129,0.2);width:45%"></div>
+            </div>
+          </div>
+          <span class="kit-badge b-fresh">TeleMed</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">Vitalis Health</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">54 components</span>
+              <span class="kit-tag">EKG Vitals</span>
+              <span class="kit-tag">AI Triage</span>
+            </div>
+            <a class="kit-cta" href="kits/health.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- Travel World -->
+        <article class="kit-tile reveal" data-cat="travel" style="transition-delay:120ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#1a0010,#2e001e)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,var(--neon-p),transparent 70%)"></div>
+            <div class="kit-preview__screen" style="background:linear-gradient(135deg,#1a0010,#0a1a2e)">
+              <div style="height:55%;background:linear-gradient(135deg,rgba(236,72,153,0.3),rgba(37,99,235,0.3));border-radius:8px;display:grid;place-items:center;color:#fff">
+                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+              </div>
+              <div class="kit-preview__bar" style="background:linear-gradient(90deg,var(--neon-p),#f43f5e);width:75%;margin-top:6px"></div>
+              <div class="kit-preview__bar" style="background:rgba(236,72,153,0.3);width:50%"></div>
+            </div>
+          </div>
+          <span class="kit-badge b-hot">Luxury</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">WanderLuxe Travel</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">58 components</span>
+              <span class="kit-tag">Lịch trình 4N3Đ</span>
+              <span class="kit-tag">Budget Calc</span>
+            </div>
+            <a class="kit-cta" href="kits/travel.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- Admin Pro -->
+        <article class="kit-tile reveal" data-cat="admin" style="transition-delay:160ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#0c0c0c,#1a1a1a)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,#6b7280,transparent 70%)"></div>
+            <div class="kit-preview__screen" style="background:#111">
+              <div class="kit-preview__row" style="height:100%">
+                <div style="width:40px;background:rgba(255,255,255,0.04);border-radius:6px;border:1px solid rgba(255,255,255,0.06);flex-shrink:0;display:flex;flex-direction:column;gap:6px;padding:6px">
+                  <div style="width:16px;height:16px;border-radius:4px;background:rgba(255,255,255,0.1)"></div>
+                  <div style="width:16px;height:16px;border-radius:4px;background:rgba(124,58,237,0.5)"></div>
+                  <div style="width:16px;height:16px;border-radius:4px;background:rgba(255,255,255,0.07)"></div>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:5px">
+                  <div class="kit-preview__bar" style="background:rgba(255,255,255,0.12);width:80%"></div>
+                  <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:6px;border:1px solid rgba(255,255,255,0.06)"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="kit-badge b-pro">Enterprise</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">Admin Pro</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">74 components</span>
+              <span class="kit-tag">Data Table</span>
+              <span class="kit-tag">RBAC Cloud</span>
+            </div>
+            <a class="kit-cta" href="kits/admin.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- Music Vibes -->
+        <article class="kit-tile reveal" data-cat="music" style="transition-delay:200ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#0a0a0f,#1a0a2e)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,#ff006e,transparent 70%);opacity:.6"></div>
+            <div class="kit-preview__screen" style="background:linear-gradient(180deg,#0a0a0f,#1a1a2e)">
+              <div style="display:flex;gap:3px;align-items:flex-end;height:65%;justify-content:center;padding:0 4px">
+                <div style="flex:1;height:30%;background:#ff006e;border-radius:2px;opacity:.9"></div>
+                <div style="flex:1;height:60%;background:#8338ec;border-radius:2px"></div>
+                <div style="flex:1;height:45%;background:#3a86ff;border-radius:2px;opacity:.9"></div>
+                <div style="flex:1;height:80%;background:#00f5d4;border-radius:2px"></div>
+                <div style="flex:1;height:55%;background:#ffbe0b;border-radius:2px"></div>
+                <div style="flex:1;height:40%;background:#ff006e;border-radius:2px;opacity:.8"></div>
+                <div style="flex:1;height:70%;background:#8338ec;border-radius:2px"></div>
+              </div>
+              <div class="kit-preview__bar" style="background:linear-gradient(90deg,#ff006e,#8338ec);width:60%;margin-top:6px"></div>
+            </div>
+          </div>
+          <span class="kit-badge b-trending">18 Genres</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">Music Vibes Studio</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">18 Full Genres</span>
+              <span class="kit-tag">Web Audio Synth</span>
+              <span class="kit-tag">DJ Sampler</span>
+            </div>
+            <a class="kit-cta" href="kits/music.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- Ecom Luxe -->
+        <article class="kit-tile reveal" data-cat="commerce" style="transition-delay:240ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#1a0018,#2a0028)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,#9b4d6b,transparent 70%);opacity:.7"></div>
+            <div class="kit-preview__screen" style="background:#150010">
+              <div class="kit-preview__row">
+                <div class="kit-preview__block" style="flex:1;background:rgba(155,77,107,0.2);border:1px solid rgba(155,77,107,0.3);height:70px;display:grid;place-items:center;color:#f472b6">
+                  <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                </div>
+                <div class="kit-preview__block" style="flex:1;background:rgba(155,77,107,0.2);border:1px solid rgba(155,77,107,0.3);height:70px;display:grid;place-items:center;color:#f472b6">
+                  <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+                <div class="kit-preview__bar" style="background:linear-gradient(90deg,#c9a227,#e6c96b);width:40%;margin:0"></div>
+                <div style="width:22px;height:22px;border-radius:50%;background:rgba(155,77,107,0.6);border:1px solid rgba(155,77,107,0.4)"></div>
+              </div>
+            </div>
+          </div>
+          <span class="kit-badge b-trending">Couture</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">Maison Aurelia</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">64 components</span>
+              <span class="kit-tag">Cart Drawer</span>
+              <span class="kit-tag">Quick View</span>
+            </div>
+            <a class="kit-cta" href="kits/ecom.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- Property Hub -->
+        <article class="kit-tile reveal" data-cat="property" style="transition-delay:280ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#001a18,#002626)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,#0d9488,transparent 70%)"></div>
+            <div class="kit-preview__screen" style="background:#040f0e">
+              <div class="kit-preview__row">
+                <div class="kit-preview__block" style="flex:1;background:rgba(13,148,136,0.1);border:1px solid rgba(13,148,136,0.3);height:60px;display:grid;place-items:center">
+                  <svg width="20" height="20" fill="none" stroke="#0d9488" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <div class="kit-preview__block" style="flex:1;background:rgba(13,148,136,0.1);border:1px solid rgba(13,148,136,0.3);height:60px;display:grid;place-items:center">
+                  <svg width="20" height="20" fill="none" stroke="#0d9488" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+              </div>
+              <div class="kit-preview__bar" style="background:linear-gradient(90deg,#0d9488,#4ecdc4);width:55%;margin-top:6px"></div>
+            </div>
+          </div>
+          <span class="kit-badge b-trending">Luxury BĐS</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">Property Hub</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">Mortgage Calc</span>
+              <span class="kit-tag">Private Tour</span>
+              <span class="kit-tag">Filter Bar</span>
+            </div>
+            <a class="kit-cta" href="kits/property.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- FoodRush -->
+        <article class="kit-tile reveal" data-cat="food" style="transition-delay:320ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#1a0800,#2e1000)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,#ff6b35,transparent 70%)"></div>
+            <div class="kit-preview__screen" style="background:#120600">
+              <div class="kit-preview__row">
+                <div class="kit-preview__block" style="flex:1;background:rgba(255,107,53,0.15);border:1px solid rgba(255,107,53,0.3);height:65px;display:grid;place-items:center;color:#ff6b35">
+                  <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                </div>
+                <div class="kit-preview__block" style="flex:1;background:rgba(255,107,53,0.15);border:1px solid rgba(255,107,53,0.3);height:65px;display:grid;place-items:center;color:#ff6b35">
+                  <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3.5z"/></svg>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;margin-top:6px">
+                <div style="width:24px;height:24px;border-radius:50%;background:rgba(255,107,53,0.5)"></div>
+                <div class="kit-preview__bar" style="background:rgba(255,107,53,0.4);width:50%;margin:0"></div>
+              </div>
+            </div>
+          </div>
+          <span class="kit-badge b-hot">Live GPS</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">FoodRush</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">Cart Drawer</span>
+              <span class="kit-tag">Live Tracking</span>
+              <span class="kit-tag">Promo 50%</span>
+            </div>
+            <a class="kit-cta" href="kits/food.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- EduSpark -->
+        <article class="kit-tile reveal" data-cat="education" style="transition-delay:360ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#0f0a1e,#1a1030)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,#6c5ce7,transparent 70%)"></div>
+            <div class="kit-preview__screen" style="background:#09061a">
+              <div style="display:flex;gap:10px;justify-content:center;margin-bottom:6px">
+                <div style="width:44px;height:44px;border-radius:50%;border:3px solid rgba(108,92,231,0.3);border-top-color:#6c5ce7;display:grid;place-items:center;font-size:14px;font-weight:700;color:#6c5ce7">84%</div>
+                <div style="width:44px;height:44px;border-radius:50%;border:3px solid rgba(253,121,168,0.3);border-top-color:#fd79a8;display:grid;place-items:center;font-size:14px;font-weight:700;color:#fd79a8">72%</div>
+                <div style="width:44px;height:44px;border-radius:50%;border:3px solid rgba(0,184,148,0.3);border-top-color:#00b894;display:grid;place-items:center;font-size:14px;font-weight:700;color:#00b894">96%</div>
+              </div>
+              <div class="kit-preview__bar" style="background:linear-gradient(90deg,#6c5ce7,#a29bfe);width:65%"></div>
+            </div>
+          </div>
+          <span class="kit-badge b-new">LMS Pro</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">EduSpark</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">Interactive Quiz</span>
+              <span class="kit-tag">Video Studio</span>
+              <span class="kit-tag">Certificate</span>
+            </div>
+            <a class="kit-cta" href="kits/edu.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- FitPulse -->
+        <article class="kit-tile reveal" data-cat="fitness" style="transition-delay:400ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#020a00,#091200)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,#39ff14,transparent 70%);opacity:.4"></div>
+            <div class="kit-preview__screen" style="background:linear-gradient(180deg,#0a0a0a,#111)">
+              <div style="display:flex;gap:3px;align-items:flex-end;height:65%;justify-content:center;padding:0 4px">
+                <div style="flex:1;height:25%;background:#39ff14;border-radius:2px;opacity:.7"></div>
+                <div style="flex:1;height:55%;background:#39ff14;border-radius:2px"></div>
+                <div style="flex:1;height:35%;background:#00e5ff;border-radius:2px;opacity:.9"></div>
+                <div style="flex:1;height:70%;background:#39ff14;border-radius:2px"></div>
+                <div style="flex:1;height:40%;background:#ff6b35;border-radius:2px;opacity:.9"></div>
+                <div style="flex:1;height:80%;background:#39ff14;border-radius:2px"></div>
+              </div>
+              <div class="kit-preview__bar" style="background:linear-gradient(90deg,#39ff14,#00e5ff);width:70%;margin-top:6px"></div>
+            </div>
+          </div>
+          <span class="kit-badge b-hot">Athletic</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">FitPulse</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">EKG Telemetry</span>
+              <span class="kit-tag">Rest Stopwatch</span>
+              <span class="kit-tag">Water Logger</span>
+            </div>
+            <a class="kit-cta" href="kits/fitness.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- SocialPulse -->
+        <article class="kit-tile reveal" data-cat="social" style="transition-delay:440ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#0a0a1e,#10082e)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,#6366f1,transparent 70%)"></div>
+            <div class="kit-preview__screen" style="background:#07071a">
+              <div style="display:flex;gap:6px;margin-bottom:8px">
+                <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#ec4899,#f43f5e)"></div>
+                <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6)"></div>
+                <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444)"></div>
+              </div>
+              <div style="display:flex;gap:6px;align-items:center">
+                <div style="width:22px;height:22px;border-radius:50%;background:rgba(99,102,241,0.3)"></div>
+                <div class="kit-preview__bar" style="background:rgba(99,102,241,0.4);width:45%;margin:0"></div>
+              </div>
+              <div style="display:flex;gap:6px;align-items:center;margin-top:5px">
+                <div style="width:22px;height:22px;border-radius:50%;background:rgba(99,102,241,0.3)"></div>
+                <div class="kit-preview__bar" style="background:rgba(99,102,241,0.3);width:60%;margin:0"></div>
+              </div>
+            </div>
+          </div>
+          <span class="kit-badge b-new">Feed &amp; DMs</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">SocialPulse</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">Stories Modal</span>
+              <span class="kit-tag">Live Feed</span>
+              <span class="kit-tag">DM Messenger</span>
+            </div>
+            <a class="kit-cta" href="kits/social.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- CogniX AI Studio -->
+        <article class="kit-tile reveal" data-cat="ai" style="transition-delay:80ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#0b0717,#14092b)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,var(--neon-v),transparent 70%);"></div>
+            <div class="kit-preview__screen" style="background:#090614">
+              <div class="kit-preview__bar" style="background:linear-gradient(90deg,var(--neon-v),var(--neon-c));width:65%"></div>
+              <div class="kit-preview__row">
+                <div class="kit-preview__block" style="flex:1;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);display:grid;place-items:center;padding:10px;color:var(--neon-c)">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12A10 10 0 0 1 12 2z"/></svg>
+                </div>
+                <div style="flex:1.5;display:flex;flex-direction:column;gap:5px;justify-content:center">
+                  <div class="kit-preview__bar" style="background:rgba(6,182,212,0.5);width:90%;margin:0"></div>
+                  <div class="kit-preview__bar" style="background:rgba(124,58,237,0.4);width:70%;margin:0"></div>
+                  <div class="kit-preview__bar" style="background:rgba(255,255,255,0.2);width:50%;margin:0"></div>
+                </div>
+              </div>
+              <div class="kit-preview__bar" style="background:rgba(124,58,237,0.3);width:45%;margin-top:6px"></div>
+            </div>
+          </div>
+          <span class="kit-badge b-new">GenAI v3.2</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">CogniX AI Studio</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">Prompt Playground</span>
+              <span class="kit-tag">Token Stream</span>
+              <span class="kit-tag">Agent DAG</span>
+            </div>
+            <a class="kit-cta" href="kits/ai.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- Nexus Esports & Gaming -->
+        <article class="kit-tile reveal" data-cat="gaming" style="transition-delay:100ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#05060b,#120917)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,#00f5ff,transparent 70%);"></div>
+            <div class="kit-preview__screen" style="background:#070912">
+              <div class="kit-preview__bar" style="background:linear-gradient(90deg,#00f5ff,#f43f5e);width:75%"></div>
+              <div class="kit-preview__row">
+                <div class="kit-preview__block" style="flex:1;background:rgba(0,245,255,0.12);border:1px solid rgba(0,245,255,0.3);display:grid;place-items:center;padding:10px;color:#00f5ff">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <div style="flex:1.5;display:flex;flex-direction:column;gap:5px;justify-content:center">
+                  <div class="kit-preview__bar" style="background:#f43f5e;width:80%;margin:0;opacity:0.7"></div>
+                  <div class="kit-preview__bar" style="background:#00f5ff;width:95%;margin:0;opacity:0.8"></div>
+                </div>
+              </div>
+              <div style="display:flex;gap:4px;margin-top:6px">
+                <div style="flex:1;height:4px;background:#00f5ff;border-radius:2px"></div>
+                <div style="flex:1;height:4px;background:#f43f5e;border-radius:2px"></div>
+              </div>
+            </div>
+          </div>
+          <span class="kit-badge b-new">Esports Arena</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">Nexus Esports</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">Live Match HUD</span>
+              <span class="kit-tag">Bracket BO5</span>
+              <span class="kit-tag">3D Armory</span>
+            </div>
+            <a class="kit-cta" href="kits/gaming.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- Apex EV Cockpit -->
+        <article class="kit-tile reveal" data-cat="mobility" style="transition-delay:120ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#06080d,#0b1522)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,#38bdf8,transparent 70%);"></div>
+            <div class="kit-preview__screen" style="background:#050912">
+              <div class="kit-preview__bar" style="background:linear-gradient(90deg,#38bdf8,#10b981);width:60%"></div>
+              <div class="kit-preview__row">
+                <div class="kit-preview__block" style="flex:1;background:rgba(56,189,248,0.15);border:1px solid rgba(56,189,248,0.3);display:grid;place-items:center;padding:10px;color:#38bdf8">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <div style="flex:1.5;display:flex;flex-direction:column;gap:5px;justify-content:center">
+                  <div class="kit-preview__bar" style="background:#38bdf8;width:88%;margin:0;opacity:0.8"></div>
+                  <div class="kit-preview__bar" style="background:#10b981;width:60%;margin:0;opacity:0.7"></div>
+                </div>
+              </div>
+              <div class="kit-preview__bar" style="background:rgba(56,189,248,0.3);width:50%;margin-top:6px"></div>
+            </div>
+          </div>
+          <span class="kit-badge b-new">Smart EV</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">Apex EV Cockpit</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">Speedo Cluster</span>
+              <span class="kit-tag">Dual Climate</span>
+              <span class="kit-tag">Telematics 360</span>
+            </div>
+            <a class="kit-cta" href="kits/mobility.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- Aegis CyberSec & SOC -->
+        <article class="kit-tile reveal" data-cat="cybersec" style="transition-delay:140ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#06090e,#101722)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,#00f0ff,transparent 70%);"></div>
+            <div class="kit-preview__screen" style="background:#04060a">
+              <div class="kit-preview__bar" style="background:linear-gradient(90deg,#00f0ff,#ff0055);width:85%"></div>
+              <div class="kit-preview__row">
+                <div class="kit-preview__block" style="flex:1;background:rgba(0,240,255,0.12);border:1px solid rgba(0,240,255,0.3);display:grid;place-items:center;padding:10px;color:#00f0ff">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div style="flex:1.5;display:flex;flex-direction:column;gap:5px;justify-content:center">
+                  <div class="kit-preview__bar" style="background:#ff0055;width:90%;margin:0;opacity:0.8"></div>
+                  <div class="kit-preview__bar" style="background:#00f0ff;width:65%;margin:0;opacity:0.7"></div>
+                </div>
+              </div>
+              <div class="kit-preview__bar" style="background:rgba(0,255,136,0.4);width:70%;margin-top:6px"></div>
+            </div>
+          </div>
+          <span class="kit-badge b-new">SOC Intelligence</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">Aegis CyberSec</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">Live SIEM Feed</span>
+              <span class="kit-tag">MITRE ATT&amp;CK</span>
+              <span class="kit-tag">Vector Map</span>
+            </div>
+            <a class="kit-cta" href="kits/cybersec.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- KubeFlow Cloud & DevOps -->
+        <article class="kit-tile reveal" data-cat="devops" style="transition-delay:160ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#070b12,#121a29)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,#38bdf8,transparent 70%);"></div>
+            <div class="kit-preview__screen" style="background:#05080f">
+              <div class="kit-preview__bar" style="background:linear-gradient(90deg,#38bdf8,#6366f1);width:70%"></div>
+              <div class="kit-preview__row">
+                <div class="kit-preview__block" style="flex:1;background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3);display:grid;place-items:center;padding:10px;color:#38bdf8">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                </div>
+                <div style="flex:1.5;display:flex;flex-direction:column;gap:5px;justify-content:center">
+                  <div class="kit-preview__bar" style="background:#6366f1;width:80%;margin:0;opacity:0.8"></div>
+                  <div class="kit-preview__bar" style="background:#10b981;width:95%;margin:0;opacity:0.8"></div>
+                </div>
+              </div>
+              <div class="kit-preview__bar" style="background:rgba(56,189,248,0.3);width:50%;margin-top:6px"></div>
+            </div>
+          </div>
+          <span class="kit-badge b-new">Kubernetes &amp; Cloud</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">KubeFlow Cloud</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">K8s Topology</span>
+              <span class="kit-tag">Canary CI/CD</span>
+              <span class="kit-tag">FinOps Cost</span>
+            </div>
+            <a class="kit-cta" href="kits/devops.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- Synapse Smart Home & IoT -->
+        <article class="kit-tile reveal" data-cat="smarthome" style="transition-delay:180ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#07090e,#141a26)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,#f59e0b,transparent 70%);"></div>
+            <div class="kit-preview__screen" style="background:#06080d">
+              <div class="kit-preview__bar" style="background:linear-gradient(90deg,#f59e0b,#8b5cf6);width:60%"></div>
+              <div class="kit-preview__row">
+                <div class="kit-preview__block" style="flex:1;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);display:grid;place-items:center;padding:10px;color:#f59e0b">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                </div>
+                <div style="flex:1.5;display:flex;flex-direction:column;gap:5px;justify-content:center">
+                  <div class="kit-preview__bar" style="background:#f59e0b;width:85%;margin:0;opacity:0.8"></div>
+                  <div class="kit-preview__bar" style="background:#06b6d4;width:60%;margin:0;opacity:0.7"></div>
+                </div>
+              </div>
+              <div class="kit-preview__bar" style="background:rgba(245,158,11,0.3);width:45%;margin-top:6px"></div>
+            </div>
+          </div>
+          <span class="kit-badge b-new">Smart Living</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">Synapse Home</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">HVAC Thermostat</span>
+              <span class="kit-tag">RGB Matrix</span>
+              <span class="kit-tag">CCTV 24/7</span>
+            </div>
+            <a class="kit-cta" href="kits/smarthome.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- NovaTrade Pro Web3 DEX -->
+        <article class="kit-tile reveal" data-cat="web3" style="transition-delay:200ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#06080e,#101624)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,#00e676,transparent 70%);"></div>
+            <div class="kit-preview__screen" style="background:#04060a">
+              <div class="kit-preview__bar" style="background:linear-gradient(90deg,#00e676,#ff1744);width:75%"></div>
+              <div class="kit-preview__row">
+                <div class="kit-preview__block" style="flex:1;background:rgba(0,230,118,0.15);border:1px solid rgba(0,230,118,0.3);display:grid;place-items:center;padding:10px;color:#00e676">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <div style="flex:1.5;display:flex;flex-direction:column;gap:5px;justify-content:center">
+                  <div class="kit-preview__bar" style="background:#00e676;width:95%;margin:0;opacity:0.8"></div>
+                  <div class="kit-preview__bar" style="background:#ff1744;width:60%;margin:0;opacity:0.7"></div>
+                </div>
+              </div>
+              <div class="kit-preview__bar" style="background:rgba(240,185,11,0.4);width:55%;margin-top:6px"></div>
+            </div>
+          </div>
+          <span class="kit-badge b-new">Web3 &amp; DEX</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">NovaTrade Pro</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">TradingView Chart</span>
+              <span class="kit-tag">Order Book Live</span>
+              <span class="kit-tag">Leverage 100x</span>
+            </div>
+            <a class="kit-cta" href="kits/web3.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <!-- Spectra Studio Video & Creative Suite -->
+        <article class="kit-tile reveal" data-cat="creative" style="transition-delay:220ms">
+          <div class="kit-preview" style="background:linear-gradient(135deg,#08090f,#141926)">
+            <div class="kit-preview__blob" style="background:radial-gradient(circle,#ec4899,transparent 70%);"></div>
+            <div class="kit-preview__screen" style="background:#05070c">
+              <div class="kit-preview__bar" style="background:linear-gradient(90deg,#6366f1,#ec4899);width:80%"></div>
+              <div class="kit-preview__row">
+                <div class="kit-preview__block" style="flex:1;background:rgba(236,72,153,0.15);border:1px solid rgba(236,72,153,0.3);display:grid;place-items:center;padding:10px;color:#ec4899">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                </div>
+                <div style="flex:1.5;display:flex;flex-direction:column;gap:5px;justify-content:center">
+                  <div class="kit-preview__bar" style="background:#6366f1;width:90%;margin:0;opacity:0.8"></div>
+                  <div class="kit-preview__bar" style="background:#06b6d4;width:70%;margin:0;opacity:0.7"></div>
+                </div>
+              </div>
+              <div class="kit-preview__bar" style="background:rgba(236,72,153,0.3);width:60%;margin-top:6px"></div>
+            </div>
+          </div>
+          <span class="kit-badge b-new">Creative Studio</span>
+          <div class="kit-body">
+            <div class="kit-meta">
+              <div class="kit-name">Spectra Studio</div>
+              <svg width="16" height="16" fill="none" stroke="var(--txt-3)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+            <div class="kit-tags">
+              <span class="kit-tag">NLE Timeline</span>
+              <span class="kit-tag">3-Way Color Wheels</span>
+              <span class="kit-tag">AI Subtitles</span>
+            </div>
+            <a class="kit-cta" href="kits/creative.html">Xem demo <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+      </div><!-- /kits-grid -->
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================
+       COMPONENT LAB
+       ============================ -->
+  <section class="section" id="lab">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">Live Lab</div>
+        <h2 class="section-title">Tương tác trực tiếp</h2>
+        <p class="section-sub">Click, hover, toggle — cảm nhận micro-interaction ngay trong trình duyệt.</p>
+      </div>
+
+      <div class="lab-wrap reveal">
+        <!-- Tabs -->
+        <div class="lab-tabs">
+          <button class="lab-tab is-on" data-panel="buttons">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="8" rx="4"/></svg>
+            Buttons
+          </button>
+          <button class="lab-tab" data-panel="inputs">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h10M7 13h6"/></svg>
+            Inputs
+          </button>
+          <button class="lab-tab" data-panel="cards">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            Cards
+          </button>
+          <button class="lab-tab" data-panel="overlays">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6M9 13h4"/></svg>
+            Overlays
+          </button>
+        </div>
+
+        <!-- Buttons panel -->
+        <div class="lab-panel is-on" id="panel-buttons">
+          <div class="comp-row">
+            <button class="demo-btn demo-btn--v">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              Primary
+            </button>
+            <button class="demo-btn demo-btn--c">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              Cyan
+            </button>
+            <button class="demo-btn demo-btn--p">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+              Pink
+            </button>
+            <button class="demo-btn demo-btn--g">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Success
+            </button>
+            <button class="demo-btn demo-btn--outline">Outline</button>
+            <button class="demo-btn demo-btn--glass">Glass</button>
+          </div>
+          <div class="comp-row">
+            <label class="demo-toggle" id="toggle1">
+              <div class="toggle-track"></div>
+              Thông báo
+            </label>
+            <label class="demo-toggle is-on" id="toggle2">
+              <div class="toggle-track"></div>
+              Dark mode native
+            </label>
+            <label class="demo-toggle" id="toggle3">
+              <div class="toggle-track"></div>
+              Auto-sync
+            </label>
+          </div>
+        </div>
+
+        <!-- Inputs panel -->
+        <div class="lab-panel" id="panel-inputs">
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:720px">
+            <div class="demo-field">
+              <label class="demo-label">Họ tên</label>
+              <input class="demo-input" placeholder="Nguyễn Văn A">
+            </div>
+            <div class="demo-field">
+              <label class="demo-label">Email</label>
+              <div style="position:relative">
+                <svg style="position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.4" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <input class="demo-input" placeholder="ban@email.com" style="padding-left:36px">
+              </div>
+            </div>
+            <div class="demo-field">
+              <label class="demo-label">Danh mục</label>
+              <select class="demo-input">
+                <option>Commerce</option><option>Finance</option><option>Health</option>
+              </select>
+            </div>
+            <div class="demo-field">
+              <label class="demo-label">Trạng thái lỗi</label>
+              <input class="demo-input" value="invalid@" style="border-color:rgba(239,68,68,0.6);box-shadow:0 0 0 3px rgba(239,68,68,0.1)">
+              <div style="font-size:12px;color:#ef4444;margin-top:5px;display:flex;align-items:center;gap:4px">
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                Email không hợp lệ
+              </div>
+            </div>
+            <div class="demo-field" style="grid-column:1/-1">
+              <label class="demo-label">Ghi chú</label>
+              <textarea class="demo-input" rows="3" placeholder="Ghi chú đơn hàng…" style="resize:vertical"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cards panel -->
+        <div class="lab-panel" id="panel-cards">
+          <div class="demo-cards">
+            <div class="demo-card">
+              <div class="demo-card__img" style="background:radial-gradient(circle at center, rgba(201,162,39,0.25), transparent 70%), linear-gradient(135deg,#1a1000,#2a1a05)">
+                <div style="width:68px;height:68px;border-radius:20px;background:linear-gradient(135deg,#3b1c0a,#c9a227);display:grid;place-items:center;box-shadow:0 10px 30px rgba(201,162,39,0.35);color:#fff">
+                  <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                </div>
+              </div>
+              <div class="demo-card__body">
+                <div class="demo-card__name">Iced Caramel Latte</div>
+                <div class="demo-card__meta" style="display:flex;align-items:center;gap:5px">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <span>4.9 · 128 đánh giá</span>
+                </div>
+                <div class="demo-card__foot">
+                  <div class="demo-card__price" style="color:var(--neon-o)">69.000₫</div>
+                  <button class="add-btn" aria-label="Thêm vào giỏ">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <div class="demo-card__img" style="background:radial-gradient(circle at center, rgba(236,72,153,0.25), transparent 70%), linear-gradient(135deg,#0a0a0f,#1a1a2e)">
+                <div style="width:68px;height:68px;border-radius:20px;background:linear-gradient(135deg,#ff006e,#8338ec);display:grid;place-items:center;box-shadow:0 10px 30px rgba(236,72,153,0.35);color:#fff">
+                  <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                </div>
+              </div>
+              <div class="demo-card__body">
+                <div class="demo-card__name">Neon Beats</div>
+                <div class="demo-card__meta" style="display:flex;align-items:center;gap:5px">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#ec4899" stroke="#ec4899" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <span>4.8 · Playlist · 24 tracks</span>
+                </div>
+                <div class="demo-card__foot">
+                  <div class="demo-card__price" style="color:var(--neon-p)">Free</div>
+                  <button class="add-btn" style="background:linear-gradient(135deg,var(--neon-p),#f43f5e)" aria-label="Phát nhạc">
+                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <div class="demo-card__img" style="background:radial-gradient(circle at center, rgba(16,185,129,0.25), transparent 70%), linear-gradient(135deg,#001a0e,#00261a)">
+                <div style="width:68px;height:68px;border-radius:20px;background:linear-gradient(135deg,#064e3b,#10b981);display:grid;place-items:center;box-shadow:0 10px 30px rgba(16,185,129,0.35);color:#fff">
+                  <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+              </div>
+              <div class="demo-card__body">
+                <div class="demo-card__name">Vista Skyline</div>
+                <div class="demo-card__meta" style="display:flex;align-items:center;gap:5px">
+                  <svg width="12" height="12" fill="none" stroke="var(--neon-g)" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <span>3 PN · 2 WC · 85m²</span>
+                </div>
+                <div class="demo-card__foot">
+                  <div class="demo-card__price" style="color:var(--neon-g)">2.5 tỷ</div>
+                  <button class="add-btn" style="background:linear-gradient(135deg,var(--neon-g),#34d399)" aria-label="Xem chi tiết">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Overlays panel -->
+        <div class="lab-panel" id="panel-overlays">
+          <div class="comp-row">
+            <button class="demo-btn demo-btn--v" id="openModal">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6M9 13h4"/></svg>
+              Mở Modal
+            </button>
+            <button class="demo-btn demo-btn--c" id="openDrawer">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 3h18v18H3zM15 3v18"/></svg>
+              Mở Drawer
+            </button>
+            <button class="demo-btn demo-btn--g" id="showToast">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              Show Toast
+            </button>
+          </div>
+          <div style="margin-top:24px;border-radius:var(--r-xl);overflow:hidden;background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(6,182,212,0.1));border:1px solid rgba(124,58,237,0.2);padding:32px">
+            <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--neon-c);font-weight:600;margin-bottom:10px">Ưu đãi thành viên</div>
+            <h3 style="font-family:var(--font-h);font-size:22px;font-weight:800;margin-bottom:8px">Mua 2 tặng 1 · Tasting Box</h3>
+            <p style="color:var(--txt-2);font-size:14px">Combo 3 ly đặc trưng và giảm 15%.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================
+       MOTION SECTION
+       ============================ -->
+  <section class="section" id="motion">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">Motion System</div>
+        <h2 class="section-title">Animation<br/>có chủ đích</h2>
+        <p class="section-sub">8 primitives được tinh chỉnh — tôn trọng prefers-reduced-motion.</p>
+      </div>
+
+      <div class="motion-grid">
+        <div class="motion-card reveal">
+          <div class="motion-stage"><div class="motion-shape m-float"></div></div>
+          <div class="motion-name">Float</div>
+          <div class="motion-desc">Khoảng lặng & sinh động</div>
+        </div>
+        <div class="motion-card reveal" style="transition-delay:40ms">
+          <div class="motion-stage"><div class="motion-shape m-shimmer"></div></div>
+          <div class="motion-name">Shimmer</div>
+          <div class="motion-desc">Loading & spotlight</div>
+        </div>
+        <div class="motion-card reveal" style="transition-delay:80ms">
+          <div class="motion-stage"><div class="motion-shape m-spin"></div></div>
+          <div class="motion-name">Spin</div>
+          <div class="motion-desc">Orbit & loading state</div>
+        </div>
+        <div class="motion-card reveal" style="transition-delay:120ms">
+          <div class="motion-stage"><div class="motion-shape m-morph"></div></div>
+          <div class="motion-name">Morph</div>
+          <div class="motion-desc">Blob background sống</div>
+        </div>
+        <div class="motion-card reveal" style="transition-delay:160ms">
+          <div class="motion-stage"><div class="motion-shape m-pulse"></div></div>
+          <div class="motion-name">Pulse</div>
+          <div class="motion-desc">Attention & notification</div>
+        </div>
+        <div class="motion-card reveal" style="transition-delay:200ms">
+          <div class="motion-stage"><div class="motion-shape m-bounce"></div></div>
+          <div class="motion-name">Bounce</div>
+          <div class="motion-desc">Spring delight</div>
+        </div>
+        <div class="motion-card reveal" style="transition-delay:240ms">
+          <div class="motion-stage" style="overflow:visible">
+            <div class="m-wave" style="width:64px;height:64px;background:var(--bg-2);border-radius:50%;overflow:hidden">
+              <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            </div>
+          </div>
+          <div class="motion-name">Wave</div>
+          <div class="motion-desc">Audio & equalizer</div>
+        </div>
+        <div class="motion-card reveal" style="transition-delay:280ms">
+          <div class="motion-stage" style="overflow:hidden">
+            <div class="m-skeleton" style="width:100%;height:100%;border-radius:50%"></div>
+          </div>
+          <div class="motion-name">Skeleton</div>
+          <div class="motion-desc">Content placeholder</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================
+       TOKENS SECTION
+       ============================ -->
+  <section class="section" id="tokens">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">Design Tokens</div>
+        <h2 class="section-title">Hệ màu & token<br/>có thể tuỳ biến</h2>
+        <p class="section-sub">CSS variables — đổi theme, palette trong vài giây. Click swatch để copy.</p>
+      </div>
+
+      <div class="tokens-grid reveal">
+        <div class="token-swatch" style="background:var(--neon-v)" title="Neon Violet #7c3aed" onclick="copyColor('#7c3aed',this)"><span class="token-label">violet</span></div>
+        <div class="token-swatch" style="background:var(--neon-b)" title="Neon Blue #2563eb" onclick="copyColor('#2563eb',this)"><span class="token-label">blue</span></div>
+        <div class="token-swatch" style="background:var(--neon-c)" title="Neon Cyan #06b6d4" onclick="copyColor('#06b6d4',this)"><span class="token-label">cyan</span></div>
+        <div class="token-swatch" style="background:var(--neon-g)" title="Neon Green #10b981" onclick="copyColor('#10b981',this)"><span class="token-label">green</span></div>
+        <div class="token-swatch" style="background:var(--neon-p)" title="Neon Pink #ec4899" onclick="copyColor('#ec4899',this)"><span class="token-label">pink</span></div>
+        <div class="token-swatch" style="background:var(--neon-o)" title="Neon Amber #f59e0b" onclick="copyColor('#f59e0b',this)"><span class="token-label">amber</span></div>
+        <div class="token-swatch" style="background:#f43f5e" onclick="copyColor('#f43f5e',this)"><span class="token-label">rose</span></div>
+        <div class="token-swatch" style="background:#8b5cf6" onclick="copyColor('#8b5cf6',this)"><span class="token-label">purple</span></div>
+        <div class="token-swatch" style="background:#0d9488" onclick="copyColor('#0d9488',this)"><span class="token-label">teal</span></div>
+        <div class="token-swatch" style="background:var(--bg-3);border:1px solid var(--glass-bd)" onclick="copyColor('#1a1a28',this)"><span class="token-label">surface</span></div>
+      </div>
+
+      <!-- Code block -->
+      <div class="code-block reveal" id="start" style="max-width:800px;margin:0 auto">
+        <div class="code-block__header">
+          <div class="code-dots">
+            <div class="code-dot code-dot--r"></div>
+            <div class="code-dot code-dot--y"></div>
+            <div class="code-dot code-dot--g"></div>
+          </div>
+          <span class="code-lang">HTML · Getting Started</span>
+          <button class="code-copy" id="copyCode">Copy</button>
+        </div>
+        <div class="code-body">
+          <div class="code-line"><span class="code-ln">1</span><span class="cm">&lt;!-- 1. Link tokens --&gt;</span></div>
+          <div class="code-line"><span class="code-ln">2</span><span class="tag">&lt;link</span> <span class="kw">rel</span>=<span class="str">"stylesheet"</span> <span class="kw">href</span>=<span class="str">"styles/tokens.css"</span> <span class="tag">/&gt;</span></div>
+          <div class="code-line"><span class="code-ln">3</span><span class="tag">&lt;link</span> <span class="kw">rel</span>=<span class="str">"stylesheet"</span> <span class="kw">href</span>=<span class="str">"styles/components.css"</span> <span class="tag">/&gt;</span></div>
+          <div class="code-line"><span class="code-ln">4</span></div>
+          <div class="code-line"><span class="code-ln">5</span><span class="cm">&lt;!-- 2. Dark mode --&gt;</span></div>
+          <div class="code-line"><span class="code-ln">6</span><span class="tag">&lt;html</span> <span class="kw">data-theme</span>=<span class="str">"dark"</span><span class="tag">&gt;</span></div>
+          <div class="code-line"><span class="code-ln">7</span></div>
+          <div class="code-line"><span class="code-ln">8</span><span class="cm">&lt;!-- 3. Use component --&gt;</span></div>
+          <div class="code-line"><span class="code-ln">9</span><span class="tag">&lt;button</span> <span class="kw">class</span>=<span class="str">"btn btn--neon btn--lg"</span><span class="tag">&gt;</span>Launch <span class="tag">&lt;/button&gt;</span><span class="cursor"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       FOOTER CTA
+       ============================ -->
+  <section style="position:relative;z-index:1;padding:0 0 40px">
+    <div class="container">
+      <div class="footer-cta reveal">
+        <div class="footer-cta__content">
+          <div class="section-eyebrow" style="justify-content:center;margin-bottom:20px">Ready to ship?</div>
+          <h2 class="footer-cta__title">Bắt đầu từ showroom này.<br/>Copy · Tune · Publish.</h2>
+          <p style="color:rgba(255,255,255,0.85);font-size:15px;margin-bottom:32px">Tất cả đều được tối ưu cho hiệu năng, animation mượt và accessibility.</p>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+            <a class="cta-primary" href="cafe-luxe.html">
+              <span>Xem sản phẩm demo</span>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a class="cta-secondary" href="showcase.html">Component Showcase</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       FOOTER
+       ============================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <span style="background:linear-gradient(90deg,var(--neon-v),var(--neon-c));-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-flex;align-items:center;gap:6px">
+              <svg width="16" height="16" fill="none" stroke="var(--neon-c)" stroke-width="2.2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              UI Showroom
+            </span>
+          </div>
+          <p class="footer-desc">Thư viện UI kit thế hệ mới — token-driven, dark mode native, animation mượt mà. Built with <svg width="12" height="12" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align:middle;display:inline-block"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> in Vietnam.</p>
+          <div class="socials" style="margin-top:20px">
+            <a class="social-btn" href="#" aria-label="Instagram">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a class="social-btn" href="#" aria-label="GitHub">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            </a>
+            <a class="social-btn" href="#" aria-label="TikTok">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M19.6 8.3a5 5 0 0 1-3.1-1.1v7.4a6.6 6.6 0 1 1-6.6-6.6c.3 0 .6 0 .9.1v3.3a3.3 3.3 0 1 0 2.4 3.2V2h3.3a5 5 0 0 0 3.1 3.1v3.2z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Kits</h5>
+          <a href="#kits">Café Luxe</a>
+          <a href="#kits">FinTech Pro</a>
+          <a href="#kits">Health Care</a>
+          <a href="#kits">Travel World</a>
+          <a href="#kits">Music Vibes</a>
+        </div>
+        <div class="footer-col">
+          <h5>Resources</h5>
+          <a href="showcase.html">Component Showcase</a>
+          <a href="#motion">Motion System</a>
+          <a href="#tokens">Design Tokens</a>
+          <a href="#start">Getting Started</a>
+        </div>
+        <div class="footer-col">
+          <h5>More</h5>
+          <a href="kits/fitness.html">FitPulse</a>
+          <a href="kits/social.html">SocialPulse</a>
+          <a href="kits/edu.html">EduSpark</a>
+          <a href="kits/food.html">FoodRush</a>
+          <a href="kits/ai.html">CogniX AI Studio</a>
+          <a href="kits/gaming.html">Nexus Esports</a>
+          <a href="kits/mobility.html">Apex EV Cockpit</a>
+          <a href="kits/cybersec.html">Aegis CyberSec</a>
+          <a href="kits/devops.html">KubeFlow Cloud</a>
+          <a href="kits/smarthome.html">Synapse Home</a>
+          <a href="kits/web3.html">NovaTrade Pro</a>
+          <a href="kits/creative.html">Spectra Studio</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 UI Showroom. All rights reserved.</span>
+        <span style="display:inline-flex;align-items:center;gap:5px">Made with <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--neon-o)"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> &amp; <svg width="12" height="12" viewBox="0 0 24 24" fill="#ef4444"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> in Vietnam</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================
+       OVERLAYS
+       ============================ -->
+  <!-- Modal -->
+  <div class="overlay-bg" id="modalBg"></div>
+  <div class="modal" id="modal">
+    <button class="modal__close" id="closeModal">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div style="margin-bottom:20px">
+      <div class="section-eyebrow" style="margin-bottom:8px">Modal Component</div>
+      <h3 style="font-family:var(--font-h);font-size:22px;font-weight:800;margin-bottom:10px">Scale-in với backdrop blur</h3>
+      <p style="color:var(--txt-2);font-size:14px;line-height:1.6">Component modal với spring animation, esc-close và click-outside-close. Token-driven, accessible.</p>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button class="demo-btn demo-btn--v" id="closeModal2">Xác nhận</button>
+      <button class="demo-btn demo-btn--outline" id="closeModal3">Huỷ</button>
+    </div>
+  </div>
+
+  <!-- Drawer -->
+  <div class="overlay-bg" id="drawerBg"></div>
+  <aside class="drawer" id="drawer">
+    <div class="drawer__head">
+      <h3 style="font-family:var(--font-h);font-weight:700">Drawer Panel</h3>
+      <button class="modal__close" id="closeDrawer">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="drawer__body">
+      <p style="color:var(--txt-2);font-size:14px;line-height:1.6">Nội dung drawer trượt mượt từ phải. Backdrop blur, ESC-close, swipe-support.</p>
+      <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px">
+        <div style="padding:14px;background:var(--glass-bg);border:1px solid var(--glass-bd);border-radius:var(--r-md);font-size:14px">
+          <div style="font-weight:600;margin-bottom:4px">Kit Settings</div>
+          <div style="color:var(--txt-3)">Dark mode · Token export · Figma sync</div>
+        </div>
+        <div style="padding:14px;background:var(--glass-bg);border:1px solid var(--glass-bd);border-radius:var(--r-md);font-size:14px">
+          <div style="font-weight:600;margin-bottom:4px">Animation Config</div>
+          <div style="color:var(--txt-3)">Spring · Float · Morph · Shimmer</div>
+        </div>
+      </div>
+    </div>
+    <div class="drawer__foot">
+      <button class="demo-btn demo-btn--v" id="closeDrawer2" style="width:100%;justify-content:center">Đóng Drawer</button>
+    </div>
+  </aside>
+
+  <!-- Toast area -->
+  <div class="toast-area" id="toastArea"></div>
+
+  <!-- ============================
+       SCRIPTS
+       ============================ -->
+  <script>
+  /* ============================================================
+     NEXT-GEN SHOWROOM — Interactions
+     ============================================================ */
+
+  // ---- Theme ----
+  let theme = localStorage.getItem('ui-theme') || 'dark';
+  const html = document.documentElement;
+  const themeBtn = document.getElementById('themeBtn');
+
+  function applyTheme(t) {
+    theme = t;
+    html.setAttribute('data-theme', t);
+    localStorage.setItem('ui-theme', t);
+
+    // Clean up any legacy manual inline property overrides
+    ['--bg-0','--bg-1','--bg-2','--bg-3','--txt','--txt-2','--txt-3','--glass-bg','--glass-bd','--glass-hv'].forEach(p => html.style.removeProperty(p));
+
+    // Update icon & tooltip
+    const isDark = t === 'dark';
+    themeBtn.innerHTML = isDark
+      ? `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`
+      : `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>`;
+    themeBtn.setAttribute('title', isDark ? 'Chuyển sang giao diện Sáng' : 'Chuyển sang giao diện Tối');
+    themeBtn.setAttribute('aria-label', isDark ? 'Chuyển sang giao diện Sáng' : 'Chuyển sang giao diện Tối');
+  }
+  applyTheme(theme);
+  themeBtn.addEventListener('click', () => applyTheme(theme === 'dark' ? 'light' : 'dark'));
+
+  // ---- Mobile menu ----
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  menuBtn.addEventListener('click', () => mobileNav.classList.toggle('is-open'));
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileNav.classList.remove('is-open')));
+
+  // ---- Reveal on scroll ----
+  const revealAll = () => {
+    document.querySelectorAll('.reveal').forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.9)
+        el.classList.add('is-in');
+    });
+  };
+  window.addEventListener('scroll', revealAll, { passive: true });
+  revealAll();
+
+  // ---- Counter animation ----
+  let counted = false;
+  function animCounts() {
+    if (counted) return;
+    const stats = document.querySelector('.hero__stats');
+    if (!stats) return;
+    if (stats.getBoundingClientRect().top > window.innerHeight) return;
+    counted = true;
+    stats.querySelectorAll('[data-count]').forEach(el => {
+      const target = +el.dataset.count;
+      const dur = 1800;
+      const start = performance.now();
+      const suffix = target === 600 ? '+' : target === 100 ? '%' : '';
+      const tick = (now) => {
+        const t = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - t, 4);
+        el.textContent = Math.round(target * eased) + suffix;
+        if (t < 1) requestAnimationFrame(tick);
+        else el.textContent = target + suffix;
+      };
+      requestAnimationFrame(tick);
+    });
+  }
+  window.addEventListener('scroll', animCounts, { passive: true });
+  setTimeout(animCounts, 800);
+
+  // ---- 3D tilt on hero stage ----
+  const heroStage = document.getElementById('heroStage');
+  const kitStack = document.getElementById('kitStack');
+  if (heroStage && kitStack) {
+    heroStage.addEventListener('mousemove', e => {
+      const r = heroStage.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      kitStack.style.transform = `rotateY(${x * 18}deg) rotateX(${-y * 14}deg)`;
+    });
+    heroStage.addEventListener('mouseleave', () => { kitStack.style.transform = ''; });
+  }
+
+  // ---- 3D tilt on kit tiles ----
+  document.querySelectorAll('.kit-tile').forEach(tile => {
+    tile.addEventListener('mousemove', e => {
+      const r = tile.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      tile.style.transform = `perspective(800px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-8px)`;
+    });
+    tile.addEventListener('mouseleave', () => { tile.style.transform = ''; });
+  });
+
+  // ---- Kits filter ----
+  const filterBar = document.getElementById('kitFilters');
+  filterBar.addEventListener('click', e => {
+    const chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    filterBar.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('is-on'));
+    chip.classList.add('is-on');
+    const cat = chip.dataset.cat;
+    document.querySelectorAll('#kitGrid .kit-tile').forEach(tile => {
+      const show = cat === 'all' || tile.dataset.cat === cat;
+      tile.style.display = show ? '' : 'none';
+    });
+  });
+
+  // ---- Lab tabs ----
+  document.querySelectorAll('.lab-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.lab-tab').forEach(t => t.classList.remove('is-on'));
+      document.querySelectorAll('.lab-panel').forEach(p => p.classList.remove('is-on'));
+      tab.classList.add('is-on');
+      const panel = document.getElementById('panel-' + tab.dataset.panel);
+      if (panel) panel.classList.add('is-on');
+    });
+  });
+
+  // ---- Toggles in lab ----
+  ['toggle1','toggle2','toggle3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('click', () => el.classList.toggle('is-on'));
+  });
+
+  // ---- Toast ----
+  function showToast(msg, color = 'var(--neon-g)') {
+    const area = document.getElementById('toastArea');
+    const el = document.createElement('div');
+    el.className = 'toast';
+    el.innerHTML = `
+      <div class="toast__icon toast__icon--ok">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <span>${msg}</span>`;
+    area.appendChild(el);
+    setTimeout(() => {
+      el.classList.add('is-out');
+      setTimeout(() => el.remove(), 350);
+    }, 3000);
+  }
+  document.getElementById('showToast').addEventListener('click', () => showToast('Toast hiện thành công!'));
+
+  // ---- Add btn toast ----
+  document.querySelectorAll('.add-btn').forEach(b => b.addEventListener('click', () => showToast('Đã thêm vào giỏ (demo)')));
+
+  // ---- Modal ----
+  const modalBg = document.getElementById('modalBg');
+  const modal = document.getElementById('modal');
+  function openModal() { modal.classList.add('is-open'); modalBg.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
+  function closeModalFn() { modal.classList.remove('is-open'); modalBg.classList.remove('is-open'); document.body.style.overflow = ''; }
+  document.getElementById('openModal').addEventListener('click', openModal);
+  document.getElementById('closeModal').addEventListener('click', closeModalFn);
+  document.getElementById('closeModal2').addEventListener('click', closeModalFn);
+  document.getElementById('closeModal3').addEventListener('click', closeModalFn);
+  modalBg.addEventListener('click', closeModalFn);
+
+  // ---- Drawer ----
+  const drawerBg = document.getElementById('drawerBg');
+  const drawer = document.getElementById('drawer');
+  function openDrawer() { drawer.classList.add('is-open'); drawerBg.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
+  function closeDrawerFn() { drawer.classList.remove('is-open'); drawerBg.classList.remove('is-open'); document.body.style.overflow = ''; }
+  document.getElementById('openDrawer').addEventListener('click', openDrawer);
+  document.getElementById('closeDrawer').addEventListener('click', closeDrawerFn);
+  document.getElementById('closeDrawer2').addEventListener('click', closeDrawerFn);
+  drawerBg.addEventListener('click', closeDrawerFn);
+
+  // ESC key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeModalFn(); closeDrawerFn(); mobileNav.classList.remove('is-open'); }
+  });
+
+  // ---- Copy color ----
+  function copyColor(val, el) {
+    navigator.clipboard?.writeText(val);
+    showToast(`Copied: ${val}`);
+    el.style.transform = 'scale(1.15) rotate(-4deg)';
+    setTimeout(() => { el.style.transform = ''; }, 400);
+  }
+
+  // ---- Copy code ----
+  document.getElementById('copyCode').addEventListener('click', function() {
+    const code = `<link rel="stylesheet" href="styles/tokens.css" />\n<link rel="stylesheet" href="styles/components.css" />\n\n<html data-theme="dark">\n\n<button class="btn btn--neon btn--lg">Launch</button>`;
+    navigator.clipboard?.writeText(code);
+    this.textContent = 'Copied!';
+    setTimeout(() => { this.textContent = 'Copy'; }, 2000);
+  });
+
+  // ---- Particle system for hero ----
+  const heroVisual = document.getElementById('heroVisual');
+  if (heroVisual) {
+    for (let i = 0; i < 20; i++) {
+      const p = document.createElement('div');
+      const size = 2 + Math.random() * 5;
+      const colors = ['var(--neon-v)','var(--neon-c)','var(--neon-p)','var(--neon-g)'];
+      p.style.cssText = `
+        position:absolute;
+        width:${size}px; height:${size}px;
+        border-radius:50%;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        left:${Math.random()*100}%;
+        top:${Math.random()*100}%;
+        opacity:${0.2 + Math.random()*0.5};
+        pointer-events:none;
+        animation:float ${3 + Math.random()*6}s ease-in-out ${Math.random()*4}s infinite alternate;
+        box-shadow:0 0 ${size*3}px currentColor;
+      `;
+      heroVisual.appendChild(p);
+    }
+  }
+
+  // Float keyframe for particles
+  const style = document.createElement('style');
+  style.textContent = `@keyframes float { 0%{transform:translate(0,0)} 100%{transform:translate(${Math.random()*30-15}px,${Math.random()*-40-10}px)} }`;
+  document.head.appendChild(style);
+
+  // ---- Navbar scroll effect ----
+  window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+    if (navbar) navbar.classList.toggle('is-scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  // ---- Nav active on scroll ----
+  const sections = ['kits','lab','motion','tokens','start'];
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top < window.innerHeight * 0.5) current = id;
+    });
+    document.querySelectorAll('.navbar__nav .nav-link').forEach(l => {
+      l.classList.toggle('is-active', l.getAttribute('href') === '#' + current);
+    });
+  }, { passive: true });
+  </script>
+</body>
+</html>

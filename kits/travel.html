@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WanderLuxe Travel — Premium Voyage & Expedition UI Kit</title>
+  <meta name="description" content="Hệ thống UI Kit du lịch cao cấp: tìm kiếm chuyến bay & tour combo thông minh, lịch trình tương tác theo ngày, công cụ tính ngân sách chuyến đi và checklist hành lý." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================================================================
+       WANDERLUXE TRAVEL UI KIT — Voyage & Adventure Design System
+       ================================================================ */
+    :root {
+      --bg-base: #061019;
+      --bg-surface: #0c1a26;
+      --bg-surface-2: #132738;
+      --bg-card: rgba(12, 26, 38, 0.75);
+      --bg-glass: rgba(12, 26, 38, 0.85);
+
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+
+      --txt-primary: #f8fafc;
+      --txt-secondary: #94a3b8;
+      --txt-muted: #64748b;
+
+      --orange: #f97316;
+      --amber: #f59e0b;
+      --cyan: #06b6d4;
+      --teal: #14b8a6;
+      --rose: #f43f5e;
+      --emerald: #10b981;
+
+      --grad-sunset: linear-gradient(135deg, #f97316 0%, #f43f5e 100%);
+      --grad-ocean: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+      --grad-gold: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      --grad-card: linear-gradient(135deg, rgba(19, 39, 56, 0.7) 0%, rgba(12, 26, 38, 0.9) 100%);
+
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-display: 'Playfair Display', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-lg: 24px;
+      --shadow-card: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-2: #f1f5f9;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-glass: rgba(255, 255, 255, 0.9);
+
+      --border-subtle: rgba(0, 0, 0, 0.08);
+      --border-strong: rgba(0, 0, 0, 0.15);
+
+      --txt-primary: #0f172a;
+      --txt-secondary: #475569;
+      --txt-muted: #94a3b8;
+
+      --grad-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      --shadow-card: 0 12px 30px -10px rgba(249, 115, 22, 0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-base);
+      color: var(--txt-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+    /* Weather & Currency Ticker */
+    .trv-topbar {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 10px 0; font-size: 0.8rem;
+    }
+    .trv-topbar__inner {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .trv-weather-badge {
+      display: inline-flex; align-items: center; gap: 6px; color: var(--amber); font-weight: 600;
+    }
+
+    /* Navbar */
+    .trv-nav {
+      position: sticky; top: 0; z-index: 90;
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .trv-nav__inner {
+      display: flex; align-items: center; justify-content: space-between; height: 72px;
+    }
+    .trv-brand {
+      display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--txt-primary);
+    }
+    .trv-brand__logo {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: var(--grad-sunset); display: grid; place-items: center;
+      color: #fff; font-weight: 800; font-size: 1.25rem;
+      box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+    }
+    .trv-brand__name { font-weight: 700; font-size: 1.15rem; }
+    .trv-brand__tag {
+      font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 2px 8px; border-radius: 99px; background: rgba(249, 115, 22, 0.2);
+      color: var(--orange); font-weight: 700; border: 1px solid rgba(249, 115, 22, 0.3);
+    }
+
+    .trv-nav__links { display: flex; align-items: center; gap: 8px; list-style: none; }
+    .trv-nav__link {
+      padding: 8px 16px; border-radius: 99px; font-size: 0.9rem; font-weight: 600;
+      color: var(--txt-secondary); text-decoration: none; transition: all 0.2s;
+    }
+    .trv-nav__link:hover, .trv-nav__link.is-active {
+      color: var(--txt-primary); background: rgba(249, 115, 22, 0.12);
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 20px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; border: none; transition: all 0.2s ease; text-decoration: none;
+      font-family: inherit;
+    }
+    .btn--primary {
+      background: var(--grad-sunset); color: #fff;
+      box-shadow: 0 6px 20px -5px rgba(249, 115, 22, 0.5);
+    }
+    .btn--primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px -4px rgba(249, 115, 22, 0.6);
+    }
+    .btn--outline {
+      background: transparent; color: var(--txt-primary);
+      border: 1px solid var(--border-strong);
+    }
+    .btn--outline:hover {
+      background: rgba(249, 115, 22, 0.1); border-color: var(--orange);
+    }
+    .btn--ghost { background: transparent; color: var(--txt-secondary); }
+    .btn--ghost:hover { color: var(--txt-primary); background: rgba(255,255,255,0.06); }
+    .btn--sm { padding: 6px 14px; font-size: 0.82rem; }
+    .btn--icon { width: 38px; height: 38px; padding: 0; border-radius: 10px; }
+
+    /* Hero */
+    .trv-hero {
+      padding: 48px 0 36px; text-align: center;
+      position: relative;
+    }
+    .trv-hero__badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 99px;
+      background: rgba(249, 115, 22, 0.15); color: var(--orange); font-size: 0.8rem; font-weight: 700;
+      margin-bottom: 18px; border: 1px solid rgba(249, 115, 22, 0.3);
+    }
+    .trv-hero__title {
+      font-family: var(--font-display); font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+      font-weight: 700; line-height: 1.1; margin-bottom: 16px;
+    }
+    .trv-hero__title em {
+      font-style: italic; background: var(--grad-sunset);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .trv-hero__desc {
+      font-size: 1.1rem; color: var(--txt-secondary); max-width: 680px; margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+
+    /* Expedition Search Console */
+    .trv-search-box {
+      background: var(--bg-surface); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-card);
+      max-width: 1100px; margin: 0 auto; text-align: left;
+    }
+    .trv-mode-tabs {
+      display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px; flex-wrap: wrap;
+    }
+    .trv-mode-tab {
+      display: flex; align-items: center; gap: 8px; padding: 8px 18px; border-radius: 99px;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; background: transparent;
+      color: var(--txt-secondary); transition: all 0.2s;
+    }
+    .trv-mode-tab.is-active {
+      background: var(--orange); color: #fff;
+    }
+
+    .trv-search-fields {
+      display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 14px; align-items: flex-end;
+    }
+    .trv-field { display: flex; flex-direction: column; gap: 6px; }
+    .trv-field-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--txt-muted); }
+    .trv-field-input {
+      height: 48px; border-radius: var(--radius-sm); background: var(--bg-surface-2);
+      border: 1px solid var(--border-subtle); padding: 0 14px; color: var(--txt-primary);
+      font-size: 0.92rem; font-weight: 600; outline: none; width: 100%;
+    }
+    .trv-field-input:focus { border-color: var(--orange); }
+
+    /* Sections */
+    .trv-section { padding: 40px 0; }
+    .trv-section__head {
+      display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .trv-section__title {
+      font-family: var(--font-display); font-size: 2rem; font-weight: 700;
+    }
+
+    /* Destination Cards Grid */
+    .trv-dest-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .trv-dest-chip {
+      padding: 8px 18px; border-radius: 99px; font-size: 0.85rem; font-weight: 600;
+      background: var(--bg-surface); border: 1px solid var(--border-subtle);
+      color: var(--txt-secondary); cursor: pointer; transition: all 0.2s;
+    }
+    .trv-dest-chip.is-active, .trv-dest-chip:hover {
+      background: var(--orange); color: #fff; border-color: var(--orange);
+    }
+
+    .trv-dest-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 24px;
+    }
+    .trv-card {
+      background: var(--bg-surface); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-card);
+      display: flex; flex-direction: column; transition: transform 0.2s ease;
+    }
+    .trv-card:hover { transform: translateY(-6px); border-color: var(--orange); }
+    .trv-card__media {
+      aspect-ratio: 16/10; position: relative; overflow: hidden;
+      display: flex; align-items: flex-end; padding: 20px;
+    }
+    .trv-card__badge {
+      position: absolute; top: 16px; left: 16px; z-index: 2;
+      padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700;
+      background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(8px); color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .trv-card__rating {
+      position: absolute; top: 16px; right: 16px; z-index: 2;
+      padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700;
+      background: var(--amber); color: #000;
+    }
+    .trv-card__title {
+      font-size: 1.3rem; font-weight: 800; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+      position: relative; z-index: 2;
+    }
+    .trv-card__body { padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .trv-card__perks { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 18px; }
+    .trv-card__perk {
+      font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; background: var(--bg-surface-2);
+      color: var(--txt-secondary);
+    }
+    .trv-card__price-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 14px; border-top: 1px solid var(--border-subtle);
+    }
+    .trv-price { font-family: var(--font-mono); font-weight: 800; font-size: 1.25rem; color: var(--orange); }
+
+    /* Itinerary Accordion */
+    .trv-itinerary-box {
+      background: var(--bg-surface); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow-card);
+    }
+    .trv-itn-item {
+      border-left: 2px solid var(--orange); padding-left: 20px; margin-left: 10px;
+      position: relative; padding-bottom: 28px;
+    }
+    .trv-itn-item:last-child { padding-bottom: 0; }
+    .trv-itn-node {
+      position: absolute; left: -9px; top: 0; width: 16px; height: 16px;
+      border-radius: 50%; background: var(--orange); border: 3px solid var(--bg-surface);
+    }
+    .trv-itn-day { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--orange); }
+    .trv-itn-title { font-size: 1.1rem; font-weight: 700; margin: 4px 0 6px; }
+    .trv-itn-desc { font-size: 0.88rem; color: var(--txt-secondary); }
+
+    /* Trip Budget Calculator */
+    .trv-calc-box {
+      background: var(--grad-card); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow-card);
+    }
+    .trv-calc-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 32px; align-items: center; }
+    .trv-range-group { margin-bottom: 20px; }
+    .trv-range-head { display: flex; justify-content: space-between; font-size: 0.88rem; font-weight: 600; margin-bottom: 8px; }
+    .trv-range-val { font-family: var(--font-mono); color: var(--orange); font-weight: 700; }
+    input[type=range] { width: 100%; accent-color: var(--orange); }
+
+    /* Smart Packing Checklist */
+    .trv-pack-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-top: 16px; }
+    .trv-pack-item {
+      display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: var(--radius-sm);
+      background: var(--bg-surface-2); border: 1px solid var(--border-subtle); cursor: pointer;
+    }
+    .trv-pack-item input { accent-color: var(--orange); width: 18px; height: 18px; }
+
+    /* Toast */
+    .trv-toast {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      background: var(--bg-surface); border: 1px solid var(--orange);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(249, 115, 22, 0.3);
+      padding: 14px 22px; border-radius: 12px; color: var(--txt-primary);
+      display: flex; align-items: center; gap: 12px; font-size: 0.9rem; font-weight: 600;
+      transform: translateY(100px); opacity: 0; pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+    }
+    .trv-toast.is-show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+
+    @media (max-width: 900px) {
+      .trv-search-fields { grid-template-columns: 1fr; }
+      .trv-calc-grid { grid-template-columns: 1fr; }
+      .trv-nav__links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="trv-topbar">
+    <div class="container trv-topbar__inner">
+      <div class="trv-weather-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        Đà Nẵng: 28°C Nắng đẹp · Sapa: 18°C Se lạnh mây mù · Phú Quốc: 30°C Biển êm
+      </div>
+      <div style="color:var(--txt-muted);">Hotline 24/7 Concierge: <strong>1900 8899</strong></div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="trv-nav">
+    <div class="container trv-nav__inner">
+      <a class="trv-brand" href="../index.html">
+        <div class="trv-brand__logo">W</div>
+        <span class="trv-brand__name">WanderLuxe</span>
+        <span class="trv-brand__tag">Voyage 2026</span>
+      </a>
+
+      <ul class="trv-nav__links">
+        <li><a class="trv-nav__link is-active" href="#search">Tìm chuyến đi</a></li>
+        <li><a class="trv-nav__link" href="#destinations">Điểm đến</a></li>
+        <li><a class="trv-nav__link" href="#itinerary">Lộ trình mẫu</a></li>
+        <li><a class="trv-nav__link" href="#calculator">Tính chi phí</a></li>
+      </ul>
+
+      <div style="display:flex;align-items:center;gap:12px;">
+        <a class="btn btn--outline btn--sm" href="../index.html">← Showroom</a>
+        <button class="btn btn--ghost btn--icon" id="themeToggle" title="Đổi giao diện">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="btn btn--primary btn--sm" id="btnBookCustom">Tư vấn Tour riêng</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero -->
+    <section class="trv-hero" id="search">
+      <span class="trv-hero__badge">Khám phá hành tinh theo phong cách Thượng Lưu</span>
+      <h1 class="trv-hero__title">
+        Mỗi chuyến đi là một <em>tuyệt tác</em> để đời
+      </h1>
+      <p class="trv-hero__desc">
+        Hệ thống tour du lịch thiết kế may đo riêng biệt, resort 5 sao biển đảo và trải nghiệm văn hóa bản địa chân thực với hỗ trợ quản gia 24/7.
+      </p>
+
+      <!-- Expedition Search Console -->
+      <div class="trv-search-box">
+        <div class="trv-mode-tabs">
+          <button class="trv-mode-tab is-active" data-mode="combo">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+            Combo Vé &amp; Resort
+          </button>
+          <button class="trv-mode-tab" data-mode="flight">Vé máy bay</button>
+          <button class="trv-mode-tab" data-mode="hotel">Khách sạn &amp; Villa</button>
+          <button class="trv-mode-tab" data-mode="tour">Tour trải nghiệm</button>
+        </div>
+
+        <div class="trv-search-fields">
+          <div class="trv-field">
+            <label class="trv-field-label">Điểm khởi hành</label>
+            <select class="trv-field-input" id="searchFrom">
+              <option>TP. Hồ Chí Minh (SGN)</option>
+              <option>Hà Nội (HAN)</option>
+              <option>Đà Nẵng (DAD)</option>
+            </select>
+          </div>
+
+          <div class="trv-field">
+            <label class="trv-field-label">Điểm đến mơ ước</label>
+            <select class="trv-field-input" id="searchTo">
+              <option>Đà Nẵng - Hội An</option>
+              <option>Phú Quốc Đảo Ngọc</option>
+              <option>Sapa Mây Ngàn</option>
+              <option>Bali Thiên Đường</option>
+              <option>Tokyo Mùa Thu</option>
+            </select>
+          </div>
+
+          <div class="trv-field">
+            <label class="trv-field-label">Ngày khởi hành</label>
+            <input type="date" class="trv-field-input" id="searchDate" value="2026-10-25" />
+          </div>
+
+          <div class="trv-field">
+            <label class="trv-field-label">Số khách &amp; Phòng</label>
+            <input type="text" class="trv-field-input" id="searchGuests" value="2 Người lớn · 1 Phòng" />
+          </div>
+
+          <button class="btn btn--primary" style="height:48px;padding:0 24px;" id="btnExecuteSearch">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Tìm chuyến
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Curated Destinations Grid -->
+    <section class="trv-section" id="destinations">
+      <div class="trv-section__head">
+        <div>
+          <h2 class="trv-section__title">Điểm đến chọn lọc mùa Thu - Đông 2026</h2>
+          <p style="font-size:0.9rem;color:var(--txt-secondary);margin-top:4px;">Gói trọn gói bao gồm vé máy bay khứ hồi, resort cao cấp và xe đưa đón VIP</p>
+        </div>
+      </div>
+
+      <!-- Filter chips -->
+      <div class="trv-dest-chips" id="destChips">
+        <button class="trv-dest-chip is-active" data-cat="all">Tất cả điểm đến</button>
+        <button class="trv-dest-chip" data-cat="beach">Biển đảo nghỉ dưỡng</button>
+        <button class="trv-dest-chip" data-cat="mountain">Núi rừng săn mây</button>
+        <button class="trv-dest-chip" data-cat="heritage">Di sản &amp; Văn hóa</button>
+        <button class="trv-dest-chip" data-cat="intl">Quốc tế cao cấp</button>
+      </div>
+
+      <div class="trv-dest-grid" id="destGrid">
+
+        <!-- Card 1 -->
+        <article class="trv-card" data-cat="beach">
+          <div class="trv-card__media" style="background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.85) 100%), linear-gradient(135deg,#0284c7,#0369a1);">
+            <span class="trv-card__badge">Bestseller</span>
+            <span class="trv-card__rating">★ 4.96</span>
+            <h3 class="trv-card__title">Đà Nẵng · InterContinental Sun Peninsula</h3>
+          </div>
+          <div class="trv-card__body">
+            <p style="font-size:0.88rem;color:var(--txt-secondary);">Trải nghiệm resort top 1 thế giới tại Bán đảo Sơn Trà. Tắm biển riêng tư và ngắm hoàng hôn vịnh biển.</p>
+            <div class="trv-card__perks">
+              <span class="trv-card__perk">Vé máy bay khứ hồi</span>
+              <span class="trv-card__perk">Buffet sáng Michelin</span>
+              <span class="trv-card__perk">4N3Đ</span>
+            </div>
+            <div class="trv-card__price-row">
+              <div>
+                <span style="font-size:0.75rem;color:var(--txt-muted);">Giá trọn gói từ</span>
+                <div class="trv-price">3.890.000₫</div>
+              </div>
+              <button class="btn btn--primary btn--sm book-tour-btn" data-dest="Đà Nẵng InterContinental">Đặt ngay</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="trv-card" data-cat="beach">
+          <div class="trv-card__media" style="background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.85) 100%), linear-gradient(135deg,#0d9488,#115e59);">
+            <span class="trv-card__badge">Hot Sunset</span>
+            <span class="trv-card__rating">★ 4.92</span>
+            <h3 class="trv-card__title">Phú Quốc · JW Marriott Emerald Bay</h3>
+          </div>
+          <div class="trv-card__body">
+            <p style="font-size:0.88rem;color:var(--txt-secondary);">Kiến trúc đại học Lamarck độc bản bên Bãi Khem. Tặng vé Cáp treo Hòn Thơm và lặn ngắm san hô.</p>
+            <div class="trv-card__perks">
+              <span class="trv-card__perk">Biệt thự view biển</span>
+              <span class="trv-card__perk">Du thuyền hoàng hôn</span>
+              <span class="trv-card__perk">3N2Đ</span>
+            </div>
+            <div class="trv-card__price-row">
+              <div>
+                <span style="font-size:0.75rem;color:var(--txt-muted);">Giá trọn gói từ</span>
+                <div class="trv-price">4.290.000₫</div>
+              </div>
+              <button class="btn btn--primary btn--sm book-tour-btn" data-dest="Phú Quốc JW Marriott">Đặt ngay</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="trv-card" data-cat="mountain">
+          <div class="trv-card__media" style="background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.85) 100%), linear-gradient(135deg,#475569,#1e293b);">
+            <span class="trv-card__badge">Săn mây mùa thu</span>
+            <span class="trv-card__rating">★ 4.88</span>
+            <h3 class="trv-card__title">Sapa · Ville De Mont Mountain Resort</h3>
+          </div>
+          <div class="trv-card__body">
+            <p style="font-size:0.88rem;color:var(--txt-secondary);">Nằm ẩn mình giữa rừng thông cổ thụ ở độ cao 1.550m. Ngắm thung lũng Mường Hoa bồng bềnh mây.</p>
+            <div class="trv-card__perks">
+              <span class="trv-card__perk">Vé tàu hỏa Mường Hoa</span>
+              <span class="trv-card__perk">Tắm lá dao đỏ</span>
+              <span class="trv-card__perk">3N2Đ</span>
+            </div>
+            <div class="trv-card__price-row">
+              <div>
+                <span style="font-size:0.75rem;color:var(--txt-muted);">Giá trọn gói từ</span>
+                <div class="trv-price">2.990.000₫</div>
+              </div>
+              <button class="btn btn--primary btn--sm book-tour-btn" data-dest="Sapa Ville De Mont">Đặt ngay</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="trv-card" data-cat="intl">
+          <div class="trv-card__media" style="background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.85) 100%), linear-gradient(135deg,#f43f5e,#be123c);">
+            <span class="trv-card__badge">Hồ sơ VIP</span>
+            <span class="trv-card__rating">★ 4.98</span>
+            <h3 class="trv-card__title">Tokyo · Mùa Lá Đỏ Núi Phú Sĩ</h3>
+          </div>
+          <div class="trv-card__body">
+            <p style="font-size:0.88rem;color:var(--txt-secondary);">Hành trình mùa thu lãng mạn qua Tokyo, Kyoto và hồ Kawaguchiko. Trải nghiệm tắm Onsen truyền thống.</p>
+            <div class="trv-card__perks">
+              <span class="trv-card__perk">Bao đậu Visa 100%</span>
+              <span class="trv-card__perk">Tàu Shinkansen</span>
+              <span class="trv-card__perk">6N5Đ</span>
+            </div>
+            <div class="trv-card__price-row">
+              <div>
+                <span style="font-size:0.75rem;color:var(--txt-muted);">Giá trọn gói từ</span>
+                <div class="trv-price">28.500.000₫</div>
+              </div>
+              <button class="btn btn--primary btn--sm book-tour-btn" data-dest="Tokyo Mùa Thu">Đặt ngay</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Itinerary Planner Section -->
+    <section class="trv-section" id="itinerary">
+      <div class="trv-section__head">
+        <div>
+          <h2 class="trv-section__title">Lịch trình mẫu độc bản: Đà Nẵng - Hội An 4N3Đ</h2>
+          <p style="font-size:0.9rem;color:var(--txt-secondary);margin-top:4px;">Được thiết kế chi tiết với khoảng cách di chuyển và thời gian tối ưu</p>
+        </div>
+      </div>
+
+      <div class="trv-itinerary-box">
+        <div class="trv-itn-item">
+          <div class="trv-itn-node"></div>
+          <div class="trv-itn-day">Ngày 01 · Chào đón Thượng Khách</div>
+          <h4 class="trv-itn-title">Hạ cánh Đà Nẵng — Check-in Resort Bán đảo Sơn Trà</h4>
+          <p class="trv-itn-desc">Xe VIP Mercedes-Benz đón tại Sân bay Quốc tế Đà Nẵng. Thưởng thức Trà chiều Hoàng hôn ngắm toàn cảnh Vịnh Đà Nẵng và bữa tối hải sản tươi sống tại nhà hàng La Maison 1888.</p>
+        </div>
+
+        <div class="trv-itn-item">
+          <div class="trv-itn-node"></div>
+          <div class="trv-itn-day">Ngày 02 · Kỳ quan thiên nhiên</div>
+          <h4 class="trv-itn-title">Chinh phục Cầu Vàng Bàn Tay Khổng Lồ — Bà Nà Hills</h4>
+          <p class="trv-itn-desc">Lối đi ưu tiên VIP tại Cáp treo Bà Nà Hills không cần xếp hàng. Check-in Cầu Vàng sớm trước giờ mở cửa đón khách đại trà, tham quan Lâu đài Mặt Trăng và thưởng rượu hầm cổ Debay.</p>
+        </div>
+
+        <div class="trv-itn-item">
+          <div class="trv-itn-node"></div>
+          <div class="trv-itn-day">Ngày 03 · Di sản thời gian</div>
+          <h4 class="trv-itn-title">Phố cổ Hội An — Du thuyền thả hoa đăng Sông Hoài</h4>
+          <p class="trv-itn-desc">Tản bộ qua những con ngõ rợp giàn hoa giấy, tham quan Chùa Cầu, thưởng thức Bánh mì Phượng và Cà phê Mót. Đêm xuống trải nghiệm chèo thuyền gỗ thả hoa đăng cầu may.</p>
+        </div>
+
+        <div class="trv-itn-item">
+          <div class="trv-itn-node"></div>
+          <div class="trv-itn-day">Ngày 04 · Khởi hành về</div>
+          <h4 class="trv-itn-title">Thư giãn Spa thảo dược — Mua quà lưu niệm &amp; Tiễn sân bay</h4>
+          <p class="trv-itn-desc">Trọn gói 90 phút Massage đá nóng và thảo mộc thiên nhiên tại Spa Resort. Mua sắm đặc sản Đà Nẵng chọn lọc trước khi xe đưa đoàn ra sảnh VIP sân bay.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trip Budget Calculator -->
+    <section class="trv-section" id="calculator">
+      <div class="trv-calc-box">
+        <div class="trv-calc-grid">
+          <div>
+            <h3 style="font-family:var(--font-display);font-size:1.8rem;margin-bottom:8px;">Dự toán ngân sách chuyến đi</h3>
+            <p style="font-size:0.88rem;color:var(--txt-secondary);margin-bottom:24px;">Điều chỉnh số ngày, số khách và hạng nghỉ dưỡng để ước tính chi phí chính xác</p>
+
+            <div class="trv-range-group">
+              <div class="trv-range-head">
+                <span>Thời gian chuyến đi:</span>
+                <span class="trv-range-val" id="daysVal">4 Ngày 3 Đêm</span>
+              </div>
+              <input type="range" id="daysSlider" min="2" max="10" value="4" />
+            </div>
+
+            <div class="trv-range-group">
+              <div class="trv-range-head">
+                <span>Số lượng hành khách:</span>
+                <span class="trv-range-val" id="guestsVal">2 Người lớn</span>
+              </div>
+              <input type="range" id="guestsSlider" min="1" max="8" value="2" />
+            </div>
+
+            <div class="trv-range-group">
+              <div class="trv-range-head">
+                <span>Hạng nghỉ dưỡng:</span>
+                <span class="trv-range-val" id="tierVal">Resort 5 Sao Luxury</span>
+              </div>
+              <input type="range" id="tierSlider" min="1" max="3" value="3" />
+            </div>
+          </div>
+
+          <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius);padding:28px;text-align:center;">
+            <span style="font-size:0.85rem;color:var(--txt-muted);text-transform:uppercase;font-weight:700;">Tổng chi phí ước tính</span>
+            <div style="font-size:2.4rem;font-weight:800;font-family:var(--font-mono);color:var(--orange);margin:10px 0;" id="totalCostEstimate">7.780.000₫</div>
+            <p style="font-size:0.82rem;color:var(--txt-secondary);margin-bottom:20px;">Đã bao gồm: Vé máy bay khứ hồi, Resort cao cấp, Thuế phí VAT và Bảo hiểm du lịch quốc tế.</p>
+            <button class="btn btn--primary" style="width:100%;" id="btnRequestQuote">Nhận báo giá chi tiết qua Zalo</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Smart Packing Checklist -->
+    <section class="trv-section">
+      <div class="trv-section__head">
+        <div>
+          <h2 class="trv-section__title">Checklist hành lý thông minh</h2>
+          <p style="font-size:0.9rem;color:var(--txt-secondary);margin-top:4px;">Đánh dấu các vật dụng đã chuẩn bị để tránh bỏ sót trước giờ cất cánh</p>
+        </div>
+        <div style="font-weight:700;color:var(--orange);font-family:var(--font-mono);" id="packProgress">Đã hoàn tất: 3 / 6 mục (50%)</div>
+      </div>
+
+      <div class="trv-pack-list">
+        <label class="trv-pack-item"><input type="checkbox" checked class="pack-cb"> Hộ chiếu / CCCD còn hạn trên 6 tháng</label>
+        <label class="trv-pack-item"><input type="checkbox" checked class="pack-cb"> Vé máy bay điện tử &amp; Mã xác nhận phòng</label>
+        <label class="trv-pack-item"><input type="checkbox" checked class="pack-cb"> Kem chống nắng SPF 50+ &amp; Kính râm</label>
+        <label class="trv-pack-item"><input type="checkbox" class="pack-cb"> Đồ bơi cao cấp &amp; Khăn tắm biển</label>
+        <label class="trv-pack-item"><input type="checkbox" class="pack-cb"> Sạc dự phòng &amp; Đầu cắm quốc tế</label>
+        <label class="trv-pack-item"><input type="checkbox" class="pack-cb"> Túi thuốc sơ cứu &amp; Thuốc say sóng</label>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast -->
+  <div class="trv-toast" id="trvToast">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="toastMsg">Thao tác thành công</span>
+  </div>
+
+  <footer style="border-top:1px solid var(--border-subtle);padding:32px 0;margin-top:60px;font-size:0.85rem;color:var(--txt-muted);">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+      <div>© 2026 WanderLuxe Travel UI Kit — Thiết kế dành cho các ứng dụng đặt vé, đặt phòng khách sạn và tour lữ hành quốc tế.</div>
+      <div><a href="../index.html" style="color:var(--orange);text-decoration:none;font-weight:600;">← Quay lại Showroom</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle
+    const htmlEl = document.documentElement;
+    const themeBtn = document.getElementById('themeToggle');
+    let curTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', curTheme);
+
+    themeBtn.addEventListener('click', () => {
+      curTheme = curTheme === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', curTheme);
+      localStorage.setItem('theme', curTheme);
+      showToast(curTheme === 'dark' ? 'Đã bật Dark Mode' : 'Đã bật Light Mode');
+    });
+
+    // Toast
+    const toast = document.getElementById('trvToast');
+    const toastMsg = document.getElementById('toastMsg');
+    let tTimeout;
+    function showToast(msg) {
+      toastMsg.textContent = msg;
+      toast.classList.add('is-show');
+      clearTimeout(tTimeout);
+      tTimeout = setTimeout(() => toast.classList.remove('is-show'), 2600);
+    }
+
+    // Search Tabs
+    document.querySelectorAll('.trv-mode-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.trv-mode-tab').forEach(t => t.classList.remove('is-active'));
+        tab.classList.add('is-active');
+        showToast(`Đã chuyển sang chế độ tìm kiếm: ${tab.textContent.trim()}`);
+      });
+    });
+
+    document.getElementById('btnExecuteSearch').addEventListener('click', () => {
+      const from = document.getElementById('searchFrom').value;
+      const to = document.getElementById('searchTo').value;
+      showToast(`Đang tìm các combo hấp dẫn từ ${from} đến ${to}...`);
+    });
+
+    // Destination filter
+    document.querySelectorAll('#destChips .trv-dest-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('#destChips .trv-dest-chip').forEach(c => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+        const cat = chip.dataset.cat;
+        document.querySelectorAll('#destGrid .trv-card').forEach(card => {
+          if (cat === 'all' || card.dataset.cat === cat) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Book tour triggers
+    document.querySelectorAll('.book-tour-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const dest = btn.dataset.dest;
+        showToast(`Đã chọn combo: ${dest}. Chuyên viên tư vấn sẽ liên hệ ngay!`);
+      });
+    });
+
+    // Budget Calculator logic
+    const daysSlider = document.getElementById('daysSlider');
+    const guestsSlider = document.getElementById('guestsSlider');
+    const tierSlider = document.getElementById('tierSlider');
+
+    const daysVal = document.getElementById('daysVal');
+    const guestsVal = document.getElementById('guestsVal');
+    const tierVal = document.getElementById('tierVal');
+    const totalCostEstimate = document.getElementById('totalCostEstimate');
+
+    const tierLabels = { 1: 'Khách sạn 3-4 Sao', 2: 'Boutique Resort 4-5 Sao', 3: 'Resort 5 Sao Luxury' };
+    const tierBasePrice = { 1: 950000, 2: 1450000, 3: 2200000 };
+
+    function updateBudget() {
+      const d = parseInt(daysSlider.value);
+      const g = parseInt(guestsSlider.value);
+      const t = parseInt(tierSlider.value);
+
+      daysVal.textContent = `${d} Ngày ${d - 1} Đêm`;
+      guestsVal.textContent = `${g} Người lớn`;
+      tierVal.textContent = tierLabels[t];
+
+      // Base flight + hotel cost
+      const flightPerPerson = 1500000;
+      const dailyRate = tierBasePrice[t];
+      const total = (flightPerPerson * g) + (dailyRate * (d - 1) * Math.ceil(g / 2));
+
+      totalCostEstimate.textContent = total.toLocaleString('vi-VN') + '₫';
+    }
+
+    daysSlider.addEventListener('input', updateBudget);
+    guestsSlider.addEventListener('input', updateBudget);
+    tierSlider.addEventListener('input', updateBudget);
+
+    // Packing checklist
+    const cbs = document.querySelectorAll('.pack-cb');
+    const packProgress = document.getElementById('packProgress');
+    function updatePacking() {
+      const checked = document.querySelectorAll('.pack-cb:checked').length;
+      const total = cbs.length;
+      const pct = Math.round((checked / total) * 100);
+      packProgress.textContent = `Đã hoàn tất: ${checked} / ${total} mục (${pct}%)`;
+    }
+    cbs.forEach(cb => cb.addEventListener('change', updatePacking));
+
+    document.getElementById('btnRequestQuote').addEventListener('click', () => {
+      showToast('Đã gửi yêu cầu báo giá. Bạn sẽ nhận được bản thiết kế Tour qua Zalo!');
+    });
+    document.getElementById('btnBookCustom').addEventListener('click', () => {
+      showToast('Bộ phận Concierge WanderLuxe hân hạnh hỗ trợ: 1900 8899');
+    });
+  </script>
+</body>
+</html>

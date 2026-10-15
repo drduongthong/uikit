@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aegis CyberSec — Next-Gen SOC &amp; Threat Intelligence UI Kit</title>
+  <meta name="description" content="Bộ UI Kit trung tâm giám sát an ninh mạng (SOC), tình báo mối đe dọa (Threat Intelligence), SIEM và phản ứng sự cố chủ động." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/tokens.css" />
+
+  <style>
+    /* ================================================================
+       AEGIS CYBERSEC UI KIT — Modern Dark Tactical SOC Design System
+       ================================================================ */
+    :root {
+      --bg-base: #06090e;
+      --bg-surface: #0b1017;
+      --bg-surface-2: #101722;
+      --bg-card: rgba(16, 23, 34, 0.85);
+      --bg-glass: rgba(11, 16, 23, 0.88);
+
+      --border: rgba(0, 240, 255, 0.12);
+      --border-bright: rgba(0, 240, 255, 0.28);
+      --border-danger: rgba(255, 0, 85, 0.4);
+
+      --sec-cyan: #00f0ff;
+      --sec-crimson: #ff0055;
+      --sec-amber: #ffb700;
+      --sec-emerald: #00ff88;
+      --sec-purple: #a855f7;
+
+      --glow-cyan: rgba(0, 240, 255, 0.35);
+      --glow-crimson: rgba(255, 0, 85, 0.35);
+      --glow-emerald: rgba(0, 255, 136, 0.28);
+
+      --txt-primary: #f1f5f9;
+      --txt-secondary: #94a3b8;
+      --txt-muted: #64748b;
+
+      --font-display: 'Chakra Petch', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-pill: 9999px;
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f0f4f8;
+      --bg-surface: #ffffff;
+      --bg-surface-2: #e2e8f0;
+      --bg-card: rgba(255, 255, 255, 0.95);
+      --bg-glass: rgba(255, 255, 255, 0.9);
+
+      --border: rgba(15, 23, 42, 0.12);
+      --border-bright: rgba(0, 180, 216, 0.4);
+      --border-danger: rgba(225, 29, 72, 0.4);
+
+      --sec-cyan: #0284c7;
+      --sec-crimson: #e11d48;
+      --sec-amber: #d97706;
+      --sec-emerald: #059669;
+
+      --txt-primary: #0f172a;
+      --txt-secondary: #334155;
+      --txt-muted: #64748b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-base);
+      color: var(--txt-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Ambient Hexagonal Grid & Scanning Lines */
+    .soc-grid-bg {
+      position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 10%, rgba(255, 0, 85, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 50% 90%, rgba(0, 255, 136, 0.06) 0%, transparent 50%),
+        linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    }
+
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Threat Alert Ticker */
+    .soc-ticker {
+      background: #04060a;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 24px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--txt-secondary);
+    }
+    .soc-ticker-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .defcon-pill {
+      background: rgba(255, 0, 85, 0.2);
+      border: 1px solid var(--sec-crimson);
+      color: var(--sec-crimson);
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pulse-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--sec-crimson);
+      box-shadow: 0 0 8px var(--sec-crimson);
+      animation: alertPulse 1s infinite alternate;
+    }
+    @keyframes alertPulse { from { opacity: 0.3; transform: scale(0.9); } to { opacity: 1; transform: scale(1.3); } }
+
+    /* Tactical Navbar */
+    .soc-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .soc-nav__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+    }
+    .soc-brand {
+      display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--txt-primary);
+    }
+    .soc-brand__shield {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(255, 0, 85, 0.2));
+      border: 1px solid var(--border-bright);
+      display: grid; place-items: center;
+      color: var(--sec-cyan);
+      box-shadow: 0 0 20px var(--glow-cyan);
+    }
+    .soc-brand__title {
+      font-family: var(--font-display);
+      font-size: 1.35rem; font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .soc-brand__title span { color: var(--sec-cyan); }
+    .soc-nav__menu {
+      display: flex; align-items: center; gap: 8px; list-style: none;
+    }
+    .soc-nav__link {
+      padding: 8px 16px; border-radius: var(--radius-sm);
+      font-family: var(--font-mono); font-size: 0.85rem; font-weight: 500;
+      color: var(--txt-secondary); text-decoration: none;
+      transition: all 0.2s;
+    }
+    .soc-nav__link:hover, .soc-nav__link.active {
+      color: var(--sec-cyan);
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+    }
+    .soc-nav__actions {
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    /* Buttons */
+    .btn-soc {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 0.82rem; font-weight: 600;
+      padding: 8px 16px; border-radius: var(--radius-sm);
+      cursor: pointer; transition: all 0.2s ease;
+      text-decoration: none; border: 1px solid transparent;
+    }
+    .btn-soc-cyan {
+      background: rgba(0, 240, 255, 0.12);
+      border-color: var(--sec-cyan);
+      color: var(--sec-cyan);
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.2);
+    }
+    .btn-soc-cyan:hover {
+      background: var(--sec-cyan);
+      color: #06090e;
+      box-shadow: 0 0 25px var(--glow-cyan);
+      transform: translateY(-1px);
+    }
+    .btn-soc-danger {
+      background: rgba(255, 0, 85, 0.15);
+      border-color: var(--sec-crimson);
+      color: var(--sec-crimson);
+    }
+    .btn-soc-danger:hover {
+      background: var(--sec-crimson);
+      color: #fff;
+      box-shadow: 0 0 25px var(--glow-crimson);
+    }
+    .btn-soc-ghost {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--border);
+      color: var(--txt-secondary);
+    }
+    .btn-soc-ghost:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--txt-primary);
+    }
+
+    /* KPI Summary Strip */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-bright);
+    }
+    .kpi-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+    }
+    .kpi-cyan::before { background: var(--sec-cyan); }
+    .kpi-crimson::before { background: var(--sec-crimson); }
+    .kpi-amber::before { background: var(--sec-amber); }
+    .kpi-emerald::before { background: var(--sec-emerald); }
+
+    .kpi-header {
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--txt-muted); font-family: var(--font-mono); font-size: 0.76rem;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+    .kpi-value {
+      font-family: var(--font-display);
+      font-size: 1.85rem; font-weight: 700;
+      color: var(--txt-primary);
+      display: flex; align-items: baseline; gap: 8px;
+    }
+    .kpi-delta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem; font-weight: 600;
+    }
+    .delta-up { color: var(--sec-crimson); }
+    .delta-down { color: var(--sec-emerald); }
+
+    /* Main Dashboard Grid */
+    .soc-main-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    /* Threat Map Section */
+    .card-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      position: relative;
+    }
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .panel-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .badge-live {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid var(--sec-cyan);
+      color: var(--sec-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.7rem; font-weight: 700;
+      padding: 2px 8px; border-radius: var(--radius-pill);
+    }
+
+    /* World Vector Attack Map */
+    .map-container {
+      position: relative;
+      height: 340px;
+      background: #040810;
+      border: 1px solid rgba(0, 240, 255, 0.15);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .map-svg {
+      width: 100%; height: 100%;
+    }
+    .attack-arc {
+      fill: none;
+      stroke-width: 2;
+      stroke-dasharray: 6, 6;
+      animation: dashMove 1.5s linear infinite;
+    }
+    @keyframes dashMove {
+      to { stroke-dashoffset: -24; }
+    }
+    .map-node {
+      cursor: pointer;
+      transition: r 0.3s;
+    }
+    .map-node:hover {
+      r: 8;
+    }
+    .map-tooltip {
+      position: absolute;
+      bottom: 14px; left: 16px;
+      background: rgba(11, 16, 23, 0.95);
+      border: 1px solid var(--sec-cyan);
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+    }
+
+    /* SIEM Live Ingestion Stream */
+    .siem-feed {
+      margin-top: 24px;
+    }
+    .siem-controls {
+      display: flex; gap: 10px; align-items: center; margin-bottom: 14px;
+    }
+    .siem-filter-btn {
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--txt-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .siem-filter-btn.active {
+      background: rgba(0, 240, 255, 0.15);
+      border-color: var(--sec-cyan);
+      color: var(--sec-cyan);
+    }
+    .siem-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+    .siem-table th {
+      text-align: left;
+      padding: 10px 12px;
+      color: var(--txt-muted);
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+    }
+    .siem-table td {
+      padding: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .siem-table tr:hover td {
+      background: rgba(0, 240, 255, 0.03);
+    }
+    .badge-sev {
+      padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.7rem;
+    }
+    .sev-critical { background: rgba(255, 0, 85, 0.2); color: var(--sec-crimson); border: 1px solid var(--sec-crimson); }
+    .sev-high { background: rgba(255, 183, 0, 0.2); color: var(--sec-amber); border: 1px solid var(--sec-amber); }
+    .sev-medium { background: rgba(168, 85, 247, 0.2); color: var(--sec-purple); border: 1px solid var(--sec-purple); }
+    .sev-info { background: rgba(0, 240, 255, 0.15); color: var(--sec-cyan); border: 1px solid var(--sec-cyan); }
+
+    /* Right Sidebar: Remediation & Threat Hunter */
+    .remediation-panel {
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .posture-score-dial {
+      text-align: center;
+      padding: 18px 0;
+      position: relative;
+    }
+    .gauge-circle {
+      width: 140px; height: 140px; margin: 0 auto;
+      transform: rotate(-90deg);
+    }
+    .gauge-bg {
+      fill: none; stroke: rgba(255, 255, 255, 0.08); stroke-width: 10;
+    }
+    .gauge-meter {
+      fill: none; stroke: var(--sec-emerald); stroke-width: 10;
+      stroke-linecap: round;
+      stroke-dasharray: 377;
+      stroke-dashoffset: 60;
+      transition: stroke-dashoffset 0.8s ease, stroke 0.4s;
+    }
+    .gauge-text {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: 1.8rem; font-weight: 700;
+    }
+    .gauge-label {
+      font-family: var(--font-mono); font-size: 0.72rem; color: var(--txt-muted);
+      text-transform: uppercase; margin-top: 4px;
+    }
+
+    /* Interactive Remediation Actions */
+    .action-list {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .action-btn-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 14px;
+      background: var(--bg-surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .action-btn-item:hover {
+      border-color: var(--sec-cyan);
+      background: rgba(0, 240, 255, 0.06);
+    }
+    .action-meta {
+      display: flex; flex-direction: column; gap: 3px;
+    }
+    .action-name {
+      font-family: var(--font-mono); font-size: 0.82rem; font-weight: 600; color: var(--txt-primary);
+    }
+    .action-sub {
+      font-size: 0.72rem; color: var(--txt-muted);
+    }
+    .action-status-tag {
+      font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700;
+      padding: 3px 8px; border-radius: var(--radius-sm);
+    }
+    .status-ready { background: rgba(0, 255, 136, 0.15); color: var(--sec-emerald); }
+    .status-blocked { background: rgba(255, 0, 85, 0.15); color: var(--sec-crimson); }
+
+    /* MITRE ATT&CK Matrix Explorer */
+    .mitre-section {
+      margin-top: 36px;
+    }
+    .mitre-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .mitre-col {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .mitre-col-title {
+      font-family: var(--font-display); font-size: 0.8rem; font-weight: 700;
+      color: var(--sec-cyan); text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+    }
+    .mitre-tag {
+      background: var(--bg-surface-2);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 4px;
+      padding: 8px 10px;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .mitre-tag:hover {
+      border-color: var(--sec-amber);
+      background: rgba(255, 183, 0, 0.1);
+      transform: translateX(2px);
+    }
+    .mitre-tag.active {
+      border-color: var(--sec-crimson);
+      background: rgba(255, 0, 85, 0.18);
+      color: #fff;
+    }
+
+    /* Dark Web Intelligence Scanner */
+    .darkweb-box {
+      margin-top: 36px;
+      background: linear-gradient(135deg, rgba(255, 0, 85, 0.08), rgba(11, 16, 23, 0.9));
+      border: 1px solid var(--border-danger);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .darkweb-left { max-width: 600px; }
+    .darkweb-input-group {
+      display: flex; gap: 10px; margin-top: 14px;
+    }
+    .darkweb-input {
+      flex: 1;
+      background: #06090e;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #fff;
+      outline: none;
+    }
+    .darkweb-input:focus {
+      border-color: var(--sec-cyan);
+      box-shadow: 0 0 12px var(--glow-cyan);
+    }
+
+    /* Modal */
+    .soc-modal-backdrop {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(4, 6, 10, 0.85);
+      backdrop-filter: blur(8px);
+      display: none; place-items: center;
+    }
+    .soc-modal-backdrop.is-open { display: grid; }
+    .soc-modal {
+      width: 90%; max-width: 540px;
+      background: var(--bg-surface);
+      border: 1px solid var(--sec-cyan);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 0 40px var(--glow-cyan);
+      padding: 24px;
+    }
+
+    /* Toast */
+    .toast-container {
+      position: fixed; bottom: 24px; right: 24px; z-index: 1000;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .toast {
+      background: #090e16;
+      border: 1px solid var(--sec-cyan);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      display: flex; align-items: center; gap: 10px;
+      opacity: 0; transform: translateY(10px);
+      transition: all 0.25s ease;
+    }
+    .toast.is-show { opacity: 1; transform: translateY(0); }
+
+    /* Footer */
+    .soc-footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      margin-top: 60px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--txt-muted);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    @media (max-width: 1024px) {
+      .soc-main-layout { grid-template-columns: 1fr; }
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .mitre-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="soc-grid-bg"></div>
+
+  <!-- Top Threat Alert Ticker -->
+  <aside class="soc-ticker" aria-label="Cảnh báo an ninh mạng thời gian thực">
+    <div class="soc-ticker-left">
+      <span class="defcon-pill"><span class="pulse-dot"></span> THREAT LEVEL: DEFCON 2</span>
+      <span>🚨 Phát hiện đợt rà quét cổng phân tán (Mirai Botnet variant) nhắm vào dải IP 103.21.x.x</span>
+    </div>
+    <div style="display:flex;gap:18px;">
+      <span>GLOBAL BLOCKED: <strong style="color:var(--sec-emerald);" id="statBlocked">1,489,204</strong></span>
+      <span>SOC LATENCY: <strong style="color:var(--sec-cyan);">1.8ms</strong></span>
+    </div>
+  </aside>
+
+  <!-- Tactical Navbar -->
+  <header class="soc-nav">
+    <div class="container soc-nav__inner">
+      <a href="../index.html" class="soc-brand">
+        <div class="soc-brand__shield">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="soc-brand__title">AEGIS <span>CYBERSEC</span></div>
+      </a>
+
+      <nav>
+        <ul class="soc-nav__menu">
+          <li><a href="#overview" class="soc-nav__link active">TỔNG QUAN SOC</a></li>
+          <li><a href="#threatmap" class="soc-nav__link">BẢN ĐỒ TẤN CÔNG</a></li>
+          <li><a href="#siem" class="soc-nav__link">NHẬT KÝ SIEM</a></li>
+          <li><a href="#mitre" class="soc-nav__link">MITRE ATT&CK</a></li>
+          <li><a href="#darkweb" class="soc-nav__link">DARK WEB RADAR</a></li>
+        </ul>
+      </nav>
+
+      <div class="soc-nav__actions">
+        <button class="btn-soc btn-soc-ghost" id="soundToggle" title="Bật/Tắt hiệu ứng âm thanh Synthesizer">
+          <span id="soundIcon">🔊</span> SFX
+        </button>
+        <button class="btn-soc btn-soc-ghost" id="themeToggle" title="Đổi giao diện Sáng / Tối">
+          🌓 THEME
+        </button>
+        <button class="btn-soc btn-soc-danger" id="btnLockdown">
+          🚨 KHẨN CẤP LOCKDOWN
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Top KPI Grid -->
+    <section class="kpi-grid" id="overview">
+      <div class="kpi-card kpi-crimson">
+        <div class="kpi-header">
+          <span>Sự cố đang xử lý (Open Incidents)</span>
+          <svg width="18" height="18" fill="none" stroke="var(--sec-crimson)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="kpi-value" id="kpiIncidents">
+          14 <span class="kpi-delta delta-up">▲ +3 mới</span>
+        </div>
+      </div>
+
+      <div class="kpi-card kpi-amber">
+        <div class="kpi-header">
+          <span>Cảnh báo bất thường (Anomalies)</span>
+          <svg width="18" height="18" fill="none" stroke="var(--sec-amber)" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="kpi-value">
+          428 <span class="kpi-delta delta-down">▼ -12%</span>
+        </div>
+      </div>
+
+      <div class="kpi-card kpi-cyan">
+        <div class="kpi-header">
+          <span>Lưu lượng kiểm tra (Packets/sec)</span>
+          <svg width="18" height="18" fill="none" stroke="var(--sec-cyan)" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="kpi-value">
+          2.4M <span class="kpi-delta delta-up">▲ 98.4 Gbps</span>
+        </div>
+      </div>
+
+      <div class="kpi-card kpi-emerald">
+        <div class="kpi-header">
+          <span>Thời gian phản hồi trung bình (MTTR)</span>
+          <svg width="18" height="18" fill="none" stroke="var(--sec-emerald)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="kpi-value">
+          4.2 <span style="font-size:1rem;color:var(--txt-muted);">phút</span> <span class="kpi-delta delta-down">▼ Giảm 40%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Workspace -->
+    <div class="soc-main-layout">
+      <!-- Left: Map + SIEM Stream -->
+      <div>
+        <!-- Attack Map -->
+        <section class="card-panel" id="threatmap">
+          <div class="panel-header">
+            <div class="panel-title">
+              <svg width="20" height="20" fill="none" stroke="var(--sec-cyan)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              BẢN ĐỒ TẤN CÔNG THỜI GIAN THỰC (GLOBAL ATTACK VECTOR)
+            </div>
+            <div style="display:flex;gap:10px;align-items:center;">
+              <span class="badge-live"><span class="pulse-dot"></span> LIVE VECTOR</span>
+              <button class="btn-soc btn-soc-ghost" id="btnSimulateAttack">⚡ MÔ PHỎNG TẤN CÔNG</button>
+            </div>
+          </div>
+
+          <div class="map-container">
+            <!-- Stylized Global SVG Map Canvas -->
+            <svg class="map-svg" viewBox="0 0 900 360" id="attackMapSvg">
+              <defs>
+                <linearGradient id="arcGradRed" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#ff0055" stop-opacity="0.8"/>
+                  <stop offset="100%" stop-color="#00f0ff" stop-opacity="0.2"/>
+                </linearGradient>
+                <linearGradient id="arcGradCyan" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color="#ff0055" stop-opacity="0.3"/>
+                </linearGradient>
+              </defs>
+
+              <!-- World Continent Outlines (Stylized Low-Poly Dots) -->
+              <g fill="rgba(255,255,255,0.08)">
+                <!-- Americas -->
+                <ellipse cx="220" cy="120" rx="90" ry="50" />
+                <ellipse cx="260" cy="240" rx="45" ry="70" />
+                <!-- Europe & Africa -->
+                <ellipse cx="470" cy="110" rx="55" ry="40" />
+                <ellipse cx="490" cy="210" rx="60" ry="65" />
+                <!-- Asia & Oceania -->
+                <ellipse cx="680" cy="120" rx="110" ry="55" />
+                <ellipse cx="760" cy="260" rx="50" ry="40" />
+              </g>
+
+              <!-- Grid Lines -->
+              <line x1="0" y1="180" x2="900" y2="180" stroke="rgba(0, 240, 255, 0.1)" stroke-dasharray="4,4" />
+              <line x1="450" y1="0" x2="450" y2="360" stroke="rgba(0, 240, 255, 0.1)" stroke-dasharray="4,4" />
+
+              <!-- Active Attack Vectors (Arcs) -->
+              <g id="vectorArcs">
+                <!-- Moscow to Hanoi -->
+                <path class="attack-arc" stroke="url(#arcGradRed)" d="M 520 90 Q 600 50 670 170" />
+                <!-- Frankfurt to California -->
+                <path class="attack-arc" stroke="url(#arcGradCyan)" d="M 480 100 Q 340 30 180 120" />
+                <!-- Sao Paulo to Tokyo -->
+                <path class="attack-arc" stroke="url(#arcGradRed)" d="M 280 250 Q 520 320 740 120" />
+              </g>
+
+              <!-- Sensor Nodes -->
+              <g id="sensorNodes">
+                <!-- Hanoi Node (HQ) -->
+                <circle cx="670" cy="170" r="6" fill="#00ff88" class="map-node" data-city="Hà Nội (HQ Sensor)" />
+                <circle cx="670" cy="170" r="14" fill="none" stroke="#00ff88" stroke-width="1.5" opacity="0.6">
+                  <animate attributeName="r" values="6;22;6" dur="2s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.8;0;0.8" dur="2s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- Tokyo -->
+                <circle cx="740" cy="120" r="5" fill="#00f0ff" class="map-node" data-city="Tokyo (Edge Node)" />
+                <!-- Frankfurt -->
+                <circle cx="480" cy="100" r="5" fill="#00f0ff" class="map-node" data-city="Frankfurt (AWS eu-central)" />
+                <!-- California -->
+                <circle cx="180" cy="120" r="5" fill="#ffb700" class="map-node" data-city="San Jose (Cloudflare POP)" />
+                <!-- Moscow -->
+                <circle cx="520" cy="90" r="5" fill="#ff0055" class="map-node" data-city="Threat Origin #481" />
+                <!-- Sao Paulo -->
+                <circle cx="280" cy="250" r="5" fill="#a855f7" class="map-node" data-city="Sao Paulo Node" />
+              </g>
+            </svg>
+
+            <div class="map-tooltip" id="mapTooltip">
+              🎯 <strong>Mục tiêu:</strong> Hà Nội Gateway (Port 443 SYN Flood) | <strong>Lưu lượng:</strong> 14.8 Gbps
+            </div>
+          </div>
+        </section>
+
+        <!-- SIEM Event Table -->
+        <section class="card-panel siem-feed" id="siem">
+          <div class="panel-header">
+            <div class="panel-title">
+              <svg width="20" height="20" fill="none" stroke="var(--sec-cyan)" stroke-width="2" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+              NHẬT KÝ SỰ KIỆN SIEM (LIVE EVENT LOGS)
+            </div>
+            <div class="siem-controls">
+              <button class="siem-filter-btn active" data-sev="ALL">TẤT CẢ (ALL)</button>
+              <button class="siem-filter-btn" data-sev="CRITICAL">NGUY CẤP</button>
+              <button class="siem-filter-btn" data-sev="HIGH">CAO</button>
+              <button class="siem-filter-btn" data-sev="MEDIUM">TRUNG BÌNH</button>
+              <button class="btn-soc btn-soc-ghost" id="btnToggleStream">⏸ TẠM DỪNG</button>
+            </div>
+          </div>
+
+          <div style="overflow-x:auto;">
+            <table class="siem-table">
+              <thead>
+                <tr>
+                  <th>Thời gian</th>
+                  <th>Mức độ</th>
+                  <th>Địa chỉ IP nguồn</th>
+                  <th>Chữ ký mối đe dọa (Signature)</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="siemTableBody">
+                <tr data-sev="CRITICAL">
+                  <td style="color:var(--txt-muted);">14:22:08.41</td>
+                  <td><span class="badge-sev sev-critical">CRITICAL</span></td>
+                  <td><code>185.220.101.5</code> (Tor Exit Node)</td>
+                  <td>CVE-2024-3400 PAN-OS Command Injection</td>
+                  <td><button class="btn-soc btn-soc-danger btn-table-action" data-ip="185.220.101.5">CHẶN IP</button></td>
+                </tr>
+                <tr data-sev="HIGH">
+                  <td style="color:var(--txt-muted);">14:21:55.19</td>
+                  <td><span class="badge-sev sev-high">HIGH</span></td>
+                  <td><code>45.142.212.88</code> (RU)</td>
+                  <td>SSH Brute Force: 142 failed logins / 60s</td>
+                  <td><button class="btn-soc btn-soc-danger btn-table-action" data-ip="45.142.212.88">CHẶN IP</button></td>
+                </tr>
+                <tr data-sev="MEDIUM">
+                  <td style="color:var(--txt-muted);">14:21:40.02</td>
+                  <td><span class="badge-sev sev-medium">MEDIUM</span></td>
+                  <td><code>10.0.12.94</code> (Internal HR)</td>
+                  <td>Unusual outbound DNS query to .xyz TLD</td>
+                  <td><button class="btn-soc btn-soc-ghost btn-table-action" data-ip="10.0.12.94">CÁCH LY</button></td>
+                </tr>
+                <tr data-sev="INFO">
+                  <td style="color:var(--txt-muted);">14:21:12.77</td>
+                  <td><span class="badge-sev sev-info">INFO</span></td>
+                  <td><code>192.168.1.1</code> (Gateway)</td>
+                  <td>SSL Certificate Auto-renewed successfully</td>
+                  <td><span style="color:var(--sec-emerald);">Ghi nhận</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Security Score & Action Center -->
+      <aside class="remediation-panel">
+        <!-- Posture Dial -->
+        <div class="card-panel posture-score-dial">
+          <div class="panel-title" style="justify-content:center;margin-bottom:12px;">ĐIỂM AN TOÀN HỆ THỐNG</div>
+          <div style="position:relative;width:140px;height:140px;margin:0 auto;">
+            <svg class="gauge-circle" viewBox="0 0 140 140">
+              <circle class="gauge-bg" cx="70" cy="70" r="60"/>
+              <circle class="gauge-meter" id="gaugeMeter" cx="70" cy="70" r="60"/>
+            </svg>
+            <div class="gauge-text" id="scoreText">84%</div>
+          </div>
+          <div class="gauge-label" id="scoreStatus">MỨC ĐỘ BẢO VỆ: TỐT (OPTIMAL)</div>
+        </div>
+
+        <!-- Remediation Actions -->
+        <div class="card-panel">
+          <div class="panel-title" style="margin-bottom:14px;">
+            <svg width="18" height="18" fill="none" stroke="var(--sec-cyan)" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            PHÒNG THỦ TỰ ĐỘNG (REMEDIATION)
+          </div>
+          <div class="action-list">
+            <div class="action-btn-item" id="actFirewall">
+              <div class="action-meta">
+                <span class="action-name">Bảo vệ Tường lửa WAF</span>
+                <span class="action-sub">Chặn tự động địa chỉ IP trong Blacklist</span>
+              </div>
+              <span class="action-status-tag status-ready">BẬT (ACTIVE)</span>
+            </div>
+
+            <div class="action-btn-item" id="actQuarantine">
+              <div class="action-meta">
+                <span class="action-name">Cô lập Máy trạm Nhiễm mã độc</span>
+                <span class="action-sub">EDR ngắt kết nối mạng host 10.0.12.94</span>
+              </div>
+              <button class="btn-soc btn-soc-cyan" style="padding:4px 10px;font-size:0.7rem;">CÔ LẬP</button>
+            </div>
+
+            <div class="action-btn-item" id="actRevokeToken">
+              <div class="action-meta">
+                <span class="action-name">Thu hồi Toàn bộ Token Admin</span>
+                <span class="action-sub">Huỷ phiên JWT khi nghi ngờ rò rỉ khoá</span>
+              </div>
+              <button class="btn-soc btn-soc-ghost" style="padding:4px 10px;font-size:0.7rem;">HUỶ PHIÊN</button>
+            </div>
+
+            <div class="action-btn-item" id="actDDoSShield">
+              <div class="action-meta">
+                <span class="action-name">Kích hoạt Chế độ Chống DDoS Anycast</span>
+                <span class="action-sub">Bật CAPTCHA Cloudflare mức độ nghiêm ngặt</span>
+              </div>
+              <button class="btn-soc btn-soc-cyan" style="padding:4px 10px;font-size:0.7rem;">BẬT CHẮN</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Honeypot Status -->
+        <div class="card-panel">
+          <div class="panel-title" style="margin-bottom:12px;">BẪY THÔNG MINH (HONEYPOT)</div>
+          <div style="font-family:var(--font-mono);font-size:0.8rem;line-height:1.7;color:var(--txt-secondary);">
+            <div>Trạng thái: <strong style="color:var(--sec-emerald);">ĐANG GIĂNG BẪY (ARMED)</strong></div>
+            <div>Bẫy đã kích hoạt: <strong>4 cụm K8s ảo</strong></div>
+            <div>Attacker bị cô lập: <strong style="color:var(--sec-cyan);">8 đối tượng</strong></div>
+            <div>Payload thu thập: <strong>14.2 MB malware</strong></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- MITRE ATT&CK Matrix Navigator -->
+    <section class="card-panel mitre-section" id="mitre">
+      <div class="panel-header">
+        <div class="panel-title">
+          <svg width="20" height="20" fill="none" stroke="var(--sec-cyan)" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          MA TRẬN KỸ THUẬT TẤN CÔNG (MITRE ATT&CK MATRIX EXPLORER)
+        </div>
+        <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--txt-muted);">Nhấp vào từng kỹ thuật để xem đối sách EDR/XDR</span>
+      </div>
+
+      <div class="mitre-grid">
+        <div class="mitre-col">
+          <div class="mitre-col-title">1. Initial Access</div>
+          <div class="mitre-tag active" data-desc="T1566: Phishing qua email đính kèm mã macro độc hại. Đã kích hoạt EDR sandbox ngăn chặn.">T1566 Phishing</div>
+          <div class="mitre-tag" data-desc="T1190: Khai thác lỗ hổng ứng dụng hướng công cộng (SQLi, RCE). WAF đã chặn 14,920 requests.">T1190 Exploit Public App</div>
+          <div class="mitre-tag" data-desc="T1078: Lạm dụng tài khoản hợp lệ bị rò rỉ từ dark web. Yêu cầu bắt buộc FIDO2 MFA.">T1078 Valid Accounts</div>
+        </div>
+
+        <div class="mitre-col">
+          <div class="mitre-col-title">2. Execution</div>
+          <div class="mitre-tag" data-desc="T1059: Sử dụng PowerShell để tải và chạy payload bộ nhớ. Đã bật AppLocker & Constrained Language.">T1059 Command Script</div>
+          <div class="mitre-tag active" data-desc="T1204: Người dùng chạy file độc hại. EDR đã tự động cô lập tiến trình độc hại trong 300ms.">T1204 User Execution</div>
+          <div class="mitre-tag" data-desc="T1047: Windows Management Instrumentation (WMI) lạm dụng. Giám sát bằng Sysmon Event ID 19.">T1047 WMI Execution</div>
+        </div>
+
+        <div class="mitre-col">
+          <div class="mitre-col-title">3. Persistence</div>
+          <div class="mitre-tag" data-desc="T1053: Tạo tác vụ định kỳ Scheduled Task để duy trì quyền điều khiển sau khi khởi động lại.">T1053 Scheduled Task</div>
+          <div class="mitre-tag" data-desc="T1547: Can thiệp Registry Run Keys. Cảnh báo tự động gửi về SIEM khi registry bị sửa.">T1547 Registry Run Keys</div>
+          <div class="mitre-tag" data-desc="T1136: Tạo tài khoản backdoor lén lút trên Active Directory.">T1136 Create Account</div>
+        </div>
+
+        <div class="mitre-col">
+          <div class="mitre-col-title">4. Lateral Movement</div>
+          <div class="mitre-tag active" data-desc="T1021: Remote Services (RDP, WinRM) để lây lan nội bộ. Áp dụng Zero Trust Network Segmentation.">T1021 Remote Desktop</div>
+          <div class="mitre-tag" data-desc="T1550: Sử dụng vé Kerberos giả mạo (Pass-the-Ticket). Bảo vệ bằng Microsoft Defender for Identity.">T1550 Pass the Hash/Ticket</div>
+          <div class="mitre-tag" data-desc="T1570: Sao chép tệp tin độc hại sang máy chủ tệp tin nội bộ.">T1570 Lateral Tool Transfer</div>
+        </div>
+
+        <div class="mitre-col">
+          <div class="mitre-col-title">5. Exfiltration</div>
+          <div class="mitre-tag" data-desc="T1048: Rò rỉ dữ liệu qua giao thức thay thế (DNS Tunneling). Hệ thống phát hiện bất thường độ dài DNS.">T1048 Alt Protocol</div>
+          <div class="mitre-tag" data-desc="T1567: Tải dữ liệu nhạy cảm lên dịch vụ lưu trữ đám mây (Mega, Google Drive). DLP đã chặn truyền file.">T1567 Exfil to Cloud</div>
+          <div class="mitre-tag" data-desc="T1020: Tự động hoá mã hoá và nén tệp bằng 7-Zip trước khi gửi ra ngoài.">T1020 Automated Exfil</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dark Web Intelligence Breach Scanner -->
+    <section class="darkweb-box" id="darkweb">
+      <div class="darkweb-left">
+        <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--sec-crimson);margin-bottom:8px;">
+          🕵️ TÌNH BÁO DARK WEB &amp; DỮ LIỆU RÒ RỈ (BREACH RADAR)
+        </div>
+        <p style="color:var(--txt-secondary);font-size:0.88rem;">
+          Kiểm tra ngay tên miền công ty, email hoặc tài khoản nhân sự có xuất hiện trong các cơ sở dữ liệu rò rỉ gần đây (Stealer logs, Combo lists, Telegram leak channels).
+        </p>
+        <div class="darkweb-input-group">
+          <input type="text" class="darkweb-input" id="darkwebQuery" placeholder="Nhập tên miền (vd: company.com) hoặc email nhân viên..." value="security@enterprise.vn" />
+          <button class="btn-soc btn-soc-cyan" id="btnScanDarkweb">QUÉT RÒ RỈ</button>
+        </div>
+      </div>
+      <div style="text-align:right;font-family:var(--font-mono);font-size:0.8rem;color:var(--txt-muted);">
+        <div>CƠ SỞ DỮ LIỆU ĐÃ LƯU TRỮ:</div>
+        <div style="font-family:var(--font-display);font-size:1.6rem;color:var(--sec-amber);font-weight:700;">14.8 TỶ BẢN GHI</div>
+        <div>Cập nhật: 12 phút trước</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lockdown Modal -->
+  <div class="soc-modal-backdrop" id="lockdownModal">
+    <div class="soc-modal">
+      <h3 style="font-family:var(--font-display);color:var(--sec-crimson);font-size:1.4rem;margin-bottom:12px;">
+        ⚠️ XÁC NHẬN KÍCH HOẠT QUY TRÌNH LOCKDOWN TOÀN DIỆN
+      </h3>
+      <p style="color:var(--txt-secondary);font-size:0.85rem;line-height:1.6;margin-bottom:20px;">
+        Hành động này sẽ ngắt toàn bộ lưu lượng ra ngoài Internet, cô lập các subnet nội bộ, chuyển đổi tường lửa sang chế độ Drop All và kích hoạt đội ngũ phản ứng sự cố khẩn cấp (CSIRT).
+      </p>
+      <div style="display:flex;justify-content:flex-end;gap:12px;">
+        <button class="btn-soc btn-soc-ghost" id="btnCancelLockdown">HUỶ BỎ</button>
+        <button class="btn-soc btn-soc-danger" id="btnConfirmLockdown">XÁC NHẬN LOCKDOWN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Tactical Footer -->
+  <footer class="container soc-footer">
+    <div>
+      <strong>Aegis CyberSec UI Kit</strong> — Trung tâm điều hành an ninh mạng thế hệ mới chuẩn MITRE ATT&CK &amp; Zero Trust.
+    </div>
+    <div style="display:flex;gap:20px;">
+      <a href="../index.html" style="color:var(--txt-secondary);text-decoration:none;">Về Showroom chính</a>
+      <a href="admin.html" style="color:var(--txt-secondary);text-decoration:none;">Nexus Admin</a>
+      <a href="ai.html" style="color:var(--txt-secondary);text-decoration:none;">CogniX AI Studio</a>
+    </div>
+  </footer>
+
+  <script>
+    // Web Audio Synthesizer for Tactical Cyber Sound Effects
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    let soundEnabled = true;
+
+    function playTacticalSound(type = 'ping') {
+      if (!soundEnabled) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        if (type === 'ping') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.12);
+          gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.12);
+        } else if (type === 'siren') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(450, audioCtx.currentTime);
+          osc.frequency.linearRampToValueAtTime(900, audioCtx.currentTime + 0.15);
+          osc.frequency.linearRampToValueAtTime(450, audioCtx.currentTime + 0.3);
+          gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.35);
+        } else if (type === 'success') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+          osc.frequency.setValueAtTime(880.00, audioCtx.currentTime + 0.08);
+          gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.25);
+        }
+      } catch (e) {}
+    }
+
+    function showToast(msg, icon = '🛡️') {
+      const c = document.getElementById('toastContainer');
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.innerHTML = `<span>${icon}</span> <span>${msg}</span>`;
+      c.appendChild(t);
+      setTimeout(() => t.classList.add('is-show'), 10);
+      playTacticalSound('ping');
+      setTimeout(() => {
+        t.classList.remove('is-show');
+        setTimeout(() => t.remove(), 300);
+      }, 3500);
+    }
+
+    // Toggle Sound
+    document.getElementById('soundToggle').addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      document.getElementById('soundIcon').textContent = soundEnabled ? '🔊' : '🔇';
+      showToast(soundEnabled ? 'Đã bật âm thanh tác chiến SOC' : 'Đã tắt âm thanh', soundEnabled ? '🔊' : '🔇');
+    });
+
+    // Theme Toggle
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme');
+      const next = cur === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      showToast(`Đã chuyển theme: ${next === 'light' ? 'Sáng' : 'Tối'}`, '🌓');
+    });
+
+    // Simulate Attack Button
+    let attackSimCount = 0;
+    document.getElementById('btnSimulateAttack').addEventListener('click', () => {
+      attackSimCount++;
+      playTacticalSound('siren');
+      const arcs = document.getElementById('vectorArcs');
+      const newPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      newPath.setAttribute('class', 'attack-arc');
+      newPath.setAttribute('stroke', '#ff0055');
+      const startX = 150 + Math.random() * 300;
+      const startY = 80 + Math.random() * 100;
+      newPath.setAttribute('d', `M ${startX} ${startY} Q 500 20 670 170`);
+      arcs.appendChild(newPath);
+
+      // Add to SIEM table
+      const tbody = document.getElementById('siemTableBody');
+      const tr = document.createElement('tr');
+      tr.setAttribute('data-sev', 'CRITICAL');
+      const now = new Date();
+      const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}.${String(Math.floor(now.getMilliseconds()/10)).padStart(2,'0')}`;
+      const randomIP = `194.26.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
+      tr.innerHTML = `
+        <td style="color:var(--txt-muted);">${timeStr}</td>
+        <td><span class="badge-sev sev-critical">CRITICAL</span></td>
+        <td><code>${randomIP}</code> (Botnet Node)</td>
+        <td>DDoS UDP Flood (Amplification attack 34.2 Gbps)</td>
+        <td><button class="btn-soc btn-soc-danger btn-table-action" data-ip="${randomIP}">CHẶN IP</button></td>
+      `;
+      tbody.prepend(tr);
+      attachTableActions();
+
+      showToast(`Mô phỏng đợt tấn công mới từ IP ${randomIP}!`, '🚨');
+    });
+
+    // Table Actions (Block IP)
+    function attachTableActions() {
+      document.querySelectorAll('.btn-table-action').forEach(btn => {
+        btn.onclick = () => {
+          const ip = btn.getAttribute('data-ip');
+          btn.parentElement.innerHTML = `<span style="color:var(--sec-emerald);font-weight:700;">Đã chặn WAF ✓</span>`;
+          showToast(`Đã áp dụng quy tắc Firewall chặn vĩnh viễn IP: ${ip}`, '⛔');
+          playTacticalSound('success');
+          // Update blocked count
+          const blockedEl = document.getElementById('statBlocked');
+          let val = parseInt(blockedEl.textContent.replace(/,/g, ''));
+          blockedEl.textContent = (val + 1).toLocaleString();
+        };
+      });
+    }
+    attachTableActions();
+
+    // Map Node Hover
+    document.querySelectorAll('.map-node').forEach(node => {
+      node.addEventListener('mouseenter', () => {
+        const city = node.getAttribute('data-city');
+        document.getElementById('mapTooltip').innerHTML = `📍 <strong>Cảm biến giám sát:</strong> ${city} | <strong>Trạng thái:</strong> Bình thường (Packet loss: 0%)`;
+        playTacticalSound('ping');
+      });
+    });
+
+    // SIEM Filter Buttons
+    document.querySelectorAll('.siem-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.siem-filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const sev = btn.getAttribute('data-sev');
+        const rows = document.querySelectorAll('#siemTableBody tr');
+        rows.forEach(r => {
+          if (sev === 'ALL' || r.getAttribute('data-sev') === sev) {
+            r.style.display = '';
+          } else {
+            r.style.display = 'none';
+          }
+        });
+        playTacticalSound('ping');
+      });
+    });
+
+    // Pause/Resume SIEM Stream
+    let streamPaused = false;
+    document.getElementById('btnToggleStream').addEventListener('click', function() {
+      streamPaused = !streamPaused;
+      this.textContent = streamPaused ? '▶ TIẾP TỤC' : '⏸ TẠM DỪNG';
+      showToast(streamPaused ? 'Đã tạm dừng luồng SIEM' : 'Đã tiếp tục theo dõi thời gian thực', '📡');
+    });
+
+    // MITRE ATT&CK Tag Click
+    document.querySelectorAll('.mitre-tag').forEach(tag => {
+      tag.addEventListener('click', () => {
+        const desc = tag.getAttribute('data-desc');
+        showToast(desc, '🎯');
+        playTacticalSound('ping');
+      });
+    });
+
+    // Dark Web Scan Button
+    document.getElementById('btnScanDarkweb').addEventListener('click', () => {
+      const q = document.getElementById('darkwebQuery').value.trim();
+      if (!q) return;
+      playTacticalSound('siren');
+      showToast(`Đang rà quét Dark Web cho "${q}"...`, '🔍');
+      setTimeout(() => {
+        playTacticalSound('success');
+        showToast(`Cảnh báo: Phát hiện 2 mật khẩu hash và 1 token API liên quan đến "${q}" trên diễn đàn BreachForums!`, '⚠️');
+      }, 1500);
+    });
+
+    // Lockdown Modal
+    const lockdownModal = document.getElementById('lockdownModal');
+    document.getElementById('btnLockdown').addEventListener('click', () => {
+      lockdownModal.classList.add('is-open');
+      playTacticalSound('siren');
+    });
+    document.getElementById('btnCancelLockdown').addEventListener('click', () => {
+      lockdownModal.classList.remove('is-open');
+    });
+    document.getElementById('btnConfirmLockdown').addEventListener('click', () => {
+      lockdownModal.classList.remove('is-open');
+      playTacticalSound('siren');
+      document.body.style.filter = 'hue-rotate(330deg)';
+      showToast('QUY TRÌNH LOCKDOWN ĐÃ KÍCH HOẠT! TOÀN BỘ CỔNG MẠNG ĐÃ BỊ CÔ LẬP.', '🚨');
+      setTimeout(() => {
+        document.body.style.filter = '';
+      }, 4000);
+    });
+
+    // Remediation Actions (Quarantine & Token Revocation)
+    document.getElementById('actQuarantine').addEventListener('click', () => {
+      playTacticalSound('success');
+      showToast('EDR đã ngắt kết nối mạng máy trạm 10.0.12.94 thành công!', '🔒');
+      document.getElementById('scoreText').textContent = '92%';
+      document.getElementById('gaugeMeter').style.strokeDashoffset = '30';
+    });
+    document.getElementById('actRevokeToken').addEventListener('click', () => {
+      playTacticalSound('success');
+      showToast('Đã thu hồi 12 phiên đăng nhập Admin qua SSO Okta.', '🔑');
+    });
+    document.getElementById('actDDoSShield').addEventListener('click', () => {
+      playTacticalSound('success');
+      showToast('Đã kích hoạt chế độ "I am under attack" trên Cloudflare WAF.', '🛡️');
+    });
+  </script>
+</body>
+</html>

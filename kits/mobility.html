@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apex EV Cockpit — Next-Gen Smart Mobility &amp; Telematics UI Kit</title>
+  <meta name="description" content="Bộ UI Kit khoang lái xe điện thông minh thế hệ mới: cụm đồng hồ tốc độ số hoá HUD, điều khiển từ xa telematics, trạm sạc siêu nhanh và điều hoà hai vùng độc lập." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/tokens.css" />
+
+  <style>
+    /* ================================================================
+       APEX EV COCKPIT UI KIT — Luxury Automotive Telematics System
+       ================================================================ */
+    :root {
+      --bg-base: #06070a;
+      --bg-surface: #0c0f17;
+      --bg-surface-2: #131826;
+      --bg-card: rgba(18, 24, 38, 0.75);
+      --bg-glass: rgba(12, 15, 23, 0.88);
+
+      --border: rgba(255, 255, 255, 0.08);
+      --border-bright: rgba(255, 255, 255, 0.16);
+      --border-glow: rgba(56, 189, 248, 0.4);
+
+      --txt-primary: #f8fafc;
+      --txt-secondary: #94a3b8;
+      --txt-muted: #64748b;
+
+      --ev-cyan: #38bdf8;
+      --ev-amber: #f59e0b;
+      --ev-volt: #10b981;
+      --ev-rose: #f43f5e;
+      --ev-purple: #a855f7;
+
+      --glow-cyan: rgba(56, 189, 248, 0.35);
+      --glow-volt: rgba(16, 185, 129, 0.35);
+      --glow-purple: rgba(168, 85, 247, 0.35);
+
+      --grad-cyan: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+      --grad-volt: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --grad-ludicrous: linear-gradient(135deg, #a855f7 0%, #f43f5e 100%);
+
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-pill: 9999px;
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f1f5f9;
+      --bg-surface: #ffffff;
+      --bg-surface-2: #e2e8f0;
+      --bg-card: rgba(255, 255, 255, 0.95);
+      --bg-glass: rgba(255, 255, 255, 0.88);
+
+      --border: rgba(15, 23, 42, 0.08);
+      --border-bright: rgba(15, 23, 42, 0.15);
+      --border-glow: rgba(2, 132, 199, 0.25);
+
+      --txt-primary: #0f172a;
+      --txt-secondary: #475569;
+      --txt-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-base);
+      color: var(--txt-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Carbon Ambient Backdrop */
+    .ev-backdrop {
+      position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 45%),
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    }
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Telematics Bar */
+    .ev-top-bar {
+      background: #090c13;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 24px;
+      font-size: 0.82rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--ev-volt); font-weight: 700;
+    }
+    .status-badge .dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--ev-volt);
+      box-shadow: 0 0 8px var(--glow-volt);
+    }
+
+    /* Navbar */
+    .ev-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .ev-nav__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+    }
+    .ev-brand {
+      display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--txt-primary);
+    }
+    .ev-brand__logo {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--grad-cyan);
+      display: grid; place-items: center;
+      color: #fff; box-shadow: 0 0 20px var(--glow-cyan);
+    }
+    .ev-brand__name {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .ev-brand__name span { color: var(--ev-cyan); }
+    .ev-brand__model {
+      font-size: 0.72rem; color: var(--txt-muted); text-transform: uppercase; font-family: var(--font-mono);
+    }
+
+    .ev-nav__links { display: flex; align-items: center; gap: 8px; list-style: none; }
+    .ev-nav__link {
+      padding: 8px 16px; border-radius: var(--radius-sm);
+      font-size: 0.88rem; font-weight: 600; color: var(--txt-secondary);
+      text-decoration: none; transition: all 0.2s;
+    }
+    .ev-nav__link:hover, .ev-nav__link.is-active {
+      color: var(--txt-primary); background: rgba(255, 255, 255, 0.05);
+    }
+
+    .ev-nav__actions { display: flex; align-items: center; gap: 12px; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 18px; border-radius: var(--radius-sm);
+      font-size: 0.88rem; font-weight: 600; font-family: inherit;
+      cursor: pointer; text-decoration: none; border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-cyan {
+      background: var(--grad-cyan); color: #fff;
+      box-shadow: 0 4px 20px var(--glow-cyan);
+    }
+    .btn-cyan:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--border-bright); color: var(--txt-primary);
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.08); border-color: var(--ev-cyan);
+    }
+    .btn-icon {
+      width: 40px; height: 40px; padding: 0; border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border);
+      color: var(--txt-primary); display: grid; place-items: center;
+    }
+    .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
+
+    /* Instrument Cluster Cockpit Section */
+    .cockpit-hero {
+      margin: 40px 0 56px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-lg);
+      padding: 36px; backdrop-filter: blur(20px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+      position: relative; overflow: hidden;
+    }
+    .cockpit-top {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 28px; flex-wrap: wrap; gap: 16px;
+    }
+    .gear-selector {
+      display: inline-flex; background: #090c13;
+      padding: 4px; border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+    }
+    .gear-item {
+      padding: 6px 16px; border-radius: var(--radius-pill);
+      font-family: var(--font-display); font-size: 0.95rem; font-weight: 800;
+      color: var(--txt-muted); cursor: pointer; transition: all 0.2s;
+    }
+    .gear-item.is-active {
+      background: var(--ev-cyan); color: #000;
+      box-shadow: 0 0 15px var(--glow-cyan);
+    }
+
+    .drive-modes {
+      display: flex; gap: 8px;
+    }
+    .mode-btn {
+      padding: 8px 18px; border-radius: var(--radius-sm);
+      font-family: var(--font-display); font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; border: 1px solid var(--border); background: #090c13;
+      color: var(--txt-secondary); text-transform: uppercase; transition: all 0.2s;
+    }
+    .mode-btn.is-active {
+      border-color: var(--ev-cyan); color: var(--ev-cyan);
+      box-shadow: 0 0 16px var(--glow-cyan);
+    }
+    .mode-btn.is-ludicrous.is-active {
+      border-color: var(--ev-purple); color: var(--ev-purple);
+      box-shadow: 0 0 20px var(--glow-purple);
+    }
+
+    /* Speedometer Gauges Grid */
+    .gauges-layout {
+      display: grid; grid-template-columns: 1fr 340px 1fr;
+      align-items: center; gap: 32px;
+    }
+    @media (max-width: 992px) {
+      .gauges-layout { grid-template-columns: 1fr; }
+    }
+
+    /* Left Gauge: Battery & Range */
+    .stat-gauge-card {
+      background: #090c13; border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 24px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      height: 220px;
+    }
+    .gauge-label {
+      font-size: 0.78rem; color: var(--txt-muted); text-transform: uppercase;
+      letter-spacing: 0.05em; font-weight: 700;
+    }
+    .gauge-big-num {
+      font-family: var(--font-display); font-size: 2.8rem; font-weight: 800;
+      line-height: 1; margin: 8px 0; color: var(--txt-primary);
+    }
+    .gauge-big-num span { font-size: 1.2rem; font-weight: 600; color: var(--txt-muted); }
+
+    /* Center Main Speedometer */
+    .center-speedo {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      position: relative;
+    }
+    .speedo-circle {
+      width: 240px; height: 240px; border-radius: 50%;
+      border: 8px solid rgba(255, 255, 255, 0.05);
+      border-top-color: var(--ev-cyan);
+      border-right-color: var(--ev-cyan);
+      display: grid; place-items: center;
+      position: relative; box-shadow: 0 0 30px var(--glow-cyan);
+      transition: all 0.3s;
+    }
+    .speedo-val {
+      font-family: var(--font-display); font-size: 4.5rem; font-weight: 900;
+      line-height: 1; letter-spacing: -0.04em;
+    }
+    .speedo-unit {
+      font-size: 0.88rem; font-family: var(--font-mono); color: var(--txt-muted);
+      font-weight: 700; letter-spacing: 0.08em;
+    }
+    .speed-slider-control {
+      margin-top: 24px; width: 100%; display: flex; flex-direction: column; gap: 8px;
+    }
+
+    /* Right Gauge: Power & Regen */
+    .power-meter-fill {
+      width: 100%; height: 10px; background: rgba(255, 255, 255, 0.08);
+      border-radius: 99px; overflow: hidden; margin-top: 10px;
+    }
+    .power-meter-bar {
+      width: 45%; height: 100%; background: var(--grad-cyan);
+      transition: width 0.2s;
+    }
+
+    /* 360 Vehicle Controls Interactive Section */
+    .vehicle-section {
+      margin-bottom: 56px;
+    }
+    .vehicle-chassis-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px; backdrop-filter: blur(16px);
+      display: grid; grid-template-columns: 1fr 340px;
+      gap: 36px; align-items: center;
+    }
+    @media (max-width: 992px) {
+      .vehicle-chassis-wrap { grid-template-columns: 1fr; }
+    }
+
+    /* Vehicle Top-Down Graphic */
+    .vehicle-blueprint {
+      height: 380px; background: #080a12;
+      border: 1px solid var(--border); border-radius: var(--radius-md);
+      position: relative; display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .car-silhouette {
+      width: 160px; height: 300px; border-radius: 40px;
+      border: 2px solid var(--ev-cyan);
+      background: rgba(56, 189, 248, 0.06);
+      position: relative; display: grid; place-items: center;
+      box-shadow: 0 0 30px var(--glow-cyan);
+    }
+    .car-glass {
+      width: 110px; height: 140px; border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    /* Clickable Hotspots on Blueprint */
+    .hotspot {
+      position: absolute; width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(12, 15, 23, 0.9); border: 2px solid var(--ev-cyan);
+      display: grid; place-items: center; color: var(--ev-cyan);
+      cursor: pointer; transition: all 0.2s;
+      box-shadow: 0 0 15px var(--glow-cyan);
+    }
+    .hotspot:hover { transform: scale(1.15); background: var(--ev-cyan); color: #000; }
+    .hotspot.front-trunk { top: 30px; left: calc(50% - 17px); }
+    .hotspot.rear-trunk { bottom: 30px; left: calc(50% - 17px); }
+    .hotspot.charge-port { top: 120px; right: calc(50% - 100px); }
+    .hotspot.door-lock { top: 180px; left: calc(50% - 100px); }
+
+    /* Control Panel Buttons */
+    .controls-grid {
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .action-tile {
+      background: var(--bg-surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .action-tile:hover {
+      border-color: var(--ev-cyan); transform: translateX(3px);
+    }
+    .action-tile.is-active {
+      border-color: var(--ev-volt); background: rgba(16, 185, 129, 0.1);
+    }
+
+    /* Dual-Zone Climate Section */
+    .climate-section {
+      margin-bottom: 56px;
+    }
+    .climate-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .climate-dial-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px; backdrop-filter: blur(16px);
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+    }
+    .temp-circle {
+      width: 140px; height: 140px; border-radius: 50%;
+      border: 4px solid var(--border-bright); border-top-color: var(--ev-cyan);
+      display: grid; place-items: center; margin: 16px 0;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+    }
+    .temp-val {
+      font-family: var(--font-display); font-size: 2.4rem; font-weight: 800;
+    }
+    .temp-stepper {
+      display: flex; gap: 12px; align-items: center;
+    }
+
+    /* Seat heater level dots */
+    .seat-heater-pills {
+      display: flex; gap: 6px; margin-top: 14px;
+    }
+    .seat-led {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .seat-led.active-heat { background: #f43f5e; box-shadow: 0 0 8px rgba(244, 63, 94, 0.6); }
+
+    /* Supercharger Route Section */
+    .charging-section {
+      margin-bottom: 60px;
+    }
+    .charger-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px; backdrop-filter: blur(16px);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 20px;
+    }
+
+    /* Modal Live Sentry Cam */
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      z-index: 200; display: none; place-items: center; padding: 20px;
+    }
+    .modal-backdrop.is-open { display: grid; }
+    .sentry-modal {
+      background: #090c14; border: 1px solid var(--ev-rose);
+      border-radius: var(--radius-lg); width: 100%; max-width: 600px;
+      padding: 28px; position: relative; box-shadow: 0 0 50px rgba(244, 63, 94, 0.3);
+    }
+    .btn-close-modal {
+      position: absolute; top: 18px; right: 18px;
+      background: none; border: none; color: var(--txt-muted);
+      cursor: pointer; font-size: 1.2rem;
+    }
+
+    /* Toast */
+    .toast-container {
+      position: fixed; bottom: 24px; right: 24px; z-index: 300;
+      display: flex; flex-direction: column; gap: 10px; pointer-events: none;
+    }
+    .toast {
+      background: #0d121e; border: 1px solid var(--border-bright);
+      color: #fff; padding: 12px 20px; border-radius: var(--radius-sm);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); font-family: var(--font-display);
+      font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 10px;
+      transform: translateY(20px); opacity: 0; transition: all 0.3s;
+    }
+    .toast.is-show { transform: translateY(0); opacity: 1; }
+
+    /* Footer */
+    .ev-footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0; margin-top: 60px;
+      color: var(--txt-muted); font-size: 0.85rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="ev-backdrop"></div>
+
+  <!-- Top Telematics Status Bar -->
+  <div class="ev-top-bar">
+    <div style="display:flex;align-items:center;gap:16px;">
+      <span class="status-badge"><span class="dot"></span> XE ĐÃ KHOÁ · BẢO MẬT SENTRY BẬT</span>
+      <span style="color:var(--txt-muted);font-family:var(--font-mono);">VIN: APX-2026-HYPER-GT</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;font-family:var(--font-mono);font-size:0.8rem;">
+      <span>Lốp: 2.4 bar</span>
+      <span>Nhiệt độ pin: 28°C</span>
+      <span>AQI Cabin: 12 (Sạch)</span>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="ev-nav">
+    <div class="container ev-nav__inner">
+      <a href="../index.html" class="ev-brand">
+        <div class="ev-brand__logo">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div>
+          <div class="ev-brand__name">Apex <span>EV Cockpit</span></div>
+          <div class="ev-brand__model">Hyper-GT AWD Tri-Motor</div>
+        </div>
+      </a>
+
+      <ul class="ev-nav__links">
+        <li><a href="#cockpit" class="ev-nav__link is-active">Đồng Hồ HUD</a></li>
+        <li><a href="#controls" class="ev-nav__link">Điều Khiển Xe</a></li>
+        <li><a href="#climate" class="ev-nav__link">Điều Hoà 2 Vùng</a></li>
+        <li><a href="#charging" class="ev-nav__link">Trạm Sạc</a></li>
+      </ul>
+
+      <div class="ev-nav__actions">
+        <button class="btn btn-outline btn-sm" id="btnHorn">
+          📢 Còi xe
+        </button>
+        <button class="btn btn-icon" id="themeToggle" title="Đổi theme Sáng/Tối">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <a href="../index.html" class="btn btn-cyan btn-sm">Về Showroom</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Digital Instrument Cluster Cockpit Section -->
+    <section class="cockpit-hero" id="cockpit">
+      <div class="cockpit-top">
+        <!-- Gear Selector -->
+        <div class="gear-selector" id="gearSelector">
+          <div class="gear-item" data-gear="P">P</div>
+          <div class="gear-item" data-gear="R">R</div>
+          <div class="gear-item" data-gear="N">N</div>
+          <div class="gear-item is-active" data-gear="D">D</div>
+        </div>
+
+        <!-- Drive Modes -->
+        <div class="drive-modes">
+          <button class="mode-btn" data-mode="chill">Chill Mode</button>
+          <button class="mode-btn is-active" data-mode="sport">Sport Mode</button>
+          <button class="mode-btn is-ludicrous" data-mode="ludicrous">⚡ Ludicrous</button>
+        </div>
+      </div>
+
+      <!-- Gauges Layout -->
+      <div class="gauges-layout">
+        <!-- Left: Range & Battery -->
+        <div class="stat-gauge-card">
+          <div>
+            <div class="gauge-label">Quãng đường ước tính</div>
+            <div class="gauge-big-num"><span id="rangeKmVal">512</span> <span>km</span></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:6px;font-family:var(--font-mono);">
+              <span>Pin Lithium 100 kWh</span>
+              <span style="color:var(--ev-cyan);" id="socPctVal">88%</span>
+            </div>
+            <div style="width:100%;height:8px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;">
+              <div style="width:88%;height:100%;background:var(--grad-cyan);" id="socBarFill"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center: Speedometer -->
+        <div class="center-speedo">
+          <div class="speedo-circle" id="speedoCircle">
+            <div>
+              <div class="speedo-val" id="speedometerNum">74</div>
+              <div class="speedo-unit">KM / H</div>
+            </div>
+          </div>
+
+          <div class="speed-slider-control">
+            <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--txt-muted);">
+              <span>Ga / Tăng tốc</span>
+              <span>240 km/h</span>
+            </div>
+            <input type="range" class="range-input" id="throttleSlider" min="0" max="240" value="74" style="width:100%;">
+          </div>
+        </div>
+
+        <!-- Right: Power & Regen Gauge -->
+        <div class="stat-gauge-card">
+          <div>
+            <div class="gauge-label">Công suất Motor tức thì</div>
+            <div class="gauge-big-num"><span id="powerKwVal">185</span> <span>kW</span></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:6px;font-family:var(--font-mono);">
+              <span>Tái sinh động năng (Regen)</span>
+              <span style="color:var(--ev-volt);">TỐI ƯU</span>
+            </div>
+            <div class="power-meter-fill">
+              <div class="power-meter-bar" id="powerMeterBar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 360 Vehicle Controls Interactive Section -->
+    <section class="vehicle-section" id="controls">
+      <div style="margin-bottom:24px;">
+        <h2 style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;letter-spacing:-0.02em;">
+          Điều Khiển Xe Từ Xa &amp; Sentry Mode
+        </h2>
+        <p style="color:var(--txt-secondary);font-size:0.95rem;">Tương tác trực tiếp trên bản vẽ khung gầm xe thông minh.</p>
+      </div>
+
+      <div class="vehicle-chassis-wrap">
+        <!-- Interactive Blueprint -->
+        <div class="vehicle-blueprint">
+          <div class="car-silhouette">
+            <div class="car-glass"></div>
+          </div>
+
+          <!-- Hotspots -->
+          <div class="hotspot front-trunk" id="hotspotFrunk" title="Mở cốp trước (Frunk)">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/></svg>
+          </div>
+          <div class="hotspot rear-trunk" id="hotspotTrunk" title="Mở cốp sau (Trunk)">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="hotspot charge-port" id="hotspotCharge" title="Cổng sạc điện">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div class="hotspot door-lock" id="hotspotLock" title="Khoá/Mở khoá cửa xe">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+        </div>
+
+        <!-- Right Controls Actions -->
+        <div class="controls-grid">
+          <div class="action-tile is-active" id="tileLock">
+            <div>
+              <div style="font-weight:700;font-size:0.95rem;">Khoá cửa tự động</div>
+              <div style="font-size:0.75rem;color:var(--txt-muted);">Tất cả 4 cánh cửa đang đóng kín</div>
+            </div>
+            <span style="color:var(--ev-volt);font-weight:700;">ĐÃ KHOÁ</span>
+          </div>
+
+          <div class="action-tile" id="tileFrunk">
+            <div>
+              <div style="font-weight:700;font-size:0.95rem;">Cốp trước (Frunk 88L)</div>
+              <div style="font-size:0.75rem;color:var(--txt-muted);">Bấm để bật chốt đóng/mở</div>
+            </div>
+            <span style="color:var(--txt-secondary);">ĐÓNG</span>
+          </div>
+
+          <div class="action-tile" id="tileTrunk">
+            <div>
+              <div style="font-weight:700;font-size:0.95rem;">Cốp sau điện tử (640L)</div>
+              <div style="font-size:0.75rem;color:var(--txt-muted);">Đóng mở rảnh tay thông minh</div>
+            </div>
+            <span style="color:var(--txt-secondary);">ĐÓNG</span>
+          </div>
+
+          <div class="action-tile" id="tileSentry">
+            <div>
+              <div style="font-weight:700;font-size:0.95rem;">Camera Sentry Giám sát 360°</div>
+              <div style="font-size:0.75rem;color:var(--txt-muted);">8 camera AI nhận diện vật thể</div>
+            </div>
+            <button class="btn btn-cyan btn-sm" id="btnOpenSentryModal">Xem Camera</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dual-Zone Climate Section -->
+    <section class="climate-section" id="climate">
+      <div style="margin-bottom:24px;">
+        <h2 style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;letter-spacing:-0.02em;">
+          Điều Hoà Thông Minh 2 Vùng Độc Lập
+        </h2>
+        <p style="color:var(--txt-secondary);font-size:0.95rem;">Lọc không khí HEPA diệt khuẩn và điều chỉnh sưởi ghế đa cấp độ.</p>
+      </div>
+
+      <div class="climate-grid">
+        <!-- Driver Side -->
+        <div class="climate-dial-card">
+          <div style="font-weight:700;font-size:0.9rem;text-transform:uppercase;color:var(--ev-cyan);">Vùng Ghế Lái</div>
+          <div class="temp-circle">
+            <span class="temp-val" id="tempDriverVal">21.5°</span>
+          </div>
+          <div class="temp-stepper">
+            <button class="btn btn-outline btn-sm" id="btnDriverTempMinus">-</button>
+            <span style="font-family:var(--font-mono);font-size:0.85rem;">Nhiệt độ</span>
+            <button class="btn btn-outline btn-sm" id="btnDriverTempPlus">+</button>
+          </div>
+          <div class="seat-heater-pills">
+            <button class="btn btn-outline btn-sm" id="btnDriverSeatHeater" style="padding:4px 8px;font-size:0.75rem;">Sưởi ghế</button>
+            <div class="seat-led active-heat" id="driverLed1"></div>
+            <div class="seat-led active-heat" id="driverLed2"></div>
+            <div class="seat-led" id="driverLed3"></div>
+          </div>
+        </div>
+
+        <!-- Passenger Side -->
+        <div class="climate-dial-card">
+          <div style="font-weight:700;font-size:0.9rem;text-transform:uppercase;color:var(--ev-cyan);">Vùng Ghế Phụ</div>
+          <div class="temp-circle">
+            <span class="temp-val" id="tempPassVal">22.0°</span>
+          </div>
+          <div class="temp-stepper">
+            <button class="btn btn-outline btn-sm" id="btnPassTempMinus">-</button>
+            <span style="font-family:var(--font-mono);font-size:0.85rem;">Nhiệt độ</span>
+            <button class="btn btn-outline btn-sm" id="btnPassTempPlus">+</button>
+          </div>
+          <div class="seat-heater-pills">
+            <button class="btn btn-outline btn-sm" id="btnPassSeatHeater" style="padding:4px 8px;font-size:0.75rem;">Sưởi ghế</button>
+            <div class="seat-led active-heat" id="passLed1"></div>
+            <div class="seat-led" id="passLed2"></div>
+            <div class="seat-led" id="passLed3"></div>
+          </div>
+        </div>
+
+        <!-- Air Quality Index -->
+        <div class="climate-dial-card" style="justify-content:space-between;">
+          <div style="font-weight:700;font-size:0.9rem;text-transform:uppercase;color:var(--ev-volt);">Chất Lượng Không Khí HEPA</div>
+          <div style="margin:20px 0;">
+            <div style="font-family:var(--font-display);font-size:3.2rem;font-weight:800;color:var(--ev-volt);">AQI 12</div>
+            <div style="font-size:0.85rem;color:var(--txt-muted);">Bụi mịn PM2.5: 2.1 µg/m³ · Tinh khiết</div>
+          </div>
+          <button class="btn btn-outline btn-sm" id="btnBioweaponToggle" style="width:100%;">
+            🛡️ Chế độ phòng vệ sinh học: BẬT
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Supercharger Route Section -->
+    <section class="charging-section" id="charging">
+      <div class="charger-card">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+            <span style="background:var(--ev-cyan);color:#000;font-weight:800;font-size:0.75rem;padding:2px 8px;border-radius:4px;">SUPERCHARGER</span>
+            <h3 style="font-family:var(--font-display);font-size:1.3rem;font-weight:800;">Trạm sạc Landmark 81 — V250kW</h3>
+          </div>
+          <p style="font-size:0.85rem;color:var(--txt-secondary);">Khoảng cách: 2.4 km · 8 / 12 cọc sạc còn trống · Tốc độ sạc tối đa 250 kW</p>
+        </div>
+        <div style="display:flex;gap:12px;">
+          <button class="btn btn-outline btn-sm" id="btnPlugCharger">
+            🔌 Cắm sạc thử nghiệm
+          </button>
+          <button class="btn btn-cyan btn-sm" id="btnNavigateCharger">
+            Dẫn đường ngay
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Live Sentry Modal -->
+  <div class="modal-backdrop" id="sentryModal">
+    <div class="sentry-modal">
+      <button class="btn-close-modal" id="btnCloseSentry">✕</button>
+      <div style="font-family:var(--font-display);font-size:0.8rem;color:var(--ev-rose);font-weight:700;letter-spacing:0.05em;display:flex;align-items:center;gap:6px;">
+        <span style="width:8px;height:8px;border-radius:50%;background:var(--ev-rose);animation:pulse 1s infinite;"></span>
+        CAMERA GIÁM SÁT SENTRY TRỰC TIẾP
+      </div>
+      <h3 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin:6px 0 16px;">Góc nhìn Camera trước &amp; Hai bên hông</h3>
+
+      <div style="height:240px;background:#05070e;border:1px solid rgba(244,63,94,0.3);border-radius:var(--radius-md);display:grid;place-items:center;position:relative;overflow:hidden;margin-bottom:20px;">
+        <div style="position:absolute;top:10px;left:14px;font-family:var(--font-mono);font-size:0.75rem;color:var(--ev-rose);">
+          ● REC [4K 60FPS] · 2026-10-15 20:18:04
+        </div>
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--ev-rose)" stroke-width="1.5">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+          <circle cx="12" cy="13" r="4"/>
+        </svg>
+        <span style="position:absolute;bottom:10px;font-family:var(--font-mono);font-size:0.75rem;color:var(--txt-muted);">Không phát hiện chuyển động khả nghi quanh bán kính 5m</span>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;">
+        <button class="btn btn-outline btn-sm" id="btnDismissSentry">Đóng màn hình</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="container ev-footer">
+    <div>
+      <strong>Apex EV Cockpit UI Kit</strong> — Trải nghiệm khoang lái xe điện tương lai &amp; Telematics IoT.
+    </div>
+    <div style="display:flex;gap:20px;">
+      <a href="../index.html" style="color:var(--txt-secondary);text-decoration:none;">Về Showroom chính</a>
+      <a href="gaming.html" style="color:var(--txt-secondary);text-decoration:none;">Gaming Kit</a>
+      <a href="ai.html" style="color:var(--txt-secondary);text-decoration:none;">AI Studio Kit</a>
+    </div>
+  </footer>
+
+  <script>
+    // Audio Synthesizer
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playBeep(freq = 600, duration = 0.08) {
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    // Dual horn sound
+    function playHorn() {
+      try {
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc1.frequency.setValueAtTime(440, audioCtx.currentTime);
+        osc2.frequency.setValueAtTime(554.37, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+        osc1.connect(gain);
+        osc2.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc1.start(); osc2.start();
+        osc1.stop(audioCtx.currentTime + 0.35); osc2.stop(audioCtx.currentTime + 0.35);
+      } catch (e) {}
+    }
+
+    function showToast(msg, icon = '🚗') {
+      const c = document.getElementById('toastContainer');
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.innerHTML = `<span>${icon}</span> <span>${msg}</span>`;
+      c.appendChild(t);
+      setTimeout(() => t.classList.add('is-show'), 10);
+      playBeep(700, 0.08);
+      setTimeout(() => {
+        t.classList.remove('is-show');
+        setTimeout(() => t.remove(), 300);
+      }, 3000);
+    }
+
+    // Horn Button
+    document.getElementById('btnHorn').addEventListener('click', () => {
+      playHorn();
+      showToast('Bíp bíp! Đã phát còi xe từ xa.', '📢');
+    });
+
+    // Speedometer & Throttle Slider
+    const throttleSlider = document.getElementById('throttleSlider');
+    const speedometerNum = document.getElementById('speedometerNum');
+    const powerKwVal = document.getElementById('powerKwVal');
+    const powerMeterBar = document.getElementById('powerMeterBar');
+    const speedoCircle = document.getElementById('speedoCircle');
+
+    throttleSlider.addEventListener('input', (e) => {
+      const spd = parseInt(e.target.value);
+      speedometerNum.textContent = spd;
+      const kw = Math.round(spd * 2.8);
+      powerKwVal.textContent = kw;
+      powerMeterBar.style.width = Math.min(100, Math.round((spd / 240) * 100)) + '%';
+      if (spd > 120) {
+        speedoCircle.style.boxShadow = '0 0 40px rgba(168, 85, 247, 0.6)';
+        speedoCircle.style.borderTopColor = '#a855f7';
+      } else {
+        speedoCircle.style.boxShadow = '0 0 30px var(--glow-cyan)';
+        speedoCircle.style.borderTopColor = 'var(--ev-cyan)';
+      }
+    });
+
+    // Gear Selector
+    document.querySelectorAll('.gear-item').forEach(gear => {
+      gear.addEventListener('click', () => {
+        document.querySelectorAll('.gear-item').forEach(g => g.classList.remove('is-active'));
+        gear.classList.add('is-active');
+        playBeep(450, 0.06);
+        showToast(`Đã vào số: ${gear.getAttribute('data-gear')}`, '⚙️');
+      });
+    });
+
+    // Drive Mode Buttons
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const mode = btn.getAttribute('data-mode');
+        if (mode === 'ludicrous') {
+          playBeep(900, 0.2);
+          showToast('CHẾ ĐỘ LUDICROUS KÍCH HOẠT: Tăng tốc 0-100km/h trong 1.9s!', '⚡');
+        } else {
+          playBeep(650, 0.08);
+          showToast(`Đã chuyển sang chế độ: ${btn.textContent}`, '🏎️');
+        }
+      });
+    });
+
+    // Hotspot & Controls
+    let isLocked = true;
+    function toggleLock() {
+      isLocked = !isLocked;
+      const tile = document.getElementById('tileLock');
+      tile.classList.toggle('is-active', isLocked);
+      tile.querySelector('span').textContent = isLocked ? 'ĐÃ KHOÁ' : 'MỞ KHOÁ';
+      tile.querySelector('span').style.color = isLocked ? 'var(--ev-volt)' : 'var(--ev-amber)';
+      showToast(isLocked ? 'Đã khoá tất cả cửa xe' : 'Đã mở khoá cửa xe', isLocked ? '🔒' : '🔓');
+      playBeep(isLocked ? 500 : 750, 0.1);
+    }
+    document.getElementById('hotspotLock').addEventListener('click', toggleLock);
+    document.getElementById('tileLock').addEventListener('click', toggleLock);
+
+    let frunkOpen = false;
+    function toggleFrunk() {
+      frunkOpen = !frunkOpen;
+      document.getElementById('tileFrunk').querySelector('span').textContent = frunkOpen ? 'ĐANG MỞ' : 'ĐÓNG';
+      showToast(frunkOpen ? 'Cốp trước (Frunk) đã mở' : 'Cốp trước đã đóng', '📦');
+      playBeep(600, 0.08);
+    }
+    document.getElementById('hotspotFrunk').addEventListener('click', toggleFrunk);
+    document.getElementById('tileFrunk').addEventListener('click', toggleFrunk);
+
+    let trunkOpen = false;
+    function toggleTrunk() {
+      trunkOpen = !trunkOpen;
+      document.getElementById('tileTrunk').querySelector('span').textContent = trunkOpen ? 'ĐANG MỞ' : 'ĐÓNG';
+      showToast(trunkOpen ? 'Cốp sau (Trunk) đã mở' : 'Cốp sau đã đóng', '📦');
+      playBeep(600, 0.08);
+    }
+    document.getElementById('hotspotTrunk').addEventListener('click', toggleTrunk);
+    document.getElementById('tileTrunk').addEventListener('click', toggleTrunk);
+
+    // Sentry Modal
+    const sentryModal = document.getElementById('sentryModal');
+    document.getElementById('btnOpenSentryModal').addEventListener('click', () => {
+      sentryModal.classList.add('is-open');
+      playBeep(700, 0.08);
+    });
+    document.getElementById('btnCloseSentry').addEventListener('click', () => {
+      sentryModal.classList.remove('is-open');
+    });
+    document.getElementById('btnDismissSentry').addEventListener('click', () => {
+      sentryModal.classList.remove('is-open');
+    });
+
+    // Climate Stepper
+    let driverTemp = 21.5;
+    document.getElementById('btnDriverTempMinus').addEventListener('click', () => {
+      driverTemp = Math.max(16, driverTemp - 0.5);
+      document.getElementById('tempDriverVal').textContent = driverTemp.toFixed(1) + '°';
+    });
+    document.getElementById('btnDriverTempPlus').addEventListener('click', () => {
+      driverTemp = Math.min(30, driverTemp + 0.5);
+      document.getElementById('tempDriverVal').textContent = driverTemp.toFixed(1) + '°';
+    });
+
+    let passTemp = 22.0;
+    document.getElementById('btnPassTempMinus').addEventListener('click', () => {
+      passTemp = Math.max(16, passTemp - 0.5);
+      document.getElementById('tempPassVal').textContent = passTemp.toFixed(1) + '°';
+    });
+    document.getElementById('btnPassTempPlus').addEventListener('click', () => {
+      passTemp = Math.min(30, passTemp + 0.5);
+      document.getElementById('tempPassVal').textContent = passTemp.toFixed(1) + '°';
+    });
+
+    // Charging simulation
+    let isCharging = false;
+    document.getElementById('btnPlugCharger').addEventListener('click', () => {
+      isCharging = !isCharging;
+      showToast(isCharging ? 'Đã cắm cổng sạc Supercharger 250kW!' : 'Đã ngắt kết nối sạc điện', isCharging ? '⚡' : '🔌');
+      if (isCharging) {
+        document.getElementById('socPctVal').textContent = '90%';
+        document.getElementById('socBarFill').style.width = '90%';
+        document.getElementById('rangeKmVal').textContent = '528';
+      }
+    });
+
+    document.getElementById('btnNavigateCharger').addEventListener('click', () => {
+      showToast('Đang truyền lộ trình trạm sạc tới cụm bản đồ dẫn đường', '🗺️');
+    });
+
+    // Theme toggle
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme');
+      const next = cur === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      showToast(`Chuyển sang giao diện ${next === 'light' ? 'Sáng' : 'Tối'}`, '🎨');
+    });
+  </script>
+</body>
+</html>

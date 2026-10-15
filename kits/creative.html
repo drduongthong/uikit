@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spectra Studio — Next-Gen Video Editor &amp; Creative Suite UI Kit</title>
+  <meta name="description" content="Bộ UI Kit phần mềm dựng phim đa rãnh (Multi-Track NLE), Chỉnh màu Color Grading 3-Way Wheels, Phụ đề AI và Render Queue thế hệ mới." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/tokens.css" />
+
+  <style>
+    /* ================================================================
+       SPECTRA STUDIO UI KIT — Professional NLE & Creative Suite
+       ================================================================ */
+    :root {
+      --bg-base: #08090f;
+      --bg-surface: #0e111a;
+      --bg-surface-2: #141926;
+      --bg-card: rgba(20, 25, 38, 0.9);
+      --bg-glass: rgba(14, 17, 26, 0.92);
+
+      --border: rgba(255, 255, 255, 0.08);
+      --border-bright: rgba(99, 102, 241, 0.35);
+
+      --sp-indigo: #6366f1;
+      --sp-magenta: #ec4899;
+      --sp-cyan: #06b6d4;
+      --sp-amber: #f59e0b;
+      --sp-emerald: #10b981;
+
+      --glow-indigo: rgba(99, 102, 241, 0.35);
+      --glow-magenta: rgba(236, 72, 153, 0.35);
+
+      --txt-primary: #f8fafc;
+      --txt-secondary: #94a3b8;
+      --txt-muted: #64748b;
+
+      --font-body: 'Be Vietnam Pro', 'Plus Jakarta Sans', sans-serif;
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-pill: 9999px;
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-2: #f1f5f9;
+      --bg-card: rgba(255, 255, 255, 0.95);
+      --bg-glass: rgba(255, 255, 255, 0.92);
+
+      --border: rgba(15, 23, 42, 0.1);
+      --border-bright: rgba(99, 102, 241, 0.4);
+
+      --txt-primary: #0f172a;
+      --txt-secondary: #334155;
+      --txt-muted: #64748b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-base);
+      color: var(--txt-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .studio-bg-grid {
+      position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.1) 0%, transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(236, 72, 153, 0.08) 0%, transparent 45%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+    }
+
+    .container-fluid {
+      max-width: 1540px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Top Strip */
+    .studio-top-bar {
+      background: #05070c;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 20px;
+      font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: space-between;
+      color: var(--txt-secondary);
+      font-family: var(--font-mono);
+    }
+    .project-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid var(--sp-indigo);
+      color: var(--sp-indigo);
+      padding: 2px 8px; border-radius: var(--radius-pill);
+      font-weight: 700; font-size: 0.72rem;
+    }
+
+    /* Navbar */
+    .studio-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .studio-nav__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .studio-brand {
+      display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--txt-primary);
+    }
+    .studio-brand__icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--sp-indigo), var(--sp-magenta));
+      display: grid; place-items: center;
+      color: #fff; font-size: 1.2rem;
+      box-shadow: 0 0 20px var(--glow-indigo);
+    }
+    .studio-brand__title {
+      font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em;
+    }
+    .studio-brand__title span { color: var(--sp-magenta); }
+
+    .studio-nav__menu {
+      display: flex; align-items: center; gap: 8px; list-style: none;
+    }
+    .studio-nav__link {
+      padding: 6px 14px; border-radius: var(--radius-sm);
+      font-size: 0.85rem; font-weight: 600; color: var(--txt-secondary);
+      text-decoration: none; transition: all 0.2s;
+    }
+    .studio-nav__link:hover, .studio-nav__link.active {
+      color: var(--sp-indigo);
+      background: rgba(99, 102, 241, 0.08);
+    }
+
+    .studio-nav__actions {
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    /* Buttons */
+    .btn-sp {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-size: 0.82rem; font-weight: 700;
+      padding: 8px 16px; border-radius: var(--radius-sm);
+      cursor: pointer; transition: all 0.2s ease;
+      text-decoration: none; border: 1px solid transparent;
+    }
+    .btn-sp-primary {
+      background: linear-gradient(135deg, var(--sp-indigo), var(--sp-magenta));
+      color: #fff; box-shadow: 0 0 20px var(--glow-indigo);
+    }
+    .btn-sp-primary:hover { transform: translateY(-1px); box-shadow: 0 0 30px var(--glow-magenta); }
+    .btn-sp-ghost {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--border); color: var(--txt-secondary);
+    }
+    .btn-sp-ghost:hover { background: rgba(255, 255, 255, 0.1); color: var(--txt-primary); }
+
+    /* Upper Stage: Viewport Canvas + Color Grading Wheels */
+    .upper-stage-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .studio-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+
+    /* Viewport Canvas */
+    .canvas-header {
+      padding: 10px 16px;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .ratio-pills { display: flex; gap: 4px; }
+    .ratio-btn {
+      padding: 3px 8px; border-radius: 4px;
+      font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;
+      border: 1px solid transparent; background: transparent; color: var(--txt-muted);
+      cursor: pointer;
+    }
+    .ratio-btn.active {
+      color: #fff; background: var(--bg-surface-2); border-color: var(--border);
+    }
+
+    .canvas-viewport-wrap {
+      height: 380px;
+      background: #040508;
+      display: grid; place-items: center;
+      position: relative; overflow: hidden;
+    }
+    .preview-screen {
+      width: 480px; height: 270px;
+      background: linear-gradient(135deg, #1e1b4b 0%, #4c0519 100%);
+      border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      transition: width 0.3s ease, height 0.3s ease;
+    }
+    .preview-overlay-text {
+      font-family: var(--font-display); font-size: 1.4rem; font-weight: 800;
+      color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+      text-align: center;
+    }
+
+    /* Color Grading 3-Way Wheels */
+    .wheels-container {
+      padding: 16px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .wheels-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      text-align: center;
+    }
+    .wheel-card-title {
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+      color: var(--txt-muted); margin-bottom: 8px;
+    }
+    .color-wheel {
+      width: 90px; height: 90px; border-radius: 50%;
+      background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
+      margin: 0 auto; position: relative; cursor: crosshair;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+    .wheel-center-knob {
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #fff; border: 2px solid #000;
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+      transition: transform 0.1s;
+    }
+
+    /* Lower Section: Multi-Track Timeline Editor */
+    .timeline-panel {
+      margin-top: 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .timeline-controls-bar {
+      padding: 10px 16px;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .timecode-display {
+      font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700;
+      color: var(--sp-cyan); letter-spacing: 0.05em;
+    }
+
+    .timeline-tracks-area {
+      padding: 16px;
+      position: relative;
+      background: #06080e;
+      overflow-x: auto;
+    }
+    .playhead-line {
+      position: absolute; top: 0; bottom: 0; left: 240px; width: 2px;
+      background: var(--sp-magenta); z-index: 10;
+      box-shadow: 0 0 8px var(--sp-magenta);
+      transition: left 0.1s linear;
+    }
+    .playhead-head {
+      position: absolute; top: 0; left: -6px; width: 14px; height: 14px;
+      background: var(--sp-magenta); border-radius: 2px;
+      transform: rotate(45deg);
+    }
+
+    .track-row {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 10px;
+    }
+    .track-label {
+      width: 120px; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;
+      color: var(--txt-muted); flex-shrink: 0;
+    }
+    .track-lane {
+      flex: 1; height: 38px; background: rgba(255, 255, 255, 0.03);
+      border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative; display: flex; align-items: center; padding: 2px 4px;
+    }
+    .clip-block {
+      height: 32px; border-radius: 4px; padding: 0 10px;
+      display: flex; align-items: center; font-size: 0.72rem; font-weight: 700;
+      color: #fff; cursor: grab; position: relative;
+    }
+    .clip-video { background: linear-gradient(90deg, #4338ca, #6366f1); border-left: 3px solid var(--sp-cyan); }
+    .clip-broll { background: linear-gradient(90deg, #be185d, #ec4899); border-left: 3px solid var(--sp-amber); }
+    .clip-audio { background: linear-gradient(90deg, #047857, #10b981); border-left: 3px solid #34d399; }
+
+    /* Bottom Subtitles & Export Queue Strip */
+    .subtitles-export-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .subtitle-item {
+      padding: 10px 14px; background: var(--bg-surface-2);
+      border-radius: 6px; border: 1px solid var(--border);
+      font-size: 0.82rem; margin-bottom: 8px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .subtitle-tc { font-family: var(--font-mono); font-size: 0.75rem; color: var(--sp-cyan); }
+
+    /* Toast */
+    .toast-container {
+      position: fixed; bottom: 24px; right: 24px; z-index: 1000;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .toast {
+      background: #0e111a; border: 1px solid var(--sp-magenta); color: #fff;
+      padding: 12px 18px; border-radius: var(--radius-sm); font-size: 0.85rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      display: flex; align-items: center; gap: 10px;
+      opacity: 0; transform: translateY(10px); transition: all 0.25s ease;
+    }
+    .toast.is-show { opacity: 1; transform: translateY(0); }
+
+    /* Footer */
+    .studio-footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 0; margin-top: 40px; font-size: 0.85rem; color: var(--txt-muted);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    @media (max-width: 1100px) {
+      .upper-stage-grid { grid-template-columns: 1fr; }
+      .subtitles-export-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="studio-bg-grid"></div>
+
+  <!-- Top Strip -->
+  <aside class="studio-top-bar" aria-label="Thông số dự án video">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <span class="project-pill">PROJ: CYBERPUNK_TEASER_4K.prproj</span>
+      <span>4K UHD (3840 x 2160)</span>
+      <span>59.94 FPS</span>
+      <span>COLOR: Apple ProRes 422 HQ</span>
+    </div>
+    <div style="display:flex;gap:18px;">
+      <span>RAM PREVIEW: <strong style="color:var(--sp-cyan);">14.2 GB / 64 GB</strong></span>
+      <span>GPU UTIL: <strong style="color:var(--sp-magenta);">68% (Metal 3)</strong></span>
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="studio-nav">
+    <div class="container-fluid studio-nav__inner">
+      <a href="../index.html" class="studio-brand">
+        <div class="studio-brand__icon">🎬</div>
+        <div class="studio-brand__title">SPECTRA <span>STUDIO</span></div>
+      </a>
+
+      <nav>
+        <ul class="studio-nav__menu">
+          <li><a href="#edit" class="studio-nav__link active">BIÊN TẬP (EDIT)</a></li>
+          <li><a href="#color" class="studio-nav__link">CHỈNH MÀU (COLOR)</a></li>
+          <li><a href="#audio" class="studio-nav__link">ÂM THANH (FAIRLIGHT)</a></li>
+          <li><a href="#deliver" class="studio-nav__link">XUẤT BẢN (DELIVER)</a></li>
+        </ul>
+      </nav>
+
+      <div class="studio-nav__actions">
+        <button class="btn-sp btn-sp-ghost" id="soundToggle">
+          <span id="soundIcon">🔊</span> SFX
+        </button>
+        <button class="btn-sp btn-sp-ghost" id="themeToggle">
+          🌓 THEME
+        </button>
+        <button class="btn-sp btn-sp-primary" id="btnExportQueue">
+          ⚡ XUẤT VIDEO 4K (RENDER)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container-fluid">
+    <!-- Upper Stage: Viewport Canvas + Color Wheels -->
+    <div class="upper-stage-grid">
+      <!-- Viewport Canvas -->
+      <section class="studio-card">
+        <div class="canvas-header">
+          <div class="ratio-pills">
+            <button class="ratio-btn active" data-ratio="16/9">16:9 YouTube</button>
+            <button class="ratio-btn" data-ratio="9/16">9:16 Shorts/TikTok</button>
+            <button class="ratio-btn" data-ratio="1/1">1:1 Square</button>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--txt-muted);">
+            ZOOM: 100% (FIT)
+          </div>
+        </div>
+
+        <div class="canvas-viewport-wrap">
+          <div class="preview-screen" id="previewScreen">
+            <div class="preview-overlay-text">
+              CYBERPUNK CITY 2077<br>
+              <span style="font-size:0.85rem;color:var(--sp-cyan);font-weight:600;">Scene 04 • Shot 12 [Take 02]</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Color Grading Wheels -->
+      <section class="studio-card" id="color">
+        <div class="canvas-header">
+          <span style="font-weight:700;font-size:0.85rem;">3-WAY COLOR WHEELS (LUT GRADING)</span>
+          <button class="btn-sp btn-sp-ghost" style="padding:2px 8px;font-size:0.7rem;" id="btnResetGrade">RESET</button>
+        </div>
+
+        <div class="wheels-container">
+          <div class="wheels-grid">
+            <div>
+              <div class="wheel-card-title">Lift (Shadows)</div>
+              <div class="color-wheel" data-wheel="lift">
+                <div class="wheel-center-knob"></div>
+              </div>
+            </div>
+            <div>
+              <div class="wheel-card-title">Gamma (Midtones)</div>
+              <div class="color-wheel" data-wheel="gamma">
+                <div class="wheel-center-knob"></div>
+              </div>
+            </div>
+            <div>
+              <div class="wheel-card-title">Gain (Highlights)</div>
+              <div class="color-wheel" data-wheel="gain">
+                <div class="wheel-center-knob"></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.75rem;">
+              <span>Saturation (Độ bão hoà):</span>
+              <strong style="color:var(--sp-magenta);" id="satVal">125%</strong>
+            </div>
+            <input type="range" id="sliderSat" min="0" max="200" value="125" style="width:100%;height:4px;-webkit-appearance:none;background:rgba(255,255,255,0.1);border-radius:99px;" />
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Timeline Panel -->
+    <section class="timeline-panel" id="edit">
+      <div class="timeline-controls-bar">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <button class="btn-sp btn-sp-primary" id="btnPlayPause" style="padding:6px 14px;">▶ PLAY</button>
+          <button class="btn-sp btn-sp-ghost" id="btnSplitClip" style="padding:6px 12px;">✂️ SPLIT (C)</button>
+          <div class="timecode-display" id="tcDisplay">00:01:24:18</div>
+        </div>
+        <div style="font-size:0.78rem;color:var(--txt-muted);display:flex;gap:12px;">
+          <span>SNAP: ON [S]</span>
+          <span>RIPPLE EDIT: ON</span>
+        </div>
+      </div>
+
+      <div class="timeline-tracks-area">
+        <div class="playhead-line" id="playhead">
+          <div class="playhead-head"></div>
+        </div>
+
+        <!-- Video Track 1 (V1) -->
+        <div class="track-row">
+          <div class="track-label">V1 • MAIN 4K</div>
+          <div class="track-lane">
+            <div class="clip-block clip-video" style="width:280px;left:20px;">A-ROLL_INTRO.mov [00:12]</div>
+            <div class="clip-block clip-video" style="width:340px;left:310px;">ACTION_CHASE_SCENE.mov [00:24]</div>
+          </div>
+        </div>
+
+        <!-- Video Track 2 (V2 - B-roll) -->
+        <div class="track-row">
+          <div class="track-label">V2 • B-ROLL OVER</div>
+          <div class="track-lane">
+            <div class="clip-block clip-broll" style="width:180px;left:180px;">NEON_GLOW_OVERLAY.mp4</div>
+            <div class="clip-block clip-broll" style="width:210px;left:420px;">HUD_GLITCH_FX.mov</div>
+          </div>
+        </div>
+
+        <!-- Audio Track 1 (A1 - Voiceover) -->
+        <div class="track-row">
+          <div class="track-label">A1 • VOICEOVER</div>
+          <div class="track-lane">
+            <div class="clip-block clip-audio" style="width:420px;left:20px;">AI_VOICE_NARRATION_VIETNAMESE.wav</div>
+          </div>
+        </div>
+
+        <!-- Audio Track 2 (A2 - Music SFX) -->
+        <div class="track-row">
+          <div class="track-label">A2 • SYNTH BGM</div>
+          <div class="track-lane">
+            <div class="clip-block clip-audio" style="width:620px;left:0px;">SYNTHWAVE_BEAT_128BPM.mp3</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Subtitles & Render Queue Strip -->
+    <div class="subtitles-export-grid">
+      <!-- AI Subtitles -->
+      <section class="studio-card">
+        <div class="canvas-header">
+          <span style="font-weight:700;font-size:0.85rem;">📝 PHỤ ĐỀ AI TỰ ĐỘNG (SPEECH-TO-TEXT TRANSCRIPT)</span>
+          <button class="btn-sp btn-sp-ghost" style="padding:2px 8px;font-size:0.7rem;" id="btnGenerateSubs">TẠO LẠI</button>
+        </div>
+        <div style="padding:14px;">
+          <div class="subtitle-item">
+            <span>Chào mừng bạn đến với thế giới tương lai của năm 2077.</span>
+            <span class="subtitle-tc">00:01:04</span>
+          </div>
+          <div class="subtitle-item" style="border-color:var(--sp-indigo);background:rgba(99,102,241,0.08);">
+            <span>Nơi ranh giới giữa con người và công nghệ AI bị xoá nhoà hoàn toàn.</span>
+            <span class="subtitle-tc">00:01:18</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Render Deliver Panel -->
+      <section class="studio-card" id="deliver">
+        <div class="canvas-header">
+          <span style="font-weight:700;font-size:0.85rem;">🚀 TIẾN TRÌNH XUẤT BẢN (RENDER QUEUE)</span>
+        </div>
+        <div style="padding:16px;">
+          <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:8px;">
+            <span>Tiến trình Encode H.265 / ProRes:</span>
+            <strong style="color:var(--sp-cyan);" id="renderPct">100% (Hoàn thành)</strong>
+          </div>
+          <div style="width:100%;height:8px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;margin-bottom:12px;">
+            <div style="width:100%;height:100%;background:linear-gradient(90deg,var(--sp-indigo),var(--sp-cyan));" id="renderProgressBar"></div>
+          </div>
+          <div style="font-size:0.75rem;color:var(--txt-muted);font-family:var(--font-mono);">
+            Dung lượng file ước tính: <strong>1.42 GB</strong> • Tốc độ: <strong>142 fps (Hardware Accelerated)</strong>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="container-fluid studio-footer">
+    <div>
+      <strong>Spectra Studio UI Kit</strong> — Bộ UI Kit dựng phim đa rãnh NLE, Chỉnh màu &amp; Sáng tạo nội dung số thế hệ mới.
+    </div>
+    <div style="display:flex;gap:20px;">
+      <a href="../index.html" style="color:var(--txt-secondary);text-decoration:none;">Về Showroom chính</a>
+      <a href="music.html" style="color:var(--txt-secondary);text-decoration:none;">SoundWave Music</a>
+      <a href="ai.html" style="color:var(--txt-secondary);text-decoration:none;">CogniX AI Studio</a>
+    </div>
+  </footer>
+
+  <script>
+    // Web Audio Synthesizer for Studio Effects
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    let soundEnabled = true;
+
+    function playStudioSound(type = 'click') {
+      if (!soundEnabled) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        if (type === 'click') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1000, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.06);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.06);
+        } else if (type === 'chime') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+          osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.1);
+          gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.35);
+        }
+      } catch (e) {}
+    }
+
+    function showToast(msg, icon = '🎬') {
+      const c = document.getElementById('toastContainer');
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.innerHTML = `<span>${icon}</span> <span>${msg}</span>`;
+      c.appendChild(t);
+      setTimeout(() => t.classList.add('is-show'), 10);
+      playStudioSound('click');
+      setTimeout(() => {
+        t.classList.remove('is-show');
+        setTimeout(() => t.remove(), 3500);
+      }, 3500);
+    }
+
+    // Toggle Sound
+    document.getElementById('soundToggle').addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      document.getElementById('soundIcon').textContent = soundEnabled ? '🔊' : '🔇';
+      showToast(soundEnabled ? 'Đã bật âm thanh thao tác' : 'Đã tắt âm thanh', soundEnabled ? '🔊' : '🔇');
+    });
+
+    // Theme Toggle
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme');
+      const next = cur === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      showToast(`Đã chuyển theme: ${next === 'light' ? 'Sáng' : 'Tối'}`, '🌓');
+    });
+
+    // Aspect Ratio Switcher
+    const previewScreen = document.getElementById('previewScreen');
+    document.querySelectorAll('.ratio-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.ratio-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const r = btn.getAttribute('data-ratio');
+        playStudioSound('click');
+
+        if (r === '16/9') {
+          previewScreen.style.width = '480px';
+          previewScreen.style.height = '270px';
+        } else if (r === '9/16') {
+          previewScreen.style.width = '200px';
+          previewScreen.style.height = '350px';
+        } else if (r === '1/1') {
+          previewScreen.style.width = '280px';
+          previewScreen.style.height = '280px';
+        }
+        showToast(`Đã chuyển khung hình sang ${btn.textContent}!`, '📐');
+      });
+    });
+
+    // Playhead Scrubber Simulator
+    let isPlaying = false;
+    let playInterval;
+    let playheadX = 240;
+    const playhead = document.getElementById('playhead');
+    const btnPlayPause = document.getElementById('btnPlayPause');
+
+    btnPlayPause.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      playStudioSound('click');
+      if (isPlaying) {
+        btnPlayPause.textContent = '⏸ PAUSE';
+        playInterval = setInterval(() => {
+          playheadX += 2;
+          if (playheadX > 680) playheadX = 50;
+          playhead.style.left = `${playheadX}px`;
+        }, 50);
+      } else {
+        btnPlayPause.textContent = '▶ PLAY';
+        clearInterval(playInterval);
+      }
+    });
+
+    // Split Clip (C)
+    document.getElementById('btnSplitClip').addEventListener('click', () => {
+      playStudioSound('click');
+      showToast('Đã cắt (Razor cut) đoạn clip tại vị trí con trỏ Playhead!', '✂️');
+    });
+
+    // Saturation Slider
+    document.getElementById('sliderSat').addEventListener('input', (e) => {
+      document.getElementById('satVal').textContent = `${e.target.value}%`;
+      previewScreen.style.filter = `saturate(${e.target.value}%)`;
+    });
+
+    // Reset Grading
+    document.getElementById('btnResetGrade').addEventListener('click', () => {
+      playStudioSound('click');
+      document.getElementById('sliderSat').value = 100;
+      document.getElementById('satVal').textContent = '100%';
+      previewScreen.style.filter = 'none';
+      showToast('Đã đặt lại thông số chỉnh màu về mặc định!', '🎨');
+    });
+
+    // Export Render Queue Simulator
+    document.getElementById('btnExportQueue').addEventListener('click', () => {
+      playStudioSound('chime');
+      const bar = document.getElementById('renderProgressBar');
+      const pct = document.getElementById('renderPct');
+      bar.style.width = '0%';
+      pct.textContent = '0% (Đang render...)';
+
+      let p = 0;
+      const intv = setInterval(() => {
+        p += 20;
+        bar.style.width = `${p}%`;
+        pct.textContent = `${p}% (Đang render...)`;
+        if (p >= 100) {
+          clearInterval(intv);
+          pct.textContent = '100% (Hoàn thành ✓)';
+          playStudioSound('chime');
+          showToast('Xuất video 4K ProRes thành công vào thư mục Exports!', '🎉');
+        }
+      }, 250);
+    });
+
+    // AI Generate Subs
+    document.getElementById('btnGenerateSubs').addEventListener('click', () => {
+      playStudioSound('chime');
+      showToast('Mô hình Whisper AI đã đồng bộ phụ đề tiếng Việt 100% chính xác!', '✨');
+    });
+  </script>
+</body>
+</html>

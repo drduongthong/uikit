@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KubeFlow Cloud — Next-Gen DevOps &amp; Kubernetes UI Kit</title>
+  <meta name="description" content="Bộ UI Kit tối thượng cho quản trị hạ tầng Đám mây, Kubernetes Cluster Orchestration, CI/CD Pipeline Automation và Service Mesh." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/tokens.css" />
+
+  <style>
+    /* ================================================================
+       KUBEFLOW CLOUD UI KIT — Cloud Native & DevOps Design System
+       ================================================================ */
+    :root {
+      --bg-base: #070b12;
+      --bg-surface: #0c121d;
+      --bg-surface-2: #121a29;
+      --bg-card: rgba(18, 26, 41, 0.85);
+      --bg-glass: rgba(12, 18, 29, 0.88);
+
+      --border: rgba(56, 189, 248, 0.12);
+      --border-bright: rgba(56, 189, 248, 0.28);
+
+      --cloud-blue: #38bdf8;
+      --cloud-k8s: #6366f1;
+      --cloud-cyan: #06b6d4;
+      --cloud-emerald: #10b981;
+      --cloud-amber: #f59e0b;
+      --cloud-rose: #f43f5e;
+
+      --glow-blue: rgba(56, 189, 248, 0.35);
+      --glow-k8s: rgba(99, 102, 241, 0.35);
+      --glow-emerald: rgba(16, 185, 129, 0.28);
+
+      --txt-primary: #f8fafc;
+      --txt-secondary: #94a3b8;
+      --txt-muted: #64748b;
+
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-pill: 9999px;
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-2: #f1f5f9;
+      --bg-card: rgba(255, 255, 255, 0.95);
+      --bg-glass: rgba(255, 255, 255, 0.9);
+
+      --border: rgba(15, 23, 42, 0.1);
+      --border-bright: rgba(56, 189, 248, 0.4);
+
+      --txt-primary: #0f172a;
+      --txt-secondary: #334155;
+      --txt-muted: #64748b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-base);
+      color: var(--txt-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .cloud-bg-mesh {
+      position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.1) 0%, transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 45%),
+        radial-gradient(circle at 50% 85%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+    }
+
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Strip */
+    .k8s-top-bar {
+      background: #05080f;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 24px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: space-between;
+      color: var(--txt-secondary);
+    }
+    .k8s-cluster-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid var(--cloud-blue);
+      color: var(--cloud-blue);
+      font-weight: 700;
+      padding: 3px 10px; border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+    }
+    .pulse-green {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--cloud-emerald);
+      box-shadow: 0 0 8px var(--cloud-emerald);
+      animation: pulseAnim 1.5s infinite;
+    }
+    @keyframes pulseAnim { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* Navbar */
+    .k8s-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .k8s-nav__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+    }
+    .k8s-brand {
+      display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--txt-primary);
+    }
+    .k8s-brand__helm {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+      display: grid; place-items: center;
+      color: #fff; box-shadow: 0 0 24px var(--glow-blue);
+    }
+    .k8s-brand__title {
+      font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em;
+    }
+    .k8s-brand__title span { color: var(--cloud-blue); }
+
+    .k8s-nav__menu {
+      display: flex; align-items: center; gap: 8px; list-style: none;
+    }
+    .k8s-nav__link {
+      padding: 8px 16px; border-radius: var(--radius-sm);
+      font-size: 0.9rem; font-weight: 600; color: var(--txt-secondary);
+      text-decoration: none; transition: all 0.2s;
+    }
+    .k8s-nav__link:hover, .k8s-nav__link.active {
+      color: var(--cloud-blue);
+      background: rgba(56, 189, 248, 0.08);
+    }
+    .k8s-nav__actions {
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    /* Buttons */
+    .btn-cloud {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
+      padding: 9px 18px; border-radius: var(--radius-sm);
+      cursor: pointer; transition: all 0.2s ease;
+      text-decoration: none; border: 1px solid transparent;
+    }
+    .btn-cloud-primary {
+      background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+      color: #fff; box-shadow: 0 0 20px var(--glow-blue);
+    }
+    .btn-cloud-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px var(--glow-blue);
+    }
+    .btn-cloud-ghost {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--border);
+      color: var(--txt-secondary);
+    }
+    .btn-cloud-ghost:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--txt-primary);
+    }
+
+    /* Cluster Health Metric Strip */
+    .cluster-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .metric-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      backdrop-filter: blur(12px);
+      position: relative;
+    }
+    .metric-box-title {
+      font-size: 0.8rem; font-weight: 600; color: var(--txt-muted);
+      text-transform: uppercase; letter-spacing: 0.05em;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 8px;
+    }
+    .metric-box-val {
+      font-size: 1.8rem; font-weight: 800; font-family: var(--font-mono);
+      display: flex; align-items: baseline; gap: 8px;
+    }
+    .progress-bar-wrap {
+      width: 100%; height: 6px; background: rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-pill); margin-top: 10px; overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%; border-radius: var(--radius-pill);
+      transition: width 0.6s ease;
+    }
+
+    /* Main Grid */
+    .k8s-main-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .k8s-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      backdrop-filter: blur(12px);
+    }
+    .k8s-panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .k8s-panel-title {
+      font-size: 1.15rem; font-weight: 700;
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    /* Interactive Kubernetes Topology View */
+    .cluster-topology-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .node-card {
+      background: var(--bg-surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      transition: all 0.2s;
+    }
+    .node-card:hover {
+      border-color: var(--cloud-blue);
+      transform: translateY(-2px);
+    }
+    .node-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px;
+      font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700;
+    }
+    .pods-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .pod-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px;
+      font-family: var(--font-mono); font-size: 0.72rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .pod-item:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--cloud-blue);
+    }
+    .pod-running { border-left: 3px solid var(--cloud-emerald); }
+    .pod-crash { border-left: 3px solid var(--cloud-rose); }
+    .pod-pending { border-left: 3px solid var(--cloud-amber); }
+
+    /* CI/CD Pipeline Simulator */
+    .pipeline-section {
+      margin-top: 24px;
+    }
+    .pipeline-stepper {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      position: relative;
+    }
+    .pipe-step {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      flex: 1; position: relative; z-index: 2;
+    }
+    .step-bubble {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--bg-surface-2);
+      border: 2px solid var(--border);
+      display: grid; place-items: center;
+      font-weight: 700; font-family: var(--font-mono); font-size: 0.85rem;
+      color: var(--txt-muted);
+      transition: all 0.3s;
+    }
+    .pipe-step.completed .step-bubble {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--cloud-emerald);
+      color: var(--cloud-emerald);
+      box-shadow: 0 0 16px var(--glow-emerald);
+    }
+    .pipe-step.active .step-bubble {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: var(--cloud-blue);
+      color: var(--cloud-blue);
+      box-shadow: 0 0 20px var(--glow-blue);
+      animation: spinBorder 2s infinite linear;
+    }
+    .step-name {
+      font-size: 0.78rem; font-weight: 600; color: var(--txt-secondary);
+      text-align: center;
+    }
+
+    /* Live Terminal Console Log */
+    .terminal-console {
+      background: #04070e;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: var(--radius-md);
+      margin-top: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      overflow: hidden;
+    }
+    .terminal-head {
+      background: #090e18;
+      padding: 8px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      color: var(--txt-muted);
+      font-size: 0.75rem;
+    }
+    .terminal-body {
+      padding: 16px;
+      max-height: 200px;
+      overflow-y: auto;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+    .log-line { display: flex; gap: 12px; }
+    .log-ts { color: var(--txt-muted); }
+    .log-info { color: var(--cloud-blue); }
+    .log-ok { color: var(--cloud-emerald); }
+    .log-warn { color: var(--cloud-amber); }
+
+    /* FinOps Cloud Cost Calculator */
+    .finops-card {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(18, 26, 41, 0.95));
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+    .finops-slider-group {
+      margin-top: 16px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .slider-row {
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .slider-row-header {
+      display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600;
+    }
+    .slider-control {
+      width: 100%; height: 6px; -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.1); border-radius: var(--radius-pill);
+      outline: none;
+    }
+    .slider-control::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;
+      background: var(--cloud-blue); cursor: pointer;
+      box-shadow: 0 0 10px var(--cloud-blue);
+    }
+    .cost-summary-box {
+      margin-top: 20px;
+      background: var(--bg-surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      text-align: center;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      display: none; place-items: center;
+    }
+    .modal-backdrop.is-open { display: grid; }
+    .modal-box {
+      width: 90%; max-width: 500px;
+      background: var(--bg-surface);
+      border: 1px solid var(--cloud-blue);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 0 40px var(--glow-blue);
+      padding: 24px;
+    }
+
+    /* Toast */
+    .toast-container {
+      position: fixed; bottom: 24px; right: 24px; z-index: 1000;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .toast {
+      background: #0c121d;
+      border: 1px solid var(--cloud-blue);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      display: flex; align-items: center; gap: 10px;
+      opacity: 0; transform: translateY(10px);
+      transition: all 0.25s ease;
+    }
+    .toast.is-show { opacity: 1; transform: translateY(0); }
+
+    /* Footer */
+    .k8s-footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      margin-top: 60px;
+      font-size: 0.85rem;
+      color: var(--txt-muted);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    @media (max-width: 1024px) {
+      .k8s-main-grid { grid-template-columns: 1fr; }
+      .cluster-metrics { grid-template-columns: repeat(2, 1fr); }
+      .cluster-topology-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cloud-bg-mesh"></div>
+
+  <!-- Top Strip -->
+  <aside class="k8s-top-bar" aria-label="Thông số cụm máy chủ">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <span class="k8s-cluster-badge"><span class="pulse-green"></span> CLUSTER: PROD-AP-SOUTHEAST-1</span>
+      <span>K8S V1.30.2</span>
+      <span>NODES: <strong>18 ONLINE</strong></span>
+    </div>
+    <div style="display:flex;gap:18px;">
+      <span>GLOBAL UPTIME: <strong style="color:var(--cloud-emerald);">99.998%</strong></span>
+      <span>INGRESS RPS: <strong style="color:var(--cloud-blue);">18,450 req/s</strong></span>
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="k8s-nav">
+    <div class="container k8s-nav__inner">
+      <a href="../index.html" class="k8s-brand">
+        <div class="k8s-brand__helm">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </div>
+        <div class="k8s-brand__title">KUBE<span>FLOW</span></div>
+      </a>
+
+      <nav>
+        <ul class="k8s-nav__menu">
+          <li><a href="#topology" class="k8s-nav__link active">K8S TOPOLOGY</a></li>
+          <li><a href="#pipeline" class="k8s-nav__link">CI/CD PIPELINE</a></li>
+          <li><a href="#finops" class="k8s-nav__link">FINOPS COST</a></li>
+          <li><a href="#mesh" class="k8s-nav__link">SERVICE MESH</a></li>
+        </ul>
+      </nav>
+
+      <div class="k8s-nav__actions">
+        <button class="btn-cloud btn-cloud-ghost" id="soundToggle">
+          <span id="soundIcon">🔊</span> SFX
+        </button>
+        <button class="btn-cloud btn-cloud-ghost" id="themeToggle">
+          🌓 THEME
+        </button>
+        <button class="btn-cloud btn-cloud-primary" id="btnDeployCanary">
+          🚀 DEPLOY CANARY V2.4
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Cluster Metrics -->
+    <section class="cluster-metrics">
+      <div class="metric-box">
+        <div class="metric-box-title">
+          <span>CPU Allocation</span>
+          <svg width="18" height="18" fill="none" stroke="var(--cloud-blue)" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>
+        </div>
+        <div class="metric-box-val" style="color:var(--cloud-blue);">
+          64.2% <span style="font-size:0.8rem;color:var(--txt-muted);">/ 128 vCPU</span>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" style="width:64.2%;background:var(--cloud-blue);"></div>
+        </div>
+      </div>
+
+      <div class="metric-box">
+        <div class="metric-box-title">
+          <span>Memory Usage</span>
+          <svg width="18" height="18" fill="none" stroke="var(--cloud-k8s)" stroke-width="2" viewBox="0 0 24 24"><path d="M6 19v-3"/><path d="M10 19v-3"/><path d="M14 19v-3"/><path d="M18 19v-3"/><rect x="2" y="5" width="20" height="10" rx="2"/></svg>
+        </div>
+        <div class="metric-box-val" style="color:var(--cloud-k8s);">
+          78.4% <span style="font-size:0.8rem;color:var(--txt-muted);">/ 512 GB</span>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" style="width:78.4%;background:var(--cloud-k8s);"></div>
+        </div>
+      </div>
+
+      <div class="metric-box">
+        <div class="metric-box-title">
+          <span>Pod Healthy Ratio</span>
+          <svg width="18" height="18" fill="none" stroke="var(--cloud-emerald)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <div class="metric-box-val" style="color:var(--cloud-emerald);">
+          99.1% <span style="font-size:0.8rem;color:var(--txt-muted);">248/250 Pods</span>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" style="width:99.1%;background:var(--cloud-emerald);"></div>
+        </div>
+      </div>
+
+      <div class="metric-box">
+        <div class="metric-box-title">
+          <span>P99 API Latency</span>
+          <svg width="18" height="18" fill="none" stroke="var(--cloud-cyan)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="metric-box-val" style="color:var(--cloud-cyan);">
+          24ms <span style="font-size:0.8rem;color:var(--cloud-emerald);">▼ -6ms</span>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" style="width:30%;background:var(--cloud-cyan);"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Workspace -->
+    <div class="k8s-main-grid">
+      <!-- Left Column: Cluster Topology & Pipeline -->
+      <div>
+        <!-- Cluster Nodes Topology -->
+        <section class="k8s-panel" id="topology">
+          <div class="k8s-panel-header">
+            <div class="k8s-panel-title">
+              <svg width="20" height="20" fill="none" stroke="var(--cloud-blue)" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+              CỤM MÁY CHỦ WORKER NODES &amp; PODS
+            </div>
+            <div style="display:flex;gap:10px;">
+              <button class="btn-cloud btn-cloud-ghost" id="btnScaleCluster">⚡ SCALE REPLICAS (+3)</button>
+            </div>
+          </div>
+
+          <div class="cluster-topology-grid">
+            <!-- Node 1 -->
+            <div class="node-card">
+              <div class="node-card-header">
+                <span>node-worker-01 (c6i.2xlarge)</span>
+                <span style="color:var(--cloud-emerald);">READY</span>
+              </div>
+              <div style="font-size:0.75rem;color:var(--txt-muted);">CPU: 58% | RAM: 64%</div>
+              <div class="pods-grid">
+                <div class="pod-item pod-running" data-pod="api-gateway-7b9c">api-gateway</div>
+                <div class="pod-item pod-running" data-pod="auth-svc-4a11">auth-svc</div>
+                <div class="pod-item pod-running" data-pod="redis-master-0">redis-0</div>
+              </div>
+            </div>
+
+            <!-- Node 2 -->
+            <div class="node-card">
+              <div class="node-card-header">
+                <span>node-worker-02 (c6i.2xlarge)</span>
+                <span style="color:var(--cloud-emerald);">READY</span>
+              </div>
+              <div style="font-size:0.75rem;color:var(--txt-muted);">CPU: 72% | RAM: 81%</div>
+              <div class="pods-grid">
+                <div class="pod-item pod-running" data-pod="order-svc-9f20">order-svc</div>
+                <div class="pod-item pod-crash" data-pod="payment-gw-crash">payment-gw</div>
+                <div class="pod-item pod-running" data-pod="kafka-broker-1">kafka-1</div>
+              </div>
+            </div>
+
+            <!-- Node 3 -->
+            <div class="node-card">
+              <div class="node-card-header">
+                <span>node-worker-03 (c6i.2xlarge)</span>
+                <span style="color:var(--cloud-emerald);">READY</span>
+              </div>
+              <div style="font-size:0.75rem;color:var(--txt-muted);">CPU: 42% | RAM: 50%</div>
+              <div class="pods-grid" id="node3Pods">
+                <div class="pod-item pod-running" data-pod="notif-worker-1">notif-worker</div>
+                <div class="pod-item pod-running" data-pod="analytics-dag">analytics</div>
+                <div class="pod-item pod-pending" data-pod="cron-backup">cron-backup</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CI/CD Pipeline Simulator -->
+        <section class="k8s-panel pipeline-section" id="pipeline">
+          <div class="k8s-panel-header">
+            <div class="k8s-panel-title">
+              <svg width="20" height="20" fill="none" stroke="var(--cloud-blue)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              LUỒNG TỰ ĐỘNG HÓA CI/CD PIPELINE (CANARY ROLLOUT)
+            </div>
+            <button class="btn-cloud btn-cloud-primary" id="btnRunPipeline">▶ TRIGGER PIPELINE</button>
+          </div>
+
+          <div class="pipeline-stepper">
+            <div class="pipe-step completed" id="step1">
+              <div class="step-bubble">✓</div>
+              <span class="step-name">Lint &amp; Tests<br><small style="color:var(--txt-muted);">142 passed</small></span>
+            </div>
+            <div class="pipe-step completed" id="step2">
+              <div class="step-bubble">✓</div>
+              <span class="step-name">Security SAST<br><small style="color:var(--txt-muted);">0 CVEs</small></span>
+            </div>
+            <div class="pipe-step completed" id="step3">
+              <div class="step-bubble">✓</div>
+              <span class="step-name">Docker Build<br><small style="color:var(--txt-muted);">Image 48MB</small></span>
+            </div>
+            <div class="pipe-step active" id="step4">
+              <div class="step-bubble">20%</div>
+              <span class="step-name">Canary Deploy<br><small style="color:var(--cloud-blue);">v2.4.0 rollout</small></span>
+            </div>
+            <div class="pipe-step" id="step5">
+              <div class="step-bubble">5</div>
+              <span class="step-name">Full Traffic 100%<br><small style="color:var(--txt-muted);">Pending</small></span>
+            </div>
+          </div>
+
+          <!-- Console Terminal -->
+          <div class="terminal-console">
+            <div class="terminal-head">
+              <span>stdout / logs — git commit <code>#c89f2a0</code> (main)</span>
+              <span>bash -c ./deploy.sh</span>
+            </div>
+            <div class="terminal-body" id="termBody">
+              <div class="log-line"><span class="log-ts">14:30:02</span> <span class="log-info">[INFO]</span> <span>Fetching base image golang:1.22-alpine... cached.</span></div>
+              <div class="log-line"><span class="log-ts">14:30:05</span> <span class="log-ok">[OK]</span> <span>Compiling microservices binary with CGO_ENABLED=0.</span></div>
+              <div class="log-line"><span class="log-ts">14:30:12</span> <span class="log-ok">[OK]</span> <span>Running SonarQube static code analysis. Vulnerabilities: 0.</span></div>
+              <div class="log-line"><span class="log-ts">14:30:18</span> <span class="log-info">[DEPLOY]</span> <span>Routing 20% incoming traffic to canary deployment `api-v2`.</span></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: FinOps Cost Optimizer & Pod Detail Modal -->
+      <aside>
+        <!-- FinOps Cloud Cost Calculator -->
+        <div class="finops-card" id="finops">
+          <div style="font-size:1.15rem;font-weight:700;display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+            <svg width="20" height="20" fill="none" stroke="var(--cloud-k8s)" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            FINOPS COST CALCULATOR
+          </div>
+          <p style="font-size:0.8rem;color:var(--txt-secondary);">
+            Dự toán chi phí hạ tầng AWS/GCP theo số lượng Worker Nodes và lưu lượng truyền tải.
+          </p>
+
+          <div class="finops-slider-group">
+            <div class="slider-row">
+              <div class="slider-row-header">
+                <span>Số lượng Worker Nodes:</span>
+                <span id="valNodes" style="color:var(--cloud-blue);font-family:var(--font-mono);">18 Nodes</span>
+              </div>
+              <input type="range" class="slider-control" id="sliderNodes" min="3" max="50" value="18" />
+            </div>
+
+            <div class="slider-row">
+              <div class="slider-row-header">
+                <span>Dung lượng lưu trữ EBS (TB):</span>
+                <span id="valStorage" style="color:var(--cloud-blue);font-family:var(--font-mono);">12 TB</span>
+              </div>
+              <input type="range" class="slider-control" id="sliderStorage" min="1" max="100" value="12" />
+            </div>
+
+            <div class="slider-row">
+              <div class="slider-row-header">
+                <span>Lưu lượng ra ngoài Egress (TB/tháng):</span>
+                <span id="valEgress" style="color:var(--cloud-blue);font-family:var(--font-mono);">40 TB</span>
+              </div>
+              <input type="range" class="slider-control" id="sliderEgress" min="5" max="200" value="40" />
+            </div>
+          </div>
+
+          <div class="cost-summary-box">
+            <div style="font-size:0.75rem;color:var(--txt-muted);text-transform:uppercase;">ƯỚC TÍNH CHI PHÍ HÀNG THÁNG</div>
+            <div style="font-size:2.2rem;font-weight:800;color:var(--cloud-emerald);font-family:var(--font-mono);margin:6px 0;" id="totalCost">
+              $3,420
+            </div>
+            <div style="font-size:0.75rem;color:var(--cloud-amber);">
+              💡 Tiết kiệm $1,280/tháng nếu chuyển sang Spot Instances!
+            </div>
+          </div>
+
+          <button class="btn-cloud btn-cloud-ghost" style="width:100%;margin-top:16px;" id="btnOptimizeSpot">
+            ÁP DỤNG SPOT INSTANCE TỰ ĐỘNG
+          </button>
+        </div>
+
+        <!-- Service Mesh Latency Quick View -->
+        <div class="k8s-panel" style="margin-top:24px;" id="mesh">
+          <div class="k8s-panel-title" style="margin-bottom:14px;">SERVICE MESH TELEMETRY</div>
+          <div style="font-size:0.82rem;font-family:var(--font-mono);display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;justify-content:space-between;padding:8px;background:var(--bg-surface-2);border-radius:6px;">
+              <span>ingress -> auth-service</span>
+              <strong style="color:var(--cloud-emerald);">4.2ms</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:8px;background:var(--bg-surface-2);border-radius:6px;">
+              <span>order-svc -> payment-gw</span>
+              <strong style="color:var(--cloud-amber);">48.1ms</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:8px;background:var(--bg-surface-2);border-radius:6px;">
+              <span>cart-svc -> redis-cache</span>
+              <strong style="color:var(--cloud-emerald);">0.8ms</strong>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Pod Log Inspector Modal -->
+  <div class="modal-backdrop" id="podModal">
+    <div class="modal-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <h3 style="font-size:1.15rem;font-weight:700;" id="modalPodTitle">Pod: api-gateway</h3>
+        <span style="font-size:0.75rem;color:var(--cloud-emerald);font-family:var(--font-mono);">STATUS: RUNNING</span>
+      </div>
+      <div style="background:#05080e;border-radius:6px;padding:12px;font-family:var(--font-mono);font-size:0.75rem;line-height:1.6;color:#cbd5e1;max-height:180px;overflow-y:auto;margin-bottom:16px;" id="modalPodLogs">
+        <div>[2026-10-15T14:32:01Z] HTTP GET /api/v1/health HTTP/1.1 200 OK 2ms</div>
+        <div>[2026-10-15T14:32:03Z] TLS Handshake complete with client 118.69.2.14</div>
+        <div>[2026-10-15T14:32:04Z] Proxying traffic to upstream service auth-svc:8080</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;">
+        <button class="btn-cloud btn-cloud-ghost" id="btnClosePodModal">ĐÓNG</button>
+        <button class="btn-cloud btn-cloud-primary" id="btnRestartPod">KHỞI ĐỘNG LẠI POD (RESTART)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="container k8s-footer">
+    <div>
+      <strong>KubeFlow Cloud UI Kit</strong> — Nền tảng thiết kế quản trị hạ tầng Đám mây &amp; DevOps chuẩn Kubernetes.
+    </div>
+    <div style="display:flex;gap:20px;">
+      <a href="../index.html" style="color:var(--txt-secondary);text-decoration:none;">Về Showroom chính</a>
+      <a href="admin.html" style="color:var(--txt-secondary);text-decoration:none;">Nexus Admin</a>
+      <a href="cybersec.html" style="color:var(--txt-secondary);text-decoration:none;">Aegis CyberSec</a>
+    </div>
+  </footer>
+
+  <script>
+    // Web Audio Synthesizer for DevOps Sound Effects
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    let soundEnabled = true;
+
+    function playCloudSound(type = 'chime') {
+      if (!soundEnabled) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        if (type === 'chime') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+          osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.08); // E5
+          osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.16); // G5
+          gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.35);
+        } else if (type === 'click') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(900, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.08);
+        }
+      } catch (e) {}
+    }
+
+    function showToast(msg, icon = '☁️') {
+      const c = document.getElementById('toastContainer');
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.innerHTML = `<span>${icon}</span> <span>${msg}</span>`;
+      c.appendChild(t);
+      setTimeout(() => t.classList.add('is-show'), 10);
+      playCloudSound('click');
+      setTimeout(() => {
+        t.classList.remove('is-show');
+        setTimeout(() => t.remove(), 300);
+      }, 3500);
+    }
+
+    // Toggle Sound
+    document.getElementById('soundToggle').addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      document.getElementById('soundIcon').textContent = soundEnabled ? '🔊' : '🔇';
+      showToast(soundEnabled ? 'Đã bật âm thanh hạ tầng' : 'Đã tắt âm thanh', soundEnabled ? '🔊' : '🔇');
+    });
+
+    // Theme Toggle
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme');
+      const next = cur === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      showToast(`Đã chuyển theme: ${next === 'light' ? 'Sáng' : 'Tối'}`, '🌓');
+    });
+
+    // Pod Click Inspector
+    const podModal = document.getElementById('podModal');
+    let selectedPodName = '';
+    document.querySelectorAll('.pod-item').forEach(pod => {
+      pod.addEventListener('click', () => {
+        selectedPodName = pod.getAttribute('data-pod');
+        document.getElementById('modalPodTitle').textContent = `Pod: ${selectedPodName}`;
+        podModal.classList.add('is-open');
+        playCloudSound('click');
+      });
+    });
+
+    document.getElementById('btnClosePodModal').addEventListener('click', () => {
+      podModal.classList.remove('is-open');
+    });
+
+    document.getElementById('btnRestartPod').addEventListener('click', () => {
+      podModal.classList.remove('is-open');
+      playCloudSound('chime');
+      showToast(`Đã gửi lệnh kubectl rollout restart cho ${selectedPodName}!`, '🔄');
+    });
+
+    // Scale Cluster
+    document.getElementById('btnScaleCluster').addEventListener('click', () => {
+      playCloudSound('chime');
+      const container = document.getElementById('node3Pods');
+      const newPod = document.createElement('div');
+      newPod.className = 'pod-item pod-running';
+      newPod.setAttribute('data-pod', `worker-scale-${Math.floor(Math.random()*1000)}`);
+      newPod.textContent = 'scale-worker';
+      newPod.onclick = () => {
+        document.getElementById('modalPodTitle').textContent = `Pod: ${newPod.getAttribute('data-pod')}`;
+        podModal.classList.add('is-open');
+      };
+      container.appendChild(newPod);
+      showToast('Đã scale thêm Replica Pod vào Worker Node 3!', '🚀');
+    });
+
+    // CI/CD Pipeline Run Simulator
+    document.getElementById('btnRunPipeline').addEventListener('click', () => {
+      playCloudSound('chime');
+      const term = document.getElementById('termBody');
+      const step4 = document.getElementById('step4');
+      const step5 = document.getElementById('step5');
+
+      showToast('Bắt đầu quy trình triển khai Canary Deployment...', '🚀');
+      step4.querySelector('.step-bubble').textContent = '50%';
+      
+      const l1 = document.createElement('div');
+      l1.className = 'log-line';
+      l1.innerHTML = `<span class="log-ts">14:35:10</span> <span class="log-info">[CANARY]</span> <span>Shifting 50% traffic to version 2.4.0. Error rate: 0.00%.</span>`;
+      term.appendChild(l1);
+
+      setTimeout(() => {
+        step4.classList.remove('active');
+        step4.classList.add('completed');
+        step4.querySelector('.step-bubble').textContent = '✓';
+
+        step5.classList.add('completed');
+        step5.querySelector('.step-bubble').textContent = '✓';
+        step5.querySelector('small').textContent = 'Live 100%';
+
+        const l2 = document.createElement('div');
+        l2.className = 'log-line';
+        l2.innerHTML = `<span class="log-ts">14:35:15</span> <span class="log-ok">[SUCCESS]</span> <span>Full rollout complete! Version 2.4.0 is handling 100% production traffic.</span>`;
+        term.appendChild(l2);
+        term.scrollTop = term.scrollHeight;
+
+        playCloudSound('chime');
+        showToast('Triển khai Canary v2.4.0 thành công 100% không downtime!', '🎉');
+      }, 2000);
+    });
+
+    document.getElementById('btnDeployCanary').addEventListener('click', () => {
+      document.getElementById('btnRunPipeline').click();
+    });
+
+    // FinOps Cost Calculator Logic
+    const sliderNodes = document.getElementById('sliderNodes');
+    const sliderStorage = document.getElementById('sliderStorage');
+    const sliderEgress = document.getElementById('sliderEgress');
+
+    function updateFinOpsCost() {
+      const nodes = parseInt(sliderNodes.value);
+      const storage = parseInt(sliderStorage.value);
+      const egress = parseInt(sliderEgress.value);
+
+      document.getElementById('valNodes').textContent = `${nodes} Nodes`;
+      document.getElementById('valStorage').textContent = `${storage} TB`;
+      document.getElementById('valEgress').textContent = `${egress} TB`;
+
+      // Formula: Nodes * $140 + Storage * $80 + Egress * $20
+      const total = (nodes * 140) + (storage * 80) + (egress * 20);
+      document.getElementById('totalCost').textContent = `$${total.toLocaleString()}`;
+    }
+
+    sliderNodes.addEventListener('input', updateFinOpsCost);
+    sliderStorage.addEventListener('input', updateFinOpsCost);
+    sliderEgress.addEventListener('input', updateFinOpsCost);
+
+    document.getElementById('btnOptimizeSpot').addEventListener('click', () => {
+      playCloudSound('chime');
+      sliderNodes.value = Math.max(3, Math.floor(sliderNodes.value * 0.7));
+      updateFinOpsCost();
+      showToast('Đã cấu hình Auto Spot Fleets! Tiết kiệm ngay 35% chi phí điện toán.', '💰');
+    });
+  </script>
+</body>
+</html>

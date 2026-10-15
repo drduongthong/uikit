@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus Esports — Cyber Gaming &amp; Tournament Arena UI Kit</title>
+  <meta name="description" content="Bộ UI Kit thể thao điện tử thế hệ mới: bảng xếp hạng giải đấu tương tác, phòng xem trực tiếp, phân tích thông số tuyển thủ radar và chợ vật phẩm vũ khí 3D." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/tokens.css" />
+
+  <style>
+    /* ================================================================
+       NEXUS ESPORTS ARENA UI KIT — Cyberpunk Gaming Design System
+       ================================================================ */
+    :root {
+      --bg-base: #05060a;
+      --bg-surface: #0b0e17;
+      --bg-surface-2: #121726;
+      --bg-card: rgba(18, 23, 38, 0.75);
+      --bg-glass: rgba(11, 14, 23, 0.85);
+
+      --border: rgba(255, 255, 255, 0.08);
+      --border-bright: rgba(255, 255, 255, 0.18);
+      --border-glow: rgba(0, 245, 255, 0.4);
+
+      --txt-primary: #f8fafc;
+      --txt-secondary: #94a3b8;
+      --txt-muted: #64748b;
+
+      --neon-cyan: #00f5ff;
+      --neon-magenta: #f43f5e;
+      --neon-volt: #39ff14;
+      --neon-amber: #f59e0b;
+      --neon-purple: #a855f7;
+
+      --glow-cyan: rgba(0, 245, 255, 0.35);
+      --glow-magenta: rgba(244, 63, 94, 0.35);
+      --glow-volt: rgba(57, 255, 20, 0.35);
+
+      --grad-cyan-magenta: linear-gradient(135deg, #00f5ff 0%, #f43f5e 100%);
+      --grad-volt-cyan: linear-gradient(135deg, #39ff14 0%, #00f5ff 100%);
+      --grad-gold: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+
+      --font-display: 'Chakra Petch', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-pill: 9999px;
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f0f4f8;
+      --bg-surface: #ffffff;
+      --bg-surface-2: #e2e8f0;
+      --bg-card: rgba(255, 255, 255, 0.95);
+      --bg-glass: rgba(255, 255, 255, 0.88);
+
+      --border: rgba(15, 23, 42, 0.1);
+      --border-bright: rgba(15, 23, 42, 0.2);
+      --border-glow: rgba(0, 180, 216, 0.3);
+
+      --txt-primary: #090d16;
+      --txt-secondary: #475569;
+      --txt-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-base);
+      color: var(--txt-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Ambient Cyber Scanline Backdrop */
+    .cyber-grid {
+      position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(0, 245, 255, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 25%, rgba(244, 63, 94, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+    }
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Ticker */
+    .nexus-ticker {
+      background: #080a12;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 16px;
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+    .ticker-live-tag {
+      background: var(--neon-magenta);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      animation: blink 1.2s infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* Navbar */
+    .nexus-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nexus-nav__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+    }
+    .nexus-brand {
+      display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--txt-primary);
+    }
+    .nexus-brand__logo {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--grad-cyan-magenta);
+      display: grid; place-items: center;
+      color: #fff; font-family: var(--font-display); font-weight: 900; font-size: 1.4rem;
+      box-shadow: 0 0 24px var(--glow-cyan);
+      transform: skewX(-6deg);
+    }
+    .nexus-brand__name {
+      font-family: var(--font-display); font-size: 1.4rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .nexus-brand__name span { color: var(--neon-cyan); }
+
+    .nexus-nav__links { display: flex; align-items: center; gap: 8px; list-style: none; }
+    .nexus-nav__link {
+      padding: 8px 16px; border-radius: var(--radius-sm);
+      font-family: var(--font-display); font-size: 0.95rem; font-weight: 700;
+      color: var(--txt-secondary); text-decoration: none; text-transform: uppercase;
+      letter-spacing: 0.04em; transition: all 0.2s;
+    }
+    .nexus-nav__link:hover, .nexus-nav__link.is-active {
+      color: var(--neon-cyan); background: rgba(0, 245, 255, 0.08);
+    }
+
+    .nexus-nav__actions { display: flex; align-items: center; gap: 12px; }
+
+    /* Currency Badges */
+    .currency-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: var(--radius-pill);
+      background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.3);
+      font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: var(--neon-amber);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 20px; border-radius: var(--radius-sm);
+      font-family: var(--font-display); font-size: 0.95rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.04em;
+      cursor: pointer; text-decoration: none; border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-cyber {
+      background: var(--neon-cyan); color: #000;
+      box-shadow: 0 0 20px var(--glow-cyan);
+    }
+    .btn-cyber:hover {
+      background: #4ef8ff; box-shadow: 0 0 30px var(--glow-cyan);
+      transform: translateY(-2px);
+    }
+    .btn-magenta {
+      background: var(--neon-magenta); color: #fff;
+      box-shadow: 0 0 20px var(--glow-magenta);
+    }
+    .btn-magenta:hover { filter: brightness(1.15); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; border-color: var(--border-bright); color: var(--txt-primary);
+    }
+    .btn-outline:hover {
+      border-color: var(--neon-cyan); color: var(--neon-cyan);
+    }
+    .btn-sm { padding: 6px 14px; font-size: 0.8rem; }
+    .btn-icon {
+      width: 40px; height: 40px; padding: 0; border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border);
+      color: var(--txt-primary); display: grid; place-items: center;
+    }
+    .btn-icon:hover { border-color: var(--neon-cyan); color: var(--neon-cyan); }
+
+    /* Live Match Arena Viewport */
+    .match-arena {
+      margin: 40px 0 56px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(16px);
+    }
+    .arena-scoreboard {
+      background: #080a14;
+      padding: 16px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap; gap: 16px;
+    }
+    .team-badge {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .team-crest {
+      width: 48px; height: 48px; border-radius: 10px;
+      display: grid; place-items: center; font-family: var(--font-display);
+      font-weight: 900; font-size: 1.3rem; color: #fff;
+    }
+    .team-name {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .team-record { font-size: 0.78rem; color: var(--txt-muted); font-family: var(--font-mono); }
+    .match-center-score {
+      text-align: center;
+    }
+    .score-digits {
+      font-family: var(--font-display); font-size: 2.8rem; font-weight: 900;
+      letter-spacing: 0.08em; line-height: 1;
+    }
+    .score-digits span.alpha { color: var(--neon-cyan); text-shadow: 0 0 20px var(--glow-cyan); }
+    .score-digits span.omega { color: var(--neon-magenta); text-shadow: 0 0 20px var(--glow-magenta); }
+    .match-clock {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700;
+      color: var(--neon-volt); margin-top: 4px;
+    }
+
+    /* Screen Mockup Area */
+    .arena-viewport {
+      height: 440px;
+      background: radial-gradient(circle at center, #141b30 0%, #080a14 100%);
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .arena-viewport::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(rgba(0, 245, 255, 0.04) 50%, rgba(0, 0, 0, 0.4) 50%);
+      background-size: 100% 4px; pointer-events: none;
+    }
+    .map-radar-graphic {
+      width: 260px; height: 260px; border-radius: 50%;
+      border: 2px dashed rgba(0, 245, 255, 0.3);
+      position: absolute; display: grid; place-items: center;
+      animation: rotateRadar 20s linear infinite;
+    }
+    @keyframes rotateRadar { 100% { transform: rotate(360deg); } }
+    .radar-sweep {
+      position: absolute; width: 50%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-cyan));
+      transform-origin: 0% 50%; top: 50%; left: 50%;
+    }
+
+    /* Live Killfeed Ticker */
+    .killfeed-box {
+      position: absolute; top: 18px; right: 24px;
+      display: flex; flex-direction: column; gap: 8px; z-index: 10;
+    }
+    .kill-item {
+      background: rgba(11, 14, 23, 0.88);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--neon-cyan);
+      padding: 6px 14px; border-radius: 4px;
+      font-family: var(--font-display); font-size: 0.82rem; font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
+      animation: slideInKill 0.3s ease;
+    }
+    @keyframes slideInKill { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+
+    /* Prediction Poll Bar */
+    .arena-footer-controls {
+      background: #080a14;
+      padding: 16px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap; gap: 16px;
+    }
+    .predict-wrap {
+      flex: 1; max-width: 500px;
+    }
+    .predict-header {
+      display: flex; justify-content: space-between; font-size: 0.8rem;
+      font-family: var(--font-display); font-weight: 700; margin-bottom: 6px;
+    }
+    .predict-bar {
+      width: 100%; height: 8px; background: rgba(255, 255, 255, 0.1);
+      border-radius: 99px; overflow: hidden; display: flex;
+    }
+    .predict-fill-a {
+      width: 64%; height: 100%; background: var(--neon-cyan);
+      transition: width 0.3s;
+    }
+    .predict-fill-b {
+      width: 36%; height: 100%; background: var(--neon-magenta);
+      transition: width 0.3s;
+    }
+
+    /* Tournament Bracket Section */
+    .bracket-section {
+      margin-bottom: 60px;
+    }
+    .bracket-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px; backdrop-filter: blur(16px);
+      overflow-x: auto;
+    }
+    .bracket-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 36px; min-width: 880px;
+    }
+    .bracket-round-title {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.05em; color: var(--neon-cyan);
+      margin-bottom: 20px; text-align: center;
+    }
+    .match-card {
+      background: var(--bg-surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px; margin-bottom: 24px;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .match-card:hover {
+      border-color: var(--neon-cyan); transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--glow-cyan);
+    }
+    .match-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 6px 0; font-family: var(--font-display); font-weight: 700;
+    }
+    .match-row.winner { color: var(--neon-volt); }
+    .match-row .score { font-family: var(--font-mono); font-size: 0.95rem; }
+
+    /* Player Profile & Radar Chart Grid */
+    .player-stats-section {
+      display: grid; grid-template-columns: 360px 1fr;
+      gap: 28px; margin-bottom: 60px;
+    }
+    @media (max-width: 992px) {
+      .player-stats-section { grid-template-columns: 1fr; }
+    }
+    .profile-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px; backdrop-filter: blur(16px);
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .rank-badge-glow {
+      position: absolute; top: 16px; right: 16px;
+      padding: 4px 10px; border-radius: var(--radius-pill);
+      background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--neon-amber); font-family: var(--font-display); font-weight: 800;
+      font-size: 0.75rem; text-transform: uppercase;
+    }
+    .player-avatar {
+      width: 96px; height: 96px; border-radius: 50%;
+      background: var(--grad-cyan-magenta);
+      display: grid; place-items: center;
+      box-shadow: 0 0 30px var(--glow-cyan);
+      margin-bottom: 16px;
+    }
+    .player-handle {
+      font-family: var(--font-display); font-size: 1.5rem; font-weight: 800;
+      letter-spacing: 0.04em; margin-bottom: 4px;
+    }
+    .player-role { font-size: 0.85rem; color: var(--txt-secondary); margin-bottom: 20px; }
+
+    .quick-stats-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      width: 100%; gap: 12px; border-top: 1px solid var(--border);
+      padding-top: 20px; margin-top: auto;
+    }
+    .q-stat { display: flex; flex-direction: column; }
+    .q-stat-val { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; color: var(--neon-cyan); }
+    .q-stat-lbl { font-size: 0.7rem; color: var(--txt-muted); text-transform: uppercase; font-weight: 600; }
+
+    /* Radar Chart Box */
+    .radar-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px; backdrop-filter: blur(16px);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .radar-svg-wrap {
+      display: flex; justify-content: center; align-items: center;
+      padding: 20px 0;
+    }
+
+    /* 3D Skins & Armory Marketplace */
+    .skins-section {
+      margin-bottom: 60px;
+    }
+    .rarity-filter-bar {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px;
+    }
+    .rarity-chip {
+      padding: 8px 18px; border-radius: var(--radius-sm);
+      font-family: var(--font-display); font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; border: 1px solid transparent; background: var(--bg-surface);
+      color: var(--txt-secondary); text-transform: uppercase; transition: all 0.2s;
+    }
+    .rarity-chip.is-active {
+      background: rgba(0, 245, 255, 0.12); border-color: var(--neon-cyan);
+      color: var(--neon-cyan); box-shadow: 0 0 15px var(--glow-cyan);
+    }
+    .skins-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .skin-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden; transition: all 0.2s;
+      position: relative;
+    }
+    .skin-card:hover {
+      transform: translateY(-4px); border-color: var(--border-bright);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    }
+    .skin-card.mythic { border-top: 3px solid var(--neon-amber); }
+    .skin-card.exotic { border-top: 3px solid var(--neon-magenta); }
+    .skin-card.legendary { border-top: 3px solid var(--neon-purple); }
+
+    .skin-art-preview {
+      height: 160px; background: #0c101c;
+      display: grid; place-items: center; position: relative;
+      overflow: hidden;
+    }
+    .skin-art-preview svg { width: 110px; height: 110px; filter: drop-shadow(0 0 15px rgba(0,245,255,0.4)); }
+    .skin-card__body { padding: 18px; }
+    .skin-tier-tag {
+      font-family: var(--font-display); font-size: 0.72rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;
+    }
+    .skin-name {
+      font-family: var(--font-display); font-size: 1.15rem; font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .skin-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--border); padding-top: 12px;
+    }
+    .skin-price {
+      font-family: var(--font-mono); font-size: 1.05rem; font-weight: 800;
+      color: var(--neon-amber); display: flex; align-items: center; gap: 4px;
+    }
+
+    /* Modal Inspect */
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      z-index: 200; display: none; place-items: center; padding: 20px;
+    }
+    .modal-backdrop.is-open { display: grid; }
+    .inspect-modal {
+      background: #0b0f1a; border: 1px solid var(--neon-cyan);
+      border-radius: var(--radius-lg); width: 100%; max-width: 620px;
+      padding: 32px; position: relative; box-shadow: 0 0 50px var(--glow-cyan);
+    }
+    .btn-close-modal {
+      position: absolute; top: 18px; right: 18px;
+      background: none; border: none; color: var(--txt-muted);
+      cursor: pointer; font-size: 1.2rem;
+    }
+
+    /* Toast */
+    .toast-container {
+      position: fixed; bottom: 24px; right: 24px; z-index: 300;
+      display: flex; flex-direction: column; gap: 10px; pointer-events: none;
+    }
+    .toast {
+      background: #0f1322; border: 1px solid var(--border-bright);
+      color: #fff; padding: 12px 20px; border-radius: var(--radius-sm);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); font-family: var(--font-display);
+      font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 10px;
+      transform: translateY(20px); opacity: 0; transition: all 0.3s;
+    }
+    .toast.is-show { transform: translateY(0); opacity: 1; }
+
+    /* Footer */
+    .nexus-footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0; margin-top: 60px;
+      color: var(--txt-muted); font-size: 0.85rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="cyber-grid"></div>
+
+  <!-- Top Live Ticker -->
+  <div class="nexus-ticker">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span class="ticker-live-tag">LIVE ESPORTS</span>
+      <span>VCT Champions Grand Finals · Sentinels vs Fnatic [Map 3: Lotus]</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <span style="color:var(--neon-volt);font-weight:700;">● 142,850 Khán giả trực tuyến</span>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="nexus-nav">
+    <div class="container nexus-nav__inner">
+      <a href="../index.html" class="nexus-brand">
+        <div class="nexus-brand__logo">N</div>
+        <div class="nexus-brand__name">Nexus <span>Esports</span></div>
+      </a>
+
+      <ul class="nexus-nav__links">
+        <li><a href="#arena" class="nexus-nav__link is-active">Trực Tiếp</a></li>
+        <li><a href="#bracket" class="nexus-nav__link">Nhánh Đấu</a></li>
+        <li><a href="#stats" class="nexus-nav__link">Tuyển Thủ</a></li>
+        <li><a href="#armory" class="nexus-nav__link">Kho Vũ Khí</a></li>
+      </ul>
+
+      <div class="nexus-nav__actions">
+        <div class="currency-pill">
+          <span>🟡</span>
+          <span id="playerCoins">8,450 NX</span>
+        </div>
+        <button class="btn btn-icon" id="soundToggle" title="Bật/Tắt âm thanh hiệu ứng">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        </button>
+        <button class="btn btn-icon" id="themeToggle" title="Đổi theme Sáng/Tối">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <a href="../index.html" class="btn btn-cyber btn-sm">Về Showroom</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Live Match Arena Viewport Section -->
+    <section class="match-arena" id="arena">
+      <div class="arena-scoreboard">
+        <div class="team-badge">
+          <div class="team-crest" style="background:#00f5ff;color:#000;">SEN</div>
+          <div>
+            <div class="team-name">Sentinels</div>
+            <div class="team-record">Seed #1 NA · 18 Wins - 2 Losses</div>
+          </div>
+        </div>
+
+        <div class="match-center-score">
+          <div class="score-digits">
+            <span class="alpha" id="scoreA">12</span> : <span class="omega" id="scoreB">11</span>
+          </div>
+          <div class="match-clock">
+            <span>⏱️ 0:38</span> · <span>ROUND 24 / MATCH POINT</span>
+          </div>
+        </div>
+
+        <div class="team-badge" style="flex-direction:row-reverse;text-align:right;">
+          <div class="team-crest" style="background:#f43f5e;color:#fff;">FNC</div>
+          <div>
+            <div class="team-name">Fnatic</div>
+            <div class="team-record">Seed #1 EMEA · 17 Wins - 3 Losses</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video simulation arena -->
+      <div class="arena-viewport">
+        <div class="map-radar-graphic">
+          <div class="radar-sweep"></div>
+          <div style="font-family:var(--font-display);font-size:0.85rem;color:var(--neon-cyan);font-weight:700;">TACTICAL MAP</div>
+        </div>
+
+        <!-- Live Killfeed -->
+        <div class="killfeed-box" id="killfeedContainer">
+          <div class="kill-item">
+            <span style="color:var(--neon-cyan);">SEN TenZ</span>
+            <span>⚡ [VANDAL] 🎯</span>
+            <span style="color:var(--neon-magenta);">FNC Boaster</span>
+          </div>
+          <div class="kill-item">
+            <span style="color:var(--neon-cyan);">SEN zekken</span>
+            <span>💥 [OPERATOR]</span>
+            <span style="color:var(--neon-magenta);">FNC Derke</span>
+          </div>
+        </div>
+
+        <div style="position:absolute;bottom:20px;left:24px;display:flex;gap:10px;z-index:10;">
+          <button class="btn btn-cyber btn-sm" id="btnSimulateKill">
+            Simulate Frag Kill
+          </button>
+          <button class="btn btn-outline btn-sm" id="btnScorePlusA">
+            +1 Điểm Sentinels
+          </button>
+        </div>
+      </div>
+
+      <!-- Prediction & Fan Controls -->
+      <div class="arena-footer-controls">
+        <div class="predict-wrap">
+          <div class="predict-header">
+            <span style="color:var(--neon-cyan);">Sentinels (<span id="pctA">64</span>%)</span>
+            <span>Dự đoán tỉ số trận đấu</span>
+            <span style="color:var(--neon-magenta);">Fnatic (<span id="pctB">36</span>%)</span>
+          </div>
+          <div class="predict-bar">
+            <div class="predict-fill-a" id="predictBarA"></div>
+            <div class="predict-fill-b" id="predictBarB"></div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;">
+          <button class="btn btn-outline btn-sm" id="btnVoteA">Bình chọn SEN</button>
+          <button class="btn btn-outline btn-sm" id="btnVoteB">Bình chọn FNC</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tournament Bracket Section -->
+    <section class="bracket-section" id="bracket">
+      <div style="margin-bottom:24px;">
+        <h2 style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;text-transform:uppercase;">
+          Bảng Nhánh Đấu Vòng Playoffs (Championship Bracket)
+        </h2>
+        <p style="color:var(--txt-secondary);font-size:0.95rem;">Theo dõi con đường bước vào trận Chung Kết Thế Giới của các đội tuyển hàng đầu.</p>
+      </div>
+
+      <div class="bracket-container">
+        <div class="bracket-grid">
+          <!-- Round 1: Quarterfinals -->
+          <div>
+            <div class="bracket-round-title">Tứ Kết (BO3)</div>
+            <div class="match-card" data-match="qf1">
+              <div class="match-row winner"><span>Sentinels</span> <span class="score">2</span></div>
+              <div class="match-row"><span>Paper Rex</span> <span class="score">1</span></div>
+            </div>
+            <div class="match-card" data-match="qf2">
+              <div class="match-row winner"><span>Team Liquid</span> <span class="score">2</span></div>
+              <div class="match-row"><span>Gen.G</span> <span class="score">0</span></div>
+            </div>
+            <div class="match-card" data-match="qf3">
+              <div class="match-row winner"><span>Fnatic</span> <span class="score">2</span></div>
+              <div class="match-row"><span>DRX</span> <span class="score">1</span></div>
+            </div>
+          </div>
+
+          <!-- Round 2: Semifinals -->
+          <div>
+            <div class="bracket-round-title">Bán Kết (BO3)</div>
+            <div class="match-card" data-match="sf1">
+              <div class="match-row winner"><span>Sentinels</span> <span class="score">2</span></div>
+              <div class="match-row"><span>Team Liquid</span> <span class="score">1</span></div>
+            </div>
+            <div class="match-card" data-match="sf2">
+              <div class="match-row winner"><span>Fnatic</span> <span class="score">2</span></div>
+              <div class="match-row"><span>LOUD</span> <span class="score">0</span></div>
+            </div>
+          </div>
+
+          <!-- Round 3: Grand Finals -->
+          <div>
+            <div class="bracket-round-title" style="color:var(--neon-volt);">Chung Kết Tổng (BO5)</div>
+            <div class="match-card" style="border-color:var(--neon-volt);box-shadow:0 0 20px var(--glow-volt);">
+              <div class="match-row winner" style="font-size:1.1rem;"><span>Sentinels</span> <span class="score" style="color:var(--neon-cyan);">2</span></div>
+              <div class="match-row" style="font-size:1.1rem;"><span>Fnatic</span> <span class="score" style="color:var(--neon-magenta);">1</span></div>
+              <div style="font-size:0.75rem;color:var(--neon-volt);margin-top:6px;font-family:var(--font-mono);font-weight:700;">● ĐANG THI ĐẤU MAP 3</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Player Profile & Hexagonal Radar Stats -->
+    <section class="player-stats-section" id="stats">
+      <!-- Profile Card -->
+      <div class="profile-card">
+        <span class="rank-badge-glow">Challenger 940 LP</span>
+        <div class="player-avatar">
+          <svg width="52" height="52" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="player-handle">VALKYRIE // 01</div>
+        <div class="player-role">Duelist / Entry Fragger · Sentinels</div>
+
+        <div style="width:100%;text-align:left;margin-bottom:16px;">
+          <div style="display:flex;justify-content:space-between;font-size:0.8rem;font-family:var(--font-display);font-weight:700;margin-bottom:4px;">
+            <span>Battle Pass Cấp 88</span>
+            <span style="color:var(--neon-cyan);">8,800 / 10,000 XP</span>
+          </div>
+          <div style="width:100%;height:6px;background:rgba(255,255,255,0.1);border-radius:99px;overflow:hidden;">
+            <div style="width:88%;height:100%;background:var(--grad-cyan-magenta);"></div>
+          </div>
+        </div>
+
+        <div class="quick-stats-row">
+          <div class="q-stat">
+            <span class="q-stat-val">1.48</span>
+            <span class="q-stat-lbl">K/D Ratio</span>
+          </div>
+          <div class="q-stat">
+            <span class="q-stat-val">38.4%</span>
+            <span class="q-stat-lbl">Headshot %</span>
+          </div>
+          <div class="q-stat">
+            <span class="q-stat-val">174.2</span>
+            <span class="q-stat-lbl">Avg Damage</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Radar SVG Chart Box -->
+      <div class="radar-box">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <h3 style="font-family:var(--font-display);font-size:1.3rem;font-weight:800;text-transform:uppercase;">
+              Chỉ Số Tuyển Thủ Radar (Performance Matrix)
+            </h3>
+            <span style="font-size:0.82rem;color:var(--txt-secondary);">Đánh giá 5 chiều toàn diện từ các giải đấu VCT quốc tế.</span>
+          </div>
+          <span class="currency-pill" style="border-color:var(--neon-cyan);color:var(--neon-cyan);">Top 0.1% Toàn cầu</span>
+        </div>
+
+        <div class="radar-svg-wrap">
+          <svg width="280" height="260" viewBox="0 0 300 300">
+            <!-- Background Web Rings -->
+            <polygon points="150,30 264,96 264,228 150,294 36,228 36,96" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+            <polygon points="150,70 226,114 226,202 150,246 74,202 74,114" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+            <polygon points="150,110 188,132 188,176 150,198 112,176 112,132" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+            <!-- Axes -->
+            <line x1="150" y1="150" x2="150" y2="30" stroke="rgba(255,255,255,0.1)"/>
+            <line x1="150" y1="150" x2="264" y2="96" stroke="rgba(255,255,255,0.1)"/>
+            <line x1="150" y1="150" x2="264" y2="228" stroke="rgba(255,255,255,0.1)"/>
+            <line x1="150" y1="150" x2="150" y2="294" stroke="rgba(255,255,255,0.1)"/>
+            <line x1="150" y1="150" x2="36" y2="228" stroke="rgba(255,255,255,0.1)"/>
+            <line x1="150" y1="150" x2="36" y2="96" stroke="rgba(255,255,255,0.1)"/>
+            <!-- Data polygon -->
+            <polygon points="150,45 252,105 240,215 150,270 55,210 50,110" fill="rgba(0,245,255,0.25)" stroke="#00f5ff" stroke-width="2.5"/>
+            <!-- Point Circles -->
+            <circle cx="150" cy="45" r="4" fill="#00f5ff"/>
+            <circle cx="252" cy="105" r="4" fill="#00f5ff"/>
+            <circle cx="240" cy="215" r="4" fill="#00f5ff"/>
+            <circle cx="150" cy="270" r="4" fill="#00f5ff"/>
+            <circle cx="55" cy="210" r="4" fill="#00f5ff"/>
+            <circle cx="50" cy="110" r="4" fill="#00f5ff"/>
+            <!-- Labels -->
+            <text x="150" y="20" fill="#94a3b8" font-size="12" font-family="var(--font-display)" font-weight="700" text-anchor="middle">AIM (96)</text>
+            <text x="275" y="95" fill="#94a3b8" font-size="12" font-family="var(--font-display)" font-weight="700">K/D (92)</text>
+            <text x="275" y="235" fill="#94a3b8" font-size="12" font-family="var(--font-display)" font-weight="700">CLUTCH (86)</text>
+            <text x="150" y="315" fill="#94a3b8" font-size="12" font-family="var(--font-display)" font-weight="700" text-anchor="middle">FIRST BLOOD (89)</text>
+            <text x="5" y="235" fill="#94a3b8" font-size="12" font-family="var(--font-display)" font-weight="700">STRATEGY (84)</text>
+            <text x="15" y="95" fill="#94a3b8" font-size="12" font-family="var(--font-display)" font-weight="700">REFLEX (95)</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3D Skins & Weapons Marketplace Section -->
+    <section class="skins-section" id="armory">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;flex-wrap:wrap;gap:16px;">
+        <div>
+          <h2 style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;text-transform:uppercase;">
+            Kho Vũ Khí &amp; Skin 3D (Chợ Vật Phẩm Vũ Trụ)
+          </h2>
+          <p style="color:var(--txt-secondary);font-size:0.95rem;">Kiểm tra hiệu ứng 3D, thanh âm kết liễu và sở hữu các bộ skin giới hạn.</p>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="rarity-filter-bar">
+        <button class="rarity-chip is-active" data-rarity="all">Tất cả</button>
+        <button class="rarity-chip" data-rarity="exotic">Exotic Neon</button>
+        <button class="rarity-chip" data-rarity="mythic">Mythic Gold</button>
+        <button class="rarity-chip" data-rarity="legendary">Legendary Violet</button>
+      </div>
+
+      <div class="skins-grid">
+        <!-- Skin 1 -->
+        <div class="skin-card exotic" data-tier="exotic">
+          <div class="skin-art-preview">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-magenta)" stroke-width="1.8">
+              <path d="M14 4l-4 4 3 3-5 5-4-1 1-4 5-5 3 3 4-4z"/>
+              <path d="M19 9l-4-4"/>
+              <circle cx="18" cy="6" r="2"/>
+            </svg>
+          </div>
+          <div class="skin-card__body">
+            <div class="skin-tier-tag" style="color:var(--neon-magenta);">Exotic Tier · Finish Effect</div>
+            <div class="skin-name">CyberKatana // Neon Surge</div>
+            <p style="font-size:0.8rem;color:var(--txt-secondary);margin-bottom:12px;">Đao năng lượng tích điện với hiệu ứng chém xuyên không gian.</p>
+            <div class="skin-footer">
+              <span class="skin-price">🟡 4,200 NX</span>
+              <button class="btn btn-cyber btn-sm btn-inspect" data-skin="CyberKatana // Neon Surge" data-price="4200">Inspect 3D</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skin 2 -->
+        <div class="skin-card mythic" data-tier="mythic">
+          <div class="skin-art-preview">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-amber)" stroke-width="1.8">
+              <path d="M4 14l6-6 4 4 6-6"/>
+              <path d="M14 6h6v6"/>
+              <line x1="2" y1="22" x2="22" y2="22"/>
+            </svg>
+          </div>
+          <div class="skin-card__body">
+            <div class="skin-tier-tag" style="color:var(--neon-amber);">Mythic Tier · Audio Overdrive</div>
+            <div class="skin-name">Vandal // Dragon Emperor</div>
+            <p style="font-size:0.8rem;color:var(--txt-secondary);margin-bottom:12px;">Nòng súng khạc lửa rồng hoàng gia với âm thanh headshot độc bản.</p>
+            <div class="skin-footer">
+              <span class="skin-price">🟡 5,600 NX</span>
+              <button class="btn btn-cyber btn-sm btn-inspect" data-skin="Vandal // Dragon Emperor" data-price="5600">Inspect 3D</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skin 3 -->
+        <div class="skin-card legendary" data-tier="legendary">
+          <div class="skin-art-preview">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-purple)" stroke-width="1.8">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+              <polyline points="2 17 12 22 22 17"/>
+              <polyline points="2 12 12 17 22 12"/>
+            </svg>
+          </div>
+          <div class="skin-card__body">
+            <div class="skin-tier-tag" style="color:var(--neon-purple);">Legendary Tier · Hologram</div>
+            <div class="skin-name">Phantom // Chrono Void</div>
+            <p style="font-size:0.8rem;color:var(--txt-secondary);margin-bottom:12px;">Công nghệ thao túng thời gian, làm biến dạng trường trọng lực đối thủ.</p>
+            <div class="skin-footer">
+              <span class="skin-price">🟡 3,800 NX</span>
+              <button class="btn btn-cyber btn-sm btn-inspect" data-skin="Phantom // Chrono Void" data-price="3800">Inspect 3D</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Inspect 3D Modal -->
+  <div class="modal-backdrop" id="inspectModal">
+    <div class="inspect-modal">
+      <button class="btn-close-modal" id="btnCloseInspect">✕</button>
+      <div style="font-family:var(--font-display);font-size:0.8rem;color:var(--neon-cyan);font-weight:700;text-transform:uppercase;">3D Armory Inspection</div>
+      <h3 style="font-family:var(--font-display);font-size:1.6rem;font-weight:800;margin:4px 0 16px;" id="modalSkinTitle">Vũ Khí</h3>
+
+      <div style="height:220px;background:#05070e;border:1px solid var(--border);border-radius:var(--radius-md);display:grid;place-items:center;position:relative;overflow:hidden;margin-bottom:20px;">
+        <div style="position:absolute;inset:0;background:radial-gradient(circle,rgba(0,245,255,0.15),transparent 70%);"></div>
+        <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2">
+          <path d="M14 4l-4 4 3 3-5 5-4-1 1-4 5-5 3 3 4-4z"/>
+          <path d="M19 9l-4-4"/>
+        </svg>
+        <span style="position:absolute;bottom:10px;font-family:var(--font-mono);font-size:0.75rem;color:var(--txt-muted);">Xoay 360° · Click và kéo chuột</span>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-family:var(--font-mono);font-size:1.2rem;font-weight:800;color:var(--neon-amber);" id="modalSkinPrice">🟡 4,200 NX</div>
+        <div style="display:flex;gap:12px;">
+          <button class="btn btn-outline btn-sm" id="btnPlayFinisherAudio">
+            🔊 Thử âm thanh Finisher
+          </button>
+          <button class="btn btn-cyber btn-sm" id="btnBuySkin">
+            Trang bị ngay
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="container nexus-footer">
+    <div>
+      <strong>Nexus Esports UI Kit</strong> — Thiết kế thể thao điện tử chuẩn Cyberpunk &amp; Next-Gen Gaming.
+    </div>
+    <div style="display:flex;gap:20px;">
+      <a href="../index.html" style="color:var(--txt-secondary);text-decoration:none;">Về Showroom chính</a>
+      <a href="music.html" style="color:var(--txt-secondary);text-decoration:none;">SoundWave Music</a>
+      <a href="ai.html" style="color:var(--txt-secondary);text-decoration:none;">CogniX AI Studio</a>
+    </div>
+  </footer>
+
+  <script>
+    // Audio Synthesizer
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    let soundEnabled = true;
+
+    function playSound(type = 'laser') {
+      if (!soundEnabled) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        if (type === 'laser') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.15);
+          gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.15);
+        } else if (type === 'victory') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+          osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1);
+          osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2);
+          gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.4);
+        }
+      } catch (e) {}
+    }
+
+    function showToast(msg, icon = '🏆') {
+      const c = document.getElementById('toastContainer');
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.innerHTML = `<span>${icon}</span> <span>${msg}</span>`;
+      c.appendChild(t);
+      setTimeout(() => t.classList.add('is-show'), 10);
+      playSound('laser');
+      setTimeout(() => {
+        t.classList.remove('is-show');
+        setTimeout(() => t.remove(), 300);
+      }, 3000);
+    }
+
+    // Toggle Audio
+    document.getElementById('soundToggle').addEventListener('click', (e) => {
+      soundEnabled = !soundEnabled;
+      showToast(soundEnabled ? 'Đã bật âm thanh hiệu ứng' : 'Đã tắt âm thanh', soundEnabled ? '🔊' : '🔇');
+    });
+
+    // Score button
+    let scoreA = 12;
+    document.getElementById('btnScorePlusA').addEventListener('click', () => {
+      scoreA++;
+      document.getElementById('scoreA').textContent = scoreA;
+      showToast('Sentinels ghi thêm 1 điểm MATCH POINT!', '🔥');
+      playSound('victory');
+    });
+
+    // Killfeed simulation
+    const frags = [
+      { killer: 'SEN TenZ', gun: 'VANDAL 🎯', victim: 'FNC Chronicle' },
+      { killer: 'FNC Derke', gun: 'OPERATOR', victim: 'SEN Sacy' },
+      { killer: 'SEN zekken', gun: 'BLADE STORM', victim: 'FNC Alfajer' }
+    ];
+    let fragIdx = 0;
+    document.getElementById('btnSimulateKill').addEventListener('click', () => {
+      const f = frags[fragIdx % frags.length];
+      fragIdx++;
+      const item = document.createElement('div');
+      item.className = 'kill-item';
+      item.innerHTML = `<span style="color:var(--neon-cyan);">${f.killer}</span> <span>⚡ [${f.gun}]</span> <span style="color:var(--neon-magenta);">${f.victim}</span>`;
+      const kf = document.getElementById('killfeedContainer');
+      kf.prepend(item);
+      if (kf.children.length > 4) kf.lastElementChild.remove();
+      playSound('laser');
+    });
+
+    // Predict voting
+    let voteCountA = 64;
+    let voteCountB = 36;
+    function updatePredictUI() {
+      const total = voteCountA + voteCountB;
+      const pctA = Math.round((voteCountA / total) * 100);
+      const pctB = 100 - pctA;
+      document.getElementById('pctA').textContent = pctA;
+      document.getElementById('pctB').textContent = pctB;
+      document.getElementById('predictBarA').style.width = pctA + '%';
+      document.getElementById('predictBarB').style.width = pctB + '%';
+    }
+
+    document.getElementById('btnVoteA').addEventListener('click', () => {
+      voteCountA += 5;
+      updatePredictUI();
+      showToast('Bạn đã bình chọn cho Sentinels!', '💙');
+    });
+    document.getElementById('btnVoteB').addEventListener('click', () => {
+      voteCountB += 5;
+      updatePredictUI();
+      showToast('Bạn đã bình chọn cho Fnatic!', '🧡');
+    });
+
+    // Rarity filter
+    const rarityChips = document.querySelectorAll('.rarity-chip');
+    const skinCards = document.querySelectorAll('.skin-card');
+    rarityChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        rarityChips.forEach(c => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+        const tier = chip.getAttribute('data-rarity');
+        skinCards.forEach(card => {
+          if (tier === 'all' || card.getAttribute('data-tier') === tier) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Inspect modal
+    const inspectModal = document.getElementById('inspectModal');
+    let currentSkinTitle = '';
+    let currentSkinPrice = 0;
+    document.querySelectorAll('.btn-inspect').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentSkinTitle = btn.getAttribute('data-skin');
+        currentSkinPrice = parseInt(btn.getAttribute('data-price'));
+        document.getElementById('modalSkinTitle').textContent = currentSkinTitle;
+        document.getElementById('modalSkinPrice').textContent = `🟡 ${currentSkinPrice.toLocaleString()} NX`;
+        inspectModal.classList.add('is-open');
+        playSound('laser');
+      });
+    });
+
+    document.getElementById('btnCloseInspect').addEventListener('click', () => {
+      inspectModal.classList.remove('is-open');
+    });
+
+    document.getElementById('btnPlayFinisherAudio').addEventListener('click', () => {
+      playSound('victory');
+      showToast('Đang phát âm thanh kết liễu huyền thoại!', '🎵');
+    });
+
+    document.getElementById('btnBuySkin').addEventListener('click', () => {
+      inspectModal.classList.remove('is-open');
+      showToast(`Đã trang bị thành công: ${currentSkinTitle}!`, '✨');
+      playSound('victory');
+    });
+
+    // Theme toggle
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme');
+      const next = cur === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      showToast(`Đã chuyển theme: ${next === 'light' ? 'Sáng' : 'Tối'}`, '🎨');
+    });
+  </script>
+</body>
+</html>
