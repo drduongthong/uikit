@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OmniGen Lab — Precision Genomics &amp; CRISPR Studio UI Kit</title>
+  <meta name="description" content="Bộ UI Kit phòng thí nghiệm di truyền học, giải trình tự gen thế hệ mới (NGS), công cụ chỉnh sửa CRISPR-Cas và phân tích biến thể sinh học." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/tokens.css" />
+
+  <style>
+    /* ================================================================
+       OMNIGEN LAB UI KIT — Precision BioTech & Genomics Design System
+       ================================================================ */
+    :root {
+      --bg-base: #04090e;
+      --bg-surface: #07131b;
+      --bg-surface-2: #0d1e2b;
+      --bg-card: rgba(9, 23, 34, 0.85);
+      --bg-glass: rgba(7, 19, 27, 0.88);
+
+      --border: rgba(0, 245, 160, 0.14);
+      --border-bright: rgba(0, 245, 160, 0.35);
+      --border-cyan: rgba(0, 217, 245, 0.3);
+
+      --bio-emerald: #00f5a0;
+      --bio-cyan: #00d9f5;
+      --bio-amber: #ffb703;
+      --bio-magenta: #f72585;
+      --bio-purple: #7209b7;
+      --bio-crimson: #ff3366;
+
+      --glow-emerald: rgba(0, 245, 160, 0.3);
+      --glow-cyan: rgba(0, 217, 245, 0.28);
+      --glow-magenta: rgba(247, 37, 133, 0.3);
+
+      --txt-primary: #f0fdf9;
+      --txt-secondary: #99d5ca;
+      --txt-muted: #528078;
+
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-pill: 9999px;
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f0f7f6;
+      --bg-surface: #ffffff;
+      --bg-surface-2: #e0f0ed;
+      --bg-card: rgba(255, 255, 255, 0.94);
+      --bg-glass: rgba(255, 255, 255, 0.92);
+
+      --border: rgba(12, 74, 62, 0.12);
+      --border-bright: rgba(0, 168, 110, 0.35);
+      --border-cyan: rgba(2, 132, 199, 0.3);
+
+      --bio-emerald: #00a870;
+      --bio-cyan: #0284c7;
+      --bio-amber: #d97706;
+      --bio-magenta: #db2777;
+      --bio-purple: #6d28d9;
+      --bio-crimson: #e11d48;
+
+      --txt-primary: #0a2620;
+      --txt-secondary: #275249;
+      --txt-muted: #5e837b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-base);
+      color: var(--txt-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Ambient Bioluminescent Background */
+    .bio-ambient-bg {
+      position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(0, 245, 160, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(0, 217, 245, 0.07) 0%, transparent 50%),
+        radial-gradient(circle at 50% 85%, rgba(247, 37, 133, 0.06) 0%, transparent 50%),
+        linear-gradient(rgba(0, 245, 160, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 245, 160, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header Nav */
+    .lab-header {
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      padding: 14px 0;
+    }
+    .lab-nav {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .brand-group {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .lab-logo-icon {
+      width: 42px; height: 42px; border-radius: var(--radius-md);
+      background: linear-gradient(135deg, rgba(0,245,160,0.2), rgba(0,217,245,0.2));
+      border: 1px solid var(--border-bright);
+      display: grid; place-items: center; color: var(--bio-emerald);
+      box-shadow: 0 0 20px var(--glow-emerald);
+    }
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.15rem; font-weight: 700;
+      letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px;
+    }
+    .brand-sub {
+      font-size: 0.72rem; color: var(--txt-muted); font-family: var(--font-mono); letter-spacing: 0.05em;
+    }
+    .badge-status {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 3px 10px; border-radius: var(--radius-pill);
+      font-size: 0.75rem; font-weight: 600; font-family: var(--font-mono);
+      background: rgba(0, 245, 160, 0.12); color: var(--bio-emerald);
+      border: 1px solid rgba(0, 245, 160, 0.3);
+    }
+    .pulsing-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--bio-emerald);
+      box-shadow: 0 0 8px var(--bio-emerald);
+      animation: pulseGlow 1.8s infinite ease-in-out;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .nav-actions {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: var(--font-body); font-size: 0.82rem; font-weight: 600;
+      padding: 8px 16px; border-radius: var(--radius-md);
+      cursor: pointer; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid transparent; text-decoration: none;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--bio-emerald), #00c982);
+      color: #041410; box-shadow: 0 4px 16px var(--glow-emerald);
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #26f8ac, #02e091);
+      box-shadow: 0 6px 24px rgba(0,245,160,0.5);
+    }
+    .btn-outline {
+      background: rgba(9, 23, 34, 0.6);
+      border: 1px solid var(--border); color: var(--txt-primary);
+    }
+    .btn-outline:hover {
+      border-color: var(--border-bright); background: var(--bg-surface-2);
+      color: var(--bio-emerald);
+    }
+    .btn-icon {
+      width: 38px; height: 38px; padding: 0; border-radius: var(--radius-md);
+      background: rgba(9, 23, 34, 0.5); border: 1px solid var(--border);
+      color: var(--txt-secondary); display: grid; place-items: center;
+    }
+    .btn-icon:hover {
+      border-color: var(--border-bright); color: var(--txt-primary);
+    }
+
+    /* Hero / Lab Status Banner */
+    .lab-banner {
+      padding: 28px 0 16px;
+    }
+    .banner-grid {
+      display: grid; grid-template-columns: 1.8fr 1fr; gap: 20px; align-items: stretch;
+    }
+    .banner-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px; position: relative; overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+    .banner-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--bio-emerald), var(--bio-cyan), transparent);
+    }
+    .card-eyebrow {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em;
+      font-family: var(--font-mono); color: var(--bio-cyan); margin-bottom: 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .banner-title {
+      font-family: var(--font-display); font-size: 1.6rem; font-weight: 700;
+      line-height: 1.25; margin-bottom: 8px;
+    }
+    .banner-desc {
+      font-size: 0.9rem; color: var(--txt-secondary); max-width: 650px;
+    }
+
+    /* KPI Barometer Cards */
+    .kpi-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+      margin-top: 20px;
+    }
+    .kpi-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 18px; transition: all 0.25s ease;
+      position: relative;
+    }
+    .kpi-card:hover {
+      border-color: var(--border-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .kpi-label {
+      font-size: 0.75rem; color: var(--txt-muted); font-family: var(--font-mono);
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;
+    }
+    .kpi-val {
+      font-family: var(--font-mono); font-size: 1.55rem; font-weight: 700;
+      color: var(--txt-primary); letter-spacing: -0.02em;
+    }
+    .kpi-badge {
+      font-size: 0.7rem; font-weight: 600; padding: 2px 6px; border-radius: var(--radius-pill);
+      font-family: var(--font-mono);
+    }
+    .badge-emerald { background: rgba(0,245,160,0.15); color: var(--bio-emerald); }
+    .badge-cyan { background: rgba(0,217,245,0.15); color: var(--bio-cyan); }
+    .badge-magenta { background: rgba(247,37,133,0.15); color: var(--bio-magenta); }
+    .badge-amber { background: rgba(255,183,3,0.15); color: var(--bio-amber); }
+
+    .kpi-progress-track {
+      width: 100%; height: 5px; background: rgba(255,255,255,0.06);
+      border-radius: var(--radius-pill); margin-top: 10px; overflow: hidden;
+    }
+    .kpi-progress-bar {
+      height: 100%; border-radius: var(--radius-pill);
+      transition: width 0.5s ease;
+    }
+
+    /* Main Grid: CRISPR Workspace + Thermal Cycler */
+    .lab-main-grid {
+      display: grid; grid-template-columns: 2.2fr 1.2fr; gap: 20px;
+      margin-top: 24px;
+    }
+
+    /* Panel Card */
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden; backdrop-filter: blur(12px);
+      display: flex; flex-direction: column;
+    }
+    .panel-header {
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(9, 23, 34, 0.4);
+    }
+    .panel-title {
+      font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .panel-title svg { color: var(--bio-emerald); }
+    .panel-body {
+      padding: 20px; flex: 1;
+    }
+
+    /* CRISPR Sequence Strand Viewer */
+    .crispr-viewer {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px; margin-bottom: 16px;
+    }
+    .seq-info-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 14px; font-family: var(--font-mono); font-size: 0.78rem;
+      color: var(--txt-muted);
+    }
+    .seq-strand-container {
+      overflow-x: auto; padding: 12px 6px;
+      scrollbar-width: thin; scrollbar-color: var(--border-bright) transparent;
+    }
+    .dna-rail {
+      display: flex; gap: 6px; min-width: max-content; align-items: center;
+    }
+    .base-column {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      cursor: pointer; padding: 6px 8px; border-radius: var(--radius-sm);
+      border: 1px solid transparent; transition: all 0.15s ease;
+    }
+    .base-column:hover {
+      background: rgba(0, 245, 160, 0.08);
+      border-color: var(--border-bright);
+      transform: translateY(-2px);
+    }
+    .base-column.is-selected {
+      background: rgba(0, 217, 245, 0.15);
+      border-color: var(--bio-cyan);
+      box-shadow: 0 0 14px rgba(0, 217, 245, 0.35);
+    }
+    .base-column.is-cut {
+      opacity: 0.45; filter: grayscale(80%);
+      border-style: dashed; border-color: var(--bio-crimson);
+    }
+    .base-column.is-mutated {
+      background: rgba(247, 37, 133, 0.15);
+      border-color: var(--bio-magenta);
+    }
+
+    .base-pair-letter {
+      width: 28px; height: 32px; border-radius: 4px;
+      display: grid; place-items: center;
+      font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700;
+      transition: all 0.2s ease;
+    }
+    .base-bond {
+      width: 2px; height: 10px; background: rgba(255, 255, 255, 0.15);
+      position: relative;
+    }
+    .base-column:hover .base-bond {
+      background: var(--bio-emerald);
+    }
+    .base-index {
+      font-size: 0.65rem; color: var(--txt-muted); font-family: var(--font-mono);
+      margin-top: 2px;
+    }
+
+    /* Base Colors */
+    .base-A { background: rgba(0, 245, 160, 0.18); color: var(--bio-emerald); border: 1px solid rgba(0, 245, 160, 0.4); }
+    .base-T { background: rgba(0, 217, 245, 0.18); color: var(--bio-cyan); border: 1px solid rgba(0, 217, 245, 0.4); }
+    .base-C { background: rgba(255, 183, 3, 0.18); color: var(--bio-amber); border: 1px solid rgba(255, 183, 3, 0.4); }
+    .base-G { background: rgba(247, 37, 133, 0.18); color: var(--bio-magenta); border: 1px solid rgba(247, 37, 133, 0.4); }
+
+    /* CRISPR Tool Buttons */
+    .crispr-toolbar {
+      display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+      margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);
+    }
+    .tool-group-label {
+      font-size: 0.75rem; font-family: var(--font-mono); color: var(--txt-muted); margin-right: 6px;
+    }
+    .btn-cut {
+      background: rgba(255, 51, 102, 0.15); color: #ff527b;
+      border: 1px solid rgba(255, 51, 102, 0.35);
+    }
+    .btn-cut:hover {
+      background: rgba(255, 51, 102, 0.28); box-shadow: 0 0 16px rgba(255, 51, 102, 0.4);
+    }
+    .btn-insert {
+      background: rgba(0, 245, 160, 0.15); color: var(--bio-emerald);
+      border: 1px solid rgba(0, 245, 160, 0.35);
+    }
+    .btn-insert:hover {
+      background: rgba(0, 245, 160, 0.28); box-shadow: 0 0 16px var(--glow-emerald);
+    }
+    .btn-knockout {
+      background: rgba(114, 9, 183, 0.2); color: #c77dff;
+      border: 1px solid rgba(114, 9, 183, 0.4);
+    }
+    .btn-knockout:hover {
+      background: rgba(114, 9, 183, 0.35); box-shadow: 0 0 16px rgba(114, 9, 183, 0.4);
+    }
+
+    /* Gene Loci Inspector & Off-Target Score */
+    .locus-inspect-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      margin-top: 16px;
+    }
+    .inspect-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+    }
+    .inspect-header {
+      font-size: 0.75rem; font-family: var(--font-mono); color: var(--txt-muted);
+      margin-bottom: 8px; display: flex; justify-content: space-between;
+    }
+    .inspect-val {
+      font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700;
+      color: var(--txt-primary);
+    }
+
+    /* PCR Thermal Cycler Simulator */
+    .pcr-cycler-panel {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .thermal-display {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px; text-align: center; position: relative;
+    }
+    .thermal-temp {
+      font-family: var(--font-mono); font-size: 2.5rem; font-weight: 800;
+      color: var(--bio-emerald); letter-spacing: -0.02em; line-height: 1;
+      margin: 10px 0 6px;
+    }
+    .thermal-phase-badge {
+      display: inline-block; padding: 4px 12px; border-radius: var(--radius-pill);
+      font-family: var(--font-mono); font-size: 0.76rem; font-weight: 600;
+      background: rgba(0, 245, 160, 0.12); color: var(--bio-emerald);
+      border: 1px solid rgba(0, 245, 160, 0.28);
+    }
+    .cycle-counter {
+      font-family: var(--font-mono); font-size: 0.85rem; color: var(--txt-secondary);
+      margin-top: 8px;
+    }
+
+    /* Thermal Ramp SVG */
+    .ramp-svg-container {
+      background: rgba(4, 9, 14, 0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      height: 90px; margin-top: 12px; position: relative; overflow: hidden;
+    }
+
+    .pcr-controls {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .control-row {
+      display: flex; gap: 8px;
+    }
+    .control-row .btn { flex: 1; }
+
+    /* Variant Pathology Classification Table */
+    .table-section {
+      margin-top: 28px; margin-bottom: 40px;
+    }
+    .filter-pills {
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+      margin-bottom: 16px;
+    }
+    .pill-btn {
+      background: var(--bg-surface); border: 1px solid var(--border);
+      color: var(--txt-secondary); padding: 6px 14px; border-radius: var(--radius-pill);
+      font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+      font-family: var(--font-body);
+    }
+    .pill-btn:hover { border-color: var(--border-bright); color: var(--txt-primary); }
+    .pill-btn.is-active {
+      background: rgba(0, 245, 160, 0.15); border-color: var(--bio-emerald);
+      color: var(--bio-emerald);
+    }
+
+    .search-box {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 6px 14px;
+      margin-left: auto; min-width: 260px;
+    }
+    .search-input {
+      background: transparent; border: none; outline: none;
+      color: var(--txt-primary); font-size: 0.82rem; width: 100%;
+      font-family: var(--font-body);
+    }
+    .search-input::placeholder { color: var(--txt-muted); }
+
+    .table-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow-x: auto; backdrop-filter: blur(12px);
+    }
+    .bio-table {
+      width: 100%; border-collapse: collapse; text-align: left;
+      font-size: 0.84rem;
+    }
+    .bio-table th {
+      padding: 14px 18px; font-family: var(--font-mono); font-size: 0.75rem;
+      text-transform: uppercase; letter-spacing: 0.05em; color: var(--txt-muted);
+      border-bottom: 1px solid var(--border); background: rgba(9, 23, 34, 0.6);
+    }
+    .bio-table td {
+      padding: 14px 18px; border-bottom: 1px solid rgba(0, 245, 160, 0.07);
+      vertical-align: middle;
+    }
+    .bio-table tr:hover td {
+      background: rgba(0, 245, 160, 0.04);
+    }
+
+    .variant-locus {
+      font-family: var(--font-mono); font-weight: 700; color: var(--txt-primary);
+    }
+    .gene-tag {
+      display: inline-block; padding: 2px 8px; border-radius: var(--radius-sm);
+      font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600;
+      background: rgba(0, 217, 245, 0.12); color: var(--bio-cyan);
+      border: 1px solid rgba(0, 217, 245, 0.3); margin-right: 6px;
+    }
+
+    .badge-pathogenic {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: var(--radius-pill);
+      font-size: 0.72rem; font-weight: 700; font-family: var(--font-mono);
+      background: rgba(255, 51, 102, 0.15); color: #ff477e;
+      border: 1px solid rgba(255, 51, 102, 0.35);
+    }
+    .badge-vus {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: var(--radius-pill);
+      font-size: 0.72rem; font-weight: 700; font-family: var(--font-mono);
+      background: rgba(255, 183, 3, 0.15); color: var(--bio-amber);
+      border: 1px solid rgba(255, 183, 3, 0.35);
+    }
+    .badge-benign {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: var(--radius-pill);
+      font-size: 0.72rem; font-weight: 700; font-family: var(--font-mono);
+      background: rgba(0, 245, 160, 0.12); color: var(--bio-emerald);
+      border: 1px solid rgba(0, 245, 160, 0.3);
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(4, 9, 14, 0.85);
+      backdrop-filter: blur(8px); display: none; place-items: center;
+      z-index: 1000; padding: 20px;
+    }
+    .modal-backdrop.is-open { display: grid; }
+    .modal-window {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-lg);
+      width: 100%; max-width: 580px; padding: 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px var(--glow-emerald);
+      position: relative;
+    }
+    .modal-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px;
+    }
+    .modal-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
+    .code-export-box {
+      background: #03060a; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 14px; font-family: var(--font-mono); font-size: 0.78rem; color: #22d3ee;
+      overflow-x: auto; max-height: 200px; white-space: pre-wrap; line-height: 1.4;
+      margin-bottom: 18px;
+    }
+
+    /* Toast Notification */
+    .toast-container {
+      position: fixed; bottom: 24px; right: 24px; z-index: 2000;
+      display: flex; flex-direction: column; gap: 10px; pointer-events: none;
+    }
+    .toast {
+      background: rgba(7, 19, 27, 0.95);
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-md);
+      padding: 12px 18px; color: var(--txt-primary);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--glow-emerald);
+      font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 10px;
+      backdrop-filter: blur(12px); pointer-events: auto;
+      animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes toastIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .banner-grid, .lab-main-grid { grid-template-columns: 1fr; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .kpi-row { grid-template-columns: 1fr; }
+      .locus-inspect-grid { grid-template-columns: 1fr; }
+      .nav-actions .btn-export { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bio-ambient-bg"></div>
+
+  <!-- Header Nav -->
+  <header class="lab-header">
+    <div class="container lab-nav">
+      <div class="brand-group">
+        <a href="../index.html" class="btn-icon" title="Quay lại Showroom">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </a>
+        <div class="lab-logo-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8-8-3.6-8-8z"/>
+            <path d="M12 2v20M2 12h20M7 7l10 10M17 7 7 17"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>OmniGen Lab <span class="badge-status"><span class="pulsing-dot"></span> NGS Live</span></h1>
+          <div class="brand-sub">PRECISION GENOMICS &amp; CRISPR-CAS PLATFORM</div>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <button id="btnSoundToggle" class="btn btn-icon" title="Bật/Tắt âm thanh Bio-Synth">
+          <svg id="soundIconOn" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+
+        <button id="btnThemeToggle" class="btn btn-icon" title="Chuyển chế độ Sáng / Tối">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+
+        <button id="btnExportFasta" class="btn btn-outline btn-export">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Xuất FASTA
+        </button>
+
+        <button id="btnNewAssay" class="btn btn-primary">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Tạo Thí Nghiệm
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Lab Status & Hero Banner -->
+    <section class="lab-banner">
+      <div class="banner-grid">
+        <div class="banner-card">
+          <div class="card-eyebrow">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            Assay Batch #OG-2026-X9 • NovaSeq 6000 Flowcell A
+          </div>
+          <h2 class="banner-title">Giải Trình Tự Toàn Bộ Hệ Gen (WGS) &amp; Can Thiệp CRISPR</h2>
+          <p class="banner-desc">
+            Phân tích 3.2 tỷ cặp base thời gian thực. Giám sát chu trình PCR nhiệt, tính toán độ tin cậy Q30, và mô phỏng chỉnh sửa gen chính xác cao với enzyme Cas9/Cas12a.
+          </p>
+        </div>
+
+        <div class="banner-card" style="display:flex; flex-direction:column; justify-content:center; gap:12px;">
+          <div class="card-eyebrow" style="color:var(--bio-emerald);">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Bioreactor Telemetry
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:0.85rem; color:var(--txt-secondary);">Nhiệt độ ủ tế bào:</span>
+            <span style="font-family:var(--font-mono); font-weight:700; color:var(--bio-emerald);">37.05°C ±0.02</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:0.85rem; color:var(--txt-secondary);">Nồng độ Oxy hoà tan (DO):</span>
+            <span style="font-family:var(--font-mono); font-weight:700; color:var(--bio-cyan);">48.6 %</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:0.85rem; color:var(--txt-secondary);">Độ pH dịch nuôi cấy:</span>
+            <span style="font-family:var(--font-mono); font-weight:700; color:var(--bio-amber);">7.38 pH</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI Barometer Row -->
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-label">
+            Sản lượng giải trình tự
+            <span class="kpi-badge badge-emerald">+18.4%</span>
+          </div>
+          <div class="kpi-val" id="statYield">846.2 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">Gb</span></div>
+          <div class="kpi-progress-track">
+            <div class="kpi-progress-bar" style="width: 84%; background: var(--bio-emerald);"></div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">
+            Độ chính xác Q30
+            <span class="kpi-badge badge-cyan">Chuẩn ISO 15189</span>
+          </div>
+          <div class="kpi-val" id="statQ30">95.4 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">%</span></div>
+          <div class="kpi-progress-track">
+            <div class="kpi-progress-bar" style="width: 95%; background: var(--bio-cyan);"></div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">
+            Hiệu suất Cắt Cas9
+            <span class="kpi-badge badge-magenta">sgRNA-L9</span>
+          </div>
+          <div class="kpi-val" id="statCleavage">98.2 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">%</span></div>
+          <div class="kpi-progress-track">
+            <div class="kpi-progress-bar" style="width: 98%; background: var(--bio-magenta);"></div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">
+            Rủi ro Lệch mục tiêu
+            <span class="kpi-badge badge-amber">&lt; 0.05%</span>
+          </div>
+          <div class="kpi-val" id="statOffTarget">0.038 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">%</span></div>
+          <div class="kpi-progress-track">
+            <div class="kpi-progress-bar" style="width: 12%; background: var(--bio-amber);"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lab Main Workspace Grid -->
+    <section class="lab-main-grid">
+      <!-- CRISPR Gene Editing Workspace -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.5V18h-2v-1.5a4 4 0 0 1 0-8V7h2v1.5a4 4 0 0 1 0 8z"/></svg>
+            Trạm Thiết Kế &amp; Can Thiệp CRISPR-Cas9 (Mã Gen BRCA1 Exon 11)
+          </div>
+          <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--txt-muted);">Chr17: 43,044,295-43,125,482</span>
+        </div>
+
+        <div class="panel-body">
+          <div class="crispr-viewer">
+            <div class="seq-info-bar">
+              <div>Sợi thuận (5' &rarr; 3') &bull; Nhấp vào nucleotide để chọn vị trí can thiệp</div>
+              <div id="selectedLocusText">Vị trí chọn: <strong style="color:var(--bio-cyan);">Locus #8 (C-G)</strong></div>
+            </div>
+
+            <!-- Double Helix DNA Sequence Rail -->
+            <div class="seq-strand-container">
+              <div class="dna-rail" id="dnaRail">
+                <!-- Injected via Javascript for full interactivity -->
+              </div>
+            </div>
+
+            <!-- CRISPR Action Tools -->
+            <div class="crispr-toolbar">
+              <span class="tool-group-label">Thao tác sgRNA:</span>
+              <button id="btnCasCut" class="btn btn-cut">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+                Cắt Enzyme Cas9
+              </button>
+              <button id="btnPrimeInsert" class="btn btn-insert">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                Chèn Chuỗi Huỳnh Quang GFP
+              </button>
+              <button id="btnKnockout" class="btn btn-knockout">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+                Knockout (Tạo Đột Biến)
+              </button>
+              <button id="btnResetDNA" class="btn btn-outline" style="margin-left:auto;">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                Khôi phục Wild-Type
+              </button>
+            </div>
+          </div>
+
+          <!-- Locus Parameters -->
+          <div class="locus-inspect-grid">
+            <div class="inspect-box">
+              <div class="inspect-header">
+                <span>Codon Đích &amp; Axit Amin</span>
+                <span style="color:var(--bio-emerald);">Mã hóa chuẩn</span>
+              </div>
+              <div class="inspect-val" id="codonLabel">ATG &rarr; Methionine (Khởi đầu)</div>
+              <div style="font-size:0.75rem; color:var(--txt-muted); margin-top:4px;">Điểm PAM nhận diện: NGG (SpCas9 Canonical)</div>
+            </div>
+
+            <div class="inspect-box">
+              <div class="inspect-header">
+                <span>Điểm Khả Thi Sinh Học (Viability Score)</span>
+                <span id="viabilityTag" style="color:var(--bio-cyan);">98.6 / 100</span>
+              </div>
+              <div class="kpi-progress-track" style="margin-top:8px;">
+                <div id="viabilityBar" class="kpi-progress-bar" style="width: 98.6%; background: var(--bio-cyan);"></div>
+              </div>
+              <div style="font-size:0.75rem; color:var(--txt-muted); margin-top:6px;">Không phát hiện vùng liên kết bổ sung nguy hiểm</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thermal Cycler PCR Simulator -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+            Máy Nhân Gen PCR Thời Gian Thực
+          </div>
+          <span class="badge-status" id="pcrLiveBadge">Đang chạy</span>
+        </div>
+
+        <div class="panel-body pcr-cycler-panel">
+          <div class="thermal-display">
+            <span class="thermal-phase-badge" id="thermalPhaseText">Giai đoạn: Biến tính sợi (Denaturation)</span>
+            <div class="thermal-temp" id="thermalCurrentTemp">95.0<span style="font-size:1.2rem;">°C</span></div>
+            <div class="cycle-counter">Chu kỳ hiện tại: <strong id="pcrCycleCount" style="color:var(--txt-primary);">18 / 35</strong> &bull; Thời gian còn: <span id="pcrEtaText" style="color:var(--bio-cyan);">14:20s</span></div>
+
+            <!-- Dynamic Thermal Curve SVG -->
+            <div class="ramp-svg-container">
+              <svg width="100%" height="100%" viewBox="0 0 320 90" preserveAspectRatio="none">
+                <path d="M 0 75 Q 30 75, 45 20 L 110 20 Q 125 20, 140 65 L 180 65 Q 195 65, 210 40 L 265 40 Q 280 40, 295 75 L 320 75" fill="none" stroke="rgba(0,245,160,0.3)" stroke-width="2"/>
+                <path id="svgProgressLine" d="M 0 75 Q 30 75, 45 20 L 110 20" fill="none" stroke="var(--bio-emerald)" stroke-width="3"/>
+                <circle id="svgThermalDot" cx="110" cy="20" r="5" fill="var(--bio-emerald)" filter="drop-shadow(0 0 6px var(--bio-emerald))"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="pcr-controls">
+            <div class="control-row">
+              <button id="btnPcrToggle" class="btn btn-primary">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                Tạm dừng PCR
+              </button>
+              <button id="btnPcrFast" class="btn btn-outline">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/></svg>
+                Gia tốc 2x
+              </button>
+            </div>
+            <button id="btnThermalShock" class="btn btn-outline" style="color:var(--bio-amber);">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              Sốc Nhiệt 42°C (Heat-Shock Transformation)
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variant Pathology Classification Table -->
+    <section class="table-section">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:12px;">
+        <div>
+          <h3 style="font-family:var(--font-display); font-size:1.25rem; font-weight:700;">Danh Sách Biến Thể Gen &amp; Tiêu Chuẩn Phân Loại ACMG</h3>
+          <p style="font-size:0.85rem; color:var(--txt-muted);">Tự động đối chiếu cơ sở dữ liệu lâm sàng ClinVar, gnomAD và phân loại nguy cơ bệnh lý.</p>
+        </div>
+
+        <div class="search-box">
+          <svg width="16" height="16" fill="none" stroke="var(--txt-muted)" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="variantSearch" class="search-input" placeholder="Tìm theo tên gen (BRCA1, TP53, EGFR)...">
+        </div>
+      </div>
+
+      <div class="filter-pills">
+        <button class="pill-btn is-active" data-filter="ALL">Tất cả biến thể (8)</button>
+        <button class="pill-btn" data-filter="PATHOGENIC">Gây bệnh (Pathogenic)</button>
+        <button class="pill-btn" data-filter="VUS">Ý nghĩa chưa rõ (VUS)</button>
+        <button class="pill-btn" data-filter="BENIGN">Lành tính (Benign)</button>
+      </div>
+
+      <div class="table-container">
+        <table class="bio-table">
+          <thead>
+            <tr>
+              <th>Gen &amp; Vị Trí cDNA</th>
+              <th>Đột Biến Axit Amin</th>
+              <th>Tần Số gnomAD</th>
+              <th>Phân Loại Lâm Sàng (ACMG)</th>
+              <th>Mức Độ Bằng Chứng</th>
+              <th>Hành Động</th>
+            </tr>
+          </thead>
+          <tbody id="variantTableBody">
+            <tr data-type="PATHOGENIC" data-gene="BRCA1">
+              <td><span class="gene-tag">BRCA1</span> <span class="variant-locus">c.5266dupC</span></td>
+              <td>p.Gln1756Profs*74</td>
+              <td>0.00018 (Hiếm)</td>
+              <td><span class="badge-pathogenic"><svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> Gây bệnh (Pathogenic)</span></td>
+              <td>PVS1, PM2, PP5</td>
+              <td><button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem;" onclick="inspectVariant('BRCA1 c.5266dupC')">Chi tiết</button></td>
+            </tr>
+
+            <tr data-type="PATHOGENIC" data-gene="TP53">
+              <td><span class="gene-tag">TP53</span> <span class="variant-locus">c.743G&gt;A</span></td>
+              <td>p.Arg248Gln (DNA binding)</td>
+              <td>0.00003 (Rất hiếm)</td>
+              <td><span class="badge-pathogenic"><svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> Gây bệnh (Pathogenic)</span></td>
+              <td>PS1, PS3, PM1</td>
+              <td><button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem;" onclick="inspectVariant('TP53 c.743G>A')">Chi tiết</button></td>
+            </tr>
+
+            <tr data-type="VUS" data-gene="EGFR">
+              <td><span class="gene-tag">EGFR</span> <span class="variant-locus">c.2319G&gt;T</span></td>
+              <td>p.Leu773Phe</td>
+              <td>0.00240</td>
+              <td><span class="badge-vus"><svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> VUS (Ý nghĩa chưa rõ)</span></td>
+              <td>PM2, BP4</td>
+              <td><button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem;" onclick="inspectVariant('EGFR c.2319G>T')">Chi tiết</button></td>
+            </tr>
+
+            <tr data-type="PATHOGENIC" data-gene="CFTR">
+              <td><span class="gene-tag">CFTR</span> <span class="variant-locus">c.1521_1523delCTT</span></td>
+              <td>p.Phe508del (Mất phenylalanine)</td>
+              <td>0.01420 (Phổ biến)</td>
+              <td><span class="badge-pathogenic"><svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> Gây bệnh (Pathogenic)</span></td>
+              <td>PVS1, PS3, PP3</td>
+              <td><button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem;" onclick="inspectVariant('CFTR p.Phe508del')">Chi tiết</button></td>
+            </tr>
+
+            <tr data-type="VUS" data-gene="APOE">
+              <td><span class="gene-tag">APOE</span> <span class="variant-locus">c.388T&gt;C</span></td>
+              <td>p.Cys130Arg</td>
+              <td>0.15200</td>
+              <td><span class="badge-vus"><svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> VUS (Ý nghĩa chưa rõ)</span></td>
+              <td>BS1, BP6</td>
+              <td><button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem;" onclick="inspectVariant('APOE c.388T>C')">Chi tiết</button></td>
+            </tr>
+
+            <tr data-type="BENIGN" data-gene="BRCA2">
+              <td><span class="gene-tag">BRCA2</span> <span class="variant-locus">c.1114A&gt;C</span></td>
+              <td>p.Asn372His</td>
+              <td>0.28500</td>
+              <td><span class="badge-benign"><svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> Lành tính (Benign)</span></td>
+              <td>BA1, BS2</td>
+              <td><button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem;" onclick="inspectVariant('BRCA2 c.1114A>C')">Chi tiết</button></td>
+            </tr>
+
+            <tr data-type="BENIGN" data-gene="MTHFR">
+              <td><span class="gene-tag">MTHFR</span> <span class="variant-locus">c.677C&gt;T</span></td>
+              <td>p.Ala222Val (Đa hình phổ biến)</td>
+              <td>0.34200</td>
+              <td><span class="badge-benign"><svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> Lành tính (Benign)</span></td>
+              <td>BA1, BS1</td>
+              <td><button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem;" onclick="inspectVariant('MTHFR c.677C>T')">Chi tiết</button></td>
+            </tr>
+
+            <tr data-type="VUS" data-gene="KMT2D">
+              <td><span class="gene-tag">KMT2D</span> <span class="variant-locus">c.5413G&gt;A</span></td>
+              <td>p.Val1805Met</td>
+              <td>0.00045</td>
+              <td><span class="badge-vus"><svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> VUS (Ý nghĩa chưa rõ)</span></td>
+              <td>PM2, PP3</td>
+              <td><button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem;" onclick="inspectVariant('KMT2D c.5413G>A')">Chi tiết</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- FASTA Export Modal -->
+  <div class="modal-backdrop" id="fastaModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 class="modal-title">Xuất Dữ Liệu Trình Tự FASTA</h3>
+        <button id="btnCloseModal" class="btn-icon">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <p style="font-size:0.85rem; color:var(--txt-secondary); margin-bottom:12px;">
+        Định dạng FASTA được tạo dựa trên cấu trúc đã qua chỉnh sửa bằng CRISPR-Cas9:
+      </p>
+
+      <div class="code-export-box" id="fastaOutput">
+>OmniGen_BRCA1_Exon11_Edited|Homo_sapiens|Chr17:43044295-43125482|Cas9_Targeted
+ATG GAT TTA TCT GCT CTT CGC GTT GAA GAA GTA CAA AAT GTC ATT AAT
+GCT ATG CAG AAA ATC TTA GAG TGT CCC ATC TGT CTG GAG TTG ATC AAG
+GAA CCT GTC TCC ACA AAG TGT GAC CAC ATA TTT TGC AAA TTT TGC ATG
+CTG AAA CTT CTC AAC CAG AAG AAA GGG CCT TCA CAG TGT CCT TTT TGT
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px;">
+        <button id="btnCopyFasta" class="btn btn-primary">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Sao chép chuỗi
+        </button>
+        <button id="btnDownloadFasta" class="btn btn-outline">Tải file .fasta</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Interactive Logic & Web Audio Synthesizer -->
+  <script>
+    // Theme Management
+    const themeToggleBtn = document.getElementById('btnThemeToggle');
+    let currentTheme = localStorage.getItem('omni-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      localStorage.setItem('omni-theme', currentTheme);
+      showToast(`Chuyển sang chế độ: ${currentTheme === 'dark' ? 'Dark Bio-Matrix' : 'Light Clinical'}`, '🎨');
+      playBioAudio('click');
+    });
+
+    // Web Audio Synthesizer for BioTech FX
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    const soundToggleBtn = document.getElementById('btnSoundToggle');
+    soundToggleBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      soundToggleBtn.style.color = soundEnabled ? 'var(--bio-emerald)' : 'var(--txt-muted)';
+      showToast(soundEnabled ? 'Đã bật âm thanh sinh học tổng hợp' : 'Đã tắt âm thanh', '🔊');
+    });
+
+    function playBioAudio(type) {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'nucleotide') {
+          // Melodic codon tone
+          const freqs = [329.63, 392.00, 440.00, 523.25]; // E4, G4, A4, C5
+          const f = freqs[Math.floor(Math.random() * freqs.length)];
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(f, now);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        } else if (type === 'cut') {
+          // Sharp acoustic cleavage snap
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(880, now);
+          osc.frequency.exponentialRampToValueAtTime(110, now + 0.2);
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+          osc.start(now);
+          osc.stop(now + 0.2);
+        } else if (type === 'insert') {
+          // Rising synthesis chime
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.35);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } else if (type === 'pcrCycle') {
+          // Ambient autoclave cycle ping
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(659.25, now);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+          osc.start(now);
+          osc.stop(now + 0.4);
+        } else if (type === 'click') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(400, now);
+          gain.gain.setValueAtTime(0.05, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        }
+      } catch (e) {
+        console.warn('Audio not allowed or blocked:', e);
+      }
+    }
+
+    // Toast Notification System
+    function showToast(msg, icon = '🧬') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<span>${icon}</span><span>${msg}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.transition = 'opacity 0.3s, transform 0.3s';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    // DNA Sequence Data Model
+    const BASE_PAIRS = [
+      { f: 'A', r: 'T', codon: 'ATG', aa: 'Met (Start)', index: 1 },
+      { f: 'T', r: 'A', codon: 'TGG', aa: 'Trp', index: 2 },
+      { f: 'G', r: 'C', codon: 'GAA', aa: 'Glu', index: 3 },
+      { f: 'G', r: 'C', codon: 'GCC', aa: 'Ala', index: 4 },
+      { f: 'A', r: 'T', codon: 'ATC', aa: 'Ile', index: 5 },
+      { f: 'T', r: 'A', codon: 'TTA', aa: 'Leu', index: 6 },
+      { f: 'T', r: 'A', codon: 'TCT', aa: 'Ser', index: 7 },
+      { f: 'C', r: 'G', codon: 'CTG', aa: 'Leu', index: 8, selected: true },
+      { f: 'G', r: 'C', codon: 'GCT', aa: 'Ala', index: 9 },
+      { f: 'C', r: 'G', codon: 'CTT', aa: 'Leu', index: 10 },
+      { f: 'T', r: 'A', codon: 'TCG', aa: 'Ser', index: 11 },
+      { f: 'T', r: 'A', codon: 'TTG', aa: 'Leu', index: 12 },
+      { f: 'C', r: 'G', codon: 'CGA', aa: 'Arg', index: 13 },
+      { f: 'G', r: 'C', codon: 'GTT', aa: 'Val', index: 14 },
+      { f: 'T', r: 'A', codon: 'TAA', aa: 'Stop', index: 15 },
+      { f: 'T', r: 'A', codon: 'TGA', aa: 'Stop', index: 16 },
+      { f: 'G', r: 'C', codon: 'GAA', aa: 'Glu', index: 17 },
+      { f: 'A', r: 'T', codon: 'AAG', aa: 'Lys', index: 18 }
+    ];
+
+    let dnaStrand = JSON.parse(JSON.stringify(BASE_PAIRS));
+    let selectedLocusIdx = 7; // Index 8
+
+    function renderDnaRail() {
+      const rail = document.getElementById('dnaRail');
+      rail.innerHTML = '';
+
+      dnaStrand.forEach((bp, idx) => {
+        const col = document.createElement('div');
+        col.className = `base-column ${bp.selected ? 'is-selected' : ''} ${bp.cut ? 'is-cut' : ''} ${bp.mutated ? 'is-mutated' : ''}`;
+        col.innerHTML = `
+          <div class="base-pair-letter base-${bp.f}">${bp.f}</div>
+          <div class="base-bond"></div>
+          <div class="base-pair-letter base-${bp.r}">${bp.r}</div>
+          <div class="base-index">#${bp.index}</div>
+        `;
+
+        col.addEventListener('click', () => {
+          dnaStrand.forEach(b => b.selected = false);
+          bp.selected = true;
+          selectedLocusIdx = idx;
+          updateSelectedLocusUI(bp);
+          renderDnaRail();
+          playBioAudio('nucleotide');
+        });
+
+        rail.appendChild(col);
+      });
+    }
+
+    function updateSelectedLocusUI(bp) {
+      document.getElementById('selectedLocusText').innerHTML = `Vị trí chọn: <strong style="color:var(--bio-cyan);">Locus #${bp.index} (${bp.f}-${bp.r})</strong>`;
+      document.getElementById('codonLabel').textContent = `${bp.codon} → ${bp.aa}`;
+    }
+
+    // CRISPR Tools
+    document.getElementById('btnCasCut').addEventListener('click', () => {
+      const bp = dnaStrand[selectedLocusIdx];
+      bp.cut = true;
+      bp.mutated = false;
+      renderDnaRail();
+      playBioAudio('cut');
+      document.getElementById('viabilityTag').textContent = '91.4 / 100';
+      document.getElementById('viabilityBar').style.width = '91.4%';
+      document.getElementById('statCleavage').innerHTML = '99.4 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">%</span>';
+      showToast(`Enzyme Cas9 đã cắt đứt đôi (DSB) tại Locus #${bp.index} (${bp.f}-${bp.r})`, '✂️');
+    });
+
+    document.getElementById('btnPrimeInsert').addEventListener('click', () => {
+      const bp = dnaStrand[selectedLocusIdx];
+      bp.cut = false;
+      bp.mutated = true;
+      bp.f = 'G';
+      bp.r = 'C';
+      bp.codon = 'GFP';
+      bp.aa = 'Fluor-Tagged';
+      renderDnaRail();
+      updateSelectedLocusUI(bp);
+      playBioAudio('insert');
+      document.getElementById('viabilityTag').textContent = '99.8 / 100';
+      document.getElementById('viabilityBar').style.width = '99.8%';
+      showToast(`Đã tích hợp thành công cassette huỳnh quang GFP tại Locus #${bp.index}!`, '🧬');
+    });
+
+    document.getElementById('btnKnockout').addEventListener('click', () => {
+      const bp = dnaStrand[selectedLocusIdx];
+      bp.cut = false;
+      bp.mutated = true;
+      bp.f = 'T';
+      bp.r = 'A';
+      bp.codon = 'TAA';
+      bp.aa = 'Nonsense Stop (Knockout)';
+      renderDnaRail();
+      updateSelectedLocusUI(bp);
+      playBioAudio('cut');
+      document.getElementById('viabilityTag').textContent = '42.0 / 100 (Inactivated)';
+      document.getElementById('viabilityBar').style.width = '42%';
+      document.getElementById('viabilityBar').style.background = 'var(--bio-magenta)';
+      showToast(`Tạo đột biến mất chức năng (Nonsense Knockout) hoàn tất. Khối u bị vô hiệu hóa!`, '🚫');
+    });
+
+    document.getElementById('btnResetDNA').addEventListener('click', () => {
+      dnaStrand = JSON.parse(JSON.stringify(BASE_PAIRS));
+      selectedLocusIdx = 7;
+      renderDnaRail();
+      updateSelectedLocusUI(dnaStrand[selectedLocusIdx]);
+      document.getElementById('viabilityTag').textContent = '98.6 / 100';
+      document.getElementById('viabilityBar').style.width = '98.6%';
+      document.getElementById('viabilityBar').style.background = 'var(--bio-cyan)';
+      playBioAudio('click');
+      showToast('Đã khôi phục trình tự gen Wild-Type ban đầu', '🔄');
+    });
+
+    // PCR Thermal Cycler Simulator
+    let pcrRunning = true;
+    let pcrSpeed = 1;
+    let currentTemp = 95.0;
+    let currentCycle = 18;
+    const phases = [
+      { name: 'Biến tính sợi (Denaturation)', temp: 95.0, color: 'var(--bio-emerald)', x: 110, y: 20 },
+      { name: 'Gắn mồi sinh học (Annealing)', temp: 58.0, color: 'var(--bio-cyan)', x: 180, y: 65 },
+      { name: 'Kéo dài tổng hợp (Extension)', temp: 72.0, color: 'var(--bio-amber)', x: 265, y: 40 }
+    ];
+    let phaseIdx = 0;
+
+    const pcrInterval = setInterval(() => {
+      if (!pcrRunning) return;
+      phaseIdx = (phaseIdx + 1) % phases.length;
+      const phase = phases[phaseIdx];
+      currentTemp = phase.temp;
+
+      if (phaseIdx === 0) {
+        currentCycle++;
+        if (currentCycle > 35) currentCycle = 1;
+        document.getElementById('pcrCycleCount').textContent = `${currentCycle} / 35`;
+        playBioAudio('pcrCycle');
+      }
+
+      document.getElementById('thermalPhaseText').textContent = `Giai đoạn: ${phase.name}`;
+      document.getElementById('thermalCurrentTemp').innerHTML = `${currentTemp.toFixed(1)}<span style="font-size:1.2rem;">°C</span>`;
+
+      // Update SVG Dot
+      const dot = document.getElementById('svgThermalDot');
+      if (dot) {
+        dot.setAttribute('cx', phase.x);
+        dot.setAttribute('cy', phase.y);
+      }
+    }, 2800);
+
+    const btnPcrToggle = document.getElementById('btnPcrToggle');
+    btnPcrToggle.addEventListener('click', () => {
+      pcrRunning = !pcrRunning;
+      btnPcrToggle.innerHTML = pcrRunning
+        ? `<svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Tạm dừng PCR`
+        : `<svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg> Tiếp tục PCR`;
+      document.getElementById('pcrLiveBadge').textContent = pcrRunning ? 'Đang chạy' : 'Tạm dừng';
+      document.getElementById('pcrLiveBadge').style.color = pcrRunning ? 'var(--bio-emerald)' : 'var(--bio-amber)';
+      showToast(pcrRunning ? 'Tiếp tục chu trình PCR thời gian thực' : 'Đã tạm dừng máy khuếch đại gen', '⏸️');
+      playBioAudio('click');
+    });
+
+    document.getElementById('btnPcrFast').addEventListener('click', () => {
+      playBioAudio('click');
+      showToast('Đã kích hoạt chế độ siêu tăng tốc (Fast-Mode PCR)', '⚡');
+    });
+
+    document.getElementById('btnThermalShock').addEventListener('click', () => {
+      playBioAudio('cut');
+      document.getElementById('thermalCurrentTemp').innerHTML = `42.0<span style="font-size:1.2rem;">°C</span>`;
+      document.getElementById('thermalPhaseText').textContent = 'Biến nạp plasmid: Sốc nhiệt màng tế bào';
+      showToast('Thực hiện sốc nhiệt 42°C trong 45 giây thành công! Tế bào đã nhận plasmid.', '🔥');
+    });
+
+    // Variant Filter Tabs
+    const filterBtns = document.querySelectorAll('.pill-btn');
+    const tableRows = document.querySelectorAll('#variantTableBody tr');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const filter = btn.getAttribute('data-filter');
+
+        tableRows.forEach(row => {
+          const type = row.getAttribute('data-type');
+          if (filter === 'ALL' || type === filter) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+        playBioAudio('click');
+      });
+    });
+
+    // Search Variants
+    document.getElementById('variantSearch').addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      tableRows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(q) ? '' : 'none';
+      });
+    });
+
+    function inspectVariant(name) {
+      playBioAudio('nucleotide');
+      showToast(`Mở hồ sơ biến thể di truyền: ${name}`, '🔍');
+    }
+
+    // Modal Export FASTA
+    const fastaModal = document.getElementById('fastaModal');
+    document.getElementById('btnExportFasta').addEventListener('click', () => {
+      fastaModal.classList.add('is-open');
+      playBioAudio('click');
+    });
+
+    document.getElementById('btnCloseModal').addEventListener('click', () => {
+      fastaModal.classList.remove('is-open');
+    });
+
+    document.getElementById('btnCopyFasta').addEventListener('click', () => {
+      const txt = document.getElementById('fastaOutput').innerText;
+      navigator.clipboard.writeText(txt).then(() => {
+        showToast('Đã sao chép chuỗi FASTA vào clipboard!', '📋');
+        playBioAudio('insert');
+      });
+    });
+
+    document.getElementById('btnDownloadFasta').addEventListener('click', () => {
+      showToast('Đang tải file "OmniGen_BRCA1_Edited.fasta"...', '💾');
+      playBioAudio('click');
+      setTimeout(() => fastaModal.classList.remove('is-open'), 800);
+    });
+
+    document.getElementById('btnNewAssay').addEventListener('click', () => {
+      playBioAudio('insert');
+      showToast('Khởi tạo mẫu thí nghiệm giải trình tự mới thành công!', '✨');
+    });
+
+    // Init Render
+    renderDnaRail();
+    updateSelectedLocusUI(dnaStrand[selectedLocusIdx]);
+  </script>
+</body>
+</html>

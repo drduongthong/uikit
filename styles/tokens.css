@@ -17,6 +17,8 @@
   --espresso-700:  #3B2F2F;
   --espresso-600:  #4E3D33;
   --espresso-500:  #6B5447;
+  --espresso-400:  #85705F;
+  --espresso-300:  #9C8878;
   --cocoa:         #2D221B;
 
   /* --- Color: Accents --- */
@@ -90,6 +92,8 @@
   --font-display: "Playfair Display", "Cormorant Garamond", Georgia, serif;
   --font-body:    "Inter", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   --font-accent:  "Great Vibes", "Caveat", cursive;
+  --font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  --font-serif:   "Playfair Display", "Cormorant Garamond", Georgia, serif;
 
   --fs-xs:   0.75rem;    /* 12 */
   --fs-sm:   0.875rem;   /* 14 */

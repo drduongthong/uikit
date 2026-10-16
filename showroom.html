@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles/tokens.css" />
   <link rel="stylesheet" href="styles/components.css" />
@@ -231,7 +231,7 @@
       display: grid; place-items: center; font-size: 1.5rem;
     }
 
-    .sr-particles span {
+    .sr-ambient span {
       position: absolute; border-radius: 50%; pointer-events: none; opacity: .35;
       background: radial-gradient(circle, var(--gold-bright), transparent 70%);
       animation: drift var(--dur,6s) ease-in-out infinite alternate;
@@ -345,7 +345,7 @@
     /* ---- Getting started code ---- */
     .sr-code {
       background: var(--espresso-900); color: var(--text-on-dark); border-radius: var(--r-xl);
-      padding: var(--s-8); font-family: "SF Mono", "Menlo", monospace; font-size: var(--fs-sm);
+      padding: var(--s-8); font-family: var(--font-mono); font-size: var(--fs-sm);
       position: relative; overflow: hidden;
       box-shadow: var(--shadow-lg);
     }
@@ -415,11 +415,11 @@
   <div class="sr-announce">
     <div class="container">
       <div class="sr-announce__track">
-        <span><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:0;margin-right:4px;"><path d="m12 2 2.4 6.9 6.9 2.4-6.9 2.4L12 20.6l-2.4-6.9L2.7 11.3l6.9-2.4z"/></svg>New: 6 premium UI kits · 320+ components · 12 animation primitives</span>
-        <span><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:0;margin-right:4px;"><path d="m12 2 2.4 6.9 6.9 2.4-6.9 2.4L12 20.6l-2.4-6.9L2.7 11.3l6.9-2.4z"/></svg>Dark / Light theme · WCAG AA contrast · Reduced-motion friendly</span>
+        <span><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:0;margin-right:4px;"><path d="m12 2 2.4 6.9 6.9 2.4-6.9 2.4L12 20.6l-2.4-6.9L2.7 11.3l6.9-2.4z"/></svg>New: 25 UI kits · 320+ components · 4 motion primitives</span>
+        <span><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:0;margin-right:4px;"><path d="m12 2 2.4 6.9 6.9 2.4-6.9 2.4L12 20.6l-2.4-6.9L2.7 11.3l6.9-2.4z"/></svg>Dark / Light theme · Reduced-motion friendly · Zero-build</span>
         <span><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:0;margin-right:4px;"><path d="m12 2 2.4 6.9 6.9 2.4-6.9 2.4L12 20.6l-2.4-6.9L2.7 11.3l6.9-2.4z"/></svg>Token-driven · Responsive · Copy-paste ready</span>
-        <span><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:0;margin-right:4px;"><path d="m12 2 2.4 6.9 6.9 2.4-6.9 2.4L12 20.6l-2.4-6.9L2.7 11.3l6.9-2.4z"/></svg>New: 6 premium UI kits · 320+ components · 12 animation primitives</span>
-        <span><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:0;margin-right:4px;"><path d="m12 2 2.4 6.9 6.9 2.4-6.9 2.4L12 20.6l-2.4-6.9L2.7 11.3l6.9-2.4z"/></svg>Dark / Light theme · WCAG AA contrast · Reduced-motion friendly</span>
+        <span><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:0;margin-right:4px;"><path d="m12 2 2.4 6.9 6.9 2.4-6.9 2.4L12 20.6l-2.4-6.9L2.7 11.3l6.9-2.4z"/></svg>New: 25 UI kits · 320+ components · 4 motion primitives</span>
+        <span><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:0;margin-right:4px;"><path d="m12 2 2.4 6.9 6.9 2.4-6.9 2.4L12 20.6l-2.4-6.9L2.7 11.3l6.9-2.4z"/></svg>Dark / Light theme · Reduced-motion friendly · Zero-build</span>
         <span><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:0;margin-right:4px;"><path d="m12 2 2.4 6.9 6.9 2.4-6.9 2.4L12 20.6l-2.4-6.9L2.7 11.3l6.9-2.4z"/></svg>Token-driven · Responsive · Copy-paste ready</span>
       </div>
     </div>
@@ -483,10 +483,10 @@
           <a class="btn btn--outline btn--lg" href="#lab">Mở Live Lab</a>
         </div>
         <div class="sr-hero__stats">
-          <div class="sr-statbox"><strong data-count="15">0</strong><span>Kits</span></div>
-          <div class="sr-statbox"><strong data-count="750">0</strong><span>Components</span></div>
-          <div class="sr-statbox"><strong data-count="12">0</strong><span>Motion Primitives</span></div>
-          <div class="sr-statbox"><strong data-count="100">0</strong><span>Dark Score</span></div>
+          <div class="sr-statbox"><strong data-count="25">0</strong><span>Kits</span></div>
+          <div class="sr-statbox"><strong data-count="320">0</strong><span>Components</span></div>
+          <div class="sr-statbox"><strong data-count="4">0</strong><span>Motion Primitives</span></div>
+          <div class="sr-statbox"><strong data-count="21">0</strong><span>Categories</span></div>
         </div>
       </div>
 
@@ -554,7 +554,7 @@
       </div>
 
       <div class="sr-filters" id="kitFilters">
-        <button class="sr-filter is-active" data-cat="all">Tất cả (15)</button>
+        <button class="sr-filter is-active" data-cat="all">Tất cả (26)</button>
         <button class="sr-filter" data-cat="commerce">Commerce</button>
         <button class="sr-filter" data-cat="finance">Finance</button>
         <button class="sr-filter" data-cat="health">Health</button>
@@ -564,12 +564,19 @@
         <button class="sr-filter" data-cat="fitness">Fitness &amp; Food</button>
         <button class="sr-filter" data-cat="social">Social &amp; Edu</button>
         <button class="sr-filter" data-cat="ai">AI Studio</button>
+        <button class="sr-filter" data-cat="gaming">Esports &amp; Gaming</button>
         <button class="sr-filter" data-cat="mobility">EV Mobility</button>
         <button class="sr-filter" data-cat="cybersec">CyberSec</button>
         <button class="sr-filter" data-cat="devops">DevOps</button>
         <button class="sr-filter" data-cat="smarthome">Smart Home</button>
         <button class="sr-filter" data-cat="web3">Web3 DEX</button>
         <button class="sr-filter" data-cat="studio">Creative Studio</button>
+        <button class="sr-filter" data-cat="biotech">BioTech</button>
+        <button class="sr-filter" data-cat="aerospace">Aerospace</button>
+        <button class="sr-filter" data-cat="legal">LegalTech</button>
+        <button class="sr-filter" data-cat="logistics">Logistics</button>
+        <button class="sr-filter" data-cat="luxury">Ultra-Luxury</button>
+        <button class="sr-filter" data-cat="party">Party Game</button>
       </div>
 
       <div class="sr-kits" id="kitGrid">
@@ -1133,6 +1140,169 @@
             <a class="btn btn--outline btn--sm" href="kits/creative.html" style="margin-top:var(--s-3);">Xem demo →</a>
           </div>
         </article>
+
+        <!-- 20. OmniGen Lab (BioTech) -->
+        <article class="sr-kit sr-reveal" data-cat="biotech">
+          <div class="sr-kit__preview">
+            <div class="blobill" style="background:radial-gradient(circle,#00f5a0,transparent 70%);"></div>
+            <div class="screen" style="background:#04090e;">
+              <div class="rowbar" style="width:65%;background:linear-gradient(90deg,#00f5a0,#00d9f5);"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div style="height:60px;background:#07131b;border-radius:8px;border:1px solid rgba(0,245,160,0.3);display:grid;place-items:center;color:#00f5a0;font-family:var(--font-mono);font-size:11px;">CRISPR-Cas9</div>
+                <div style="height:60px;background:#07131b;border-radius:8px;border:1px solid rgba(0,217,245,0.3);display:grid;place-items:center;color:#00d9f5;font-family:var(--font-mono);font-size:11px;">PCR 95°C</div>
+              </div>
+            </div>
+          </div>
+          <div class="sr-kit__body">
+            <div class="sr-kit__meta">
+              <h3 class="sr-kit__name">OmniGen Lab</h3>
+              <span class="badge badge--new">BioTech</span>
+            </div>
+            <p class="muted" style="font-size:var(--fs-sm);">Giải trình tự gen thế hệ mới (NGS), can thiệp chỉnh sửa CRISPR-Cas9, phân tích biến thể ACMG.</p>
+            <div class="sr-tag-row" style="display:flex;gap:6px;flex-wrap:wrap;margin:var(--s-2) 0;">
+              <span class="sr-tag">CRISPR Studio</span>
+              <span class="sr-tag">PCR Thermal Cycler</span>
+              <span class="sr-tag">FASTA Export</span>
+            </div>
+            <a class="btn btn--outline btn--sm" href="kits/biotech.html" style="margin-top:var(--s-3);">Xem demo →</a>
+          </div>
+        </article>
+
+        <!-- 21. AstroOps Ground Station (Aerospace) -->
+        <article class="sr-kit sr-reveal" data-cat="aerospace">
+          <div class="sr-kit__preview">
+            <div class="blobill" style="background:radial-gradient(circle,#ff5722,transparent 70%);"></div>
+            <div class="screen" style="background:#030712;">
+              <div class="rowbar" style="width:75%;background:linear-gradient(90deg,#ff5722,#38bdf8);"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div style="height:60px;background:#070d1e;border-radius:8px;border:1px solid rgba(255,87,34,0.3);display:grid;place-items:center;color:#ff5722;font-family:var(--font-mono);font-size:11px;">Mach 6.84</div>
+                <div style="height:60px;background:#070d1e;border-radius:8px;border:1px solid rgba(56,189,248,0.3);display:grid;place-items:center;color:#38bdf8;font-family:var(--font-mono);font-size:11px;">Alt 148km</div>
+              </div>
+            </div>
+          </div>
+          <div class="sr-kit__body">
+            <div class="sr-kit__meta">
+              <h3 class="sr-kit__name">AstroOps Control</h3>
+              <span class="badge badge--new">Aerospace</span>
+            </div>
+            <p class="muted" style="font-size:var(--fs-sm);">Telemetry phóng tên lửa thời gian thực, đếm ngược T-minus, joystick điều khiển RCS và radar quỹ đạo.</p>
+            <div class="sr-tag-row" style="display:flex;gap:6px;flex-wrap:wrap;margin:var(--s-2) 0;">
+              <span class="sr-tag">Rocket Telemetry</span>
+              <span class="sr-tag">RCS Thrusters</span>
+              <span class="sr-tag">Flight Poll</span>
+            </div>
+            <a class="btn btn--outline btn--sm" href="kits/aerospace.html" style="margin-top:var(--s-3);">Xem demo →</a>
+          </div>
+        </article>
+
+        <!-- 22. LexisMind AI (LegalTech) -->
+        <article class="sr-kit sr-reveal" data-cat="legal">
+          <div class="sr-kit__preview">
+            <div class="blobill" style="background:radial-gradient(circle,#d4af37,transparent 70%);"></div>
+            <div class="screen" style="background:#060a14;">
+              <div class="rowbar" style="width:60%;background:linear-gradient(90deg,#d4af37,#3b82f6);"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div style="height:60px;background:#0a1122;border-radius:8px;border:1px solid rgba(212,175,55,0.3);display:grid;place-items:center;color:#d4af37;font-family:var(--font-mono);font-size:11px;">Redline Diff</div>
+                <div style="height:60px;background:#0a1122;border-radius:8px;border:1px solid rgba(59,130,246,0.3);display:grid;place-items:center;color:#3b82f6;font-family:var(--font-mono);font-size:11px;">RSA Seal</div>
+              </div>
+            </div>
+          </div>
+          <div class="sr-kit__body">
+            <div class="sr-kit__meta">
+              <h3 class="sr-kit__name">LexisMind AI</h3>
+              <span class="badge badge--new">LegalTech</span>
+            </div>
+            <p class="muted" style="font-size:var(--fs-sm);">Rà soát hợp đồng thông minh, phát hiện rủi ro điều khoản bồi thường, ký số mật mã học và quản lý vụ việc.</p>
+            <div class="sr-tag-row" style="display:flex;gap:6px;flex-wrap:wrap;margin:var(--s-2) 0;">
+              <span class="sr-tag">AI Redline</span>
+              <span class="sr-tag">Digital Notary</span>
+              <span class="sr-tag">Case Docket</span>
+            </div>
+            <a class="btn btn--outline btn--sm" href="kits/legaltech.html" style="margin-top:var(--s-3);">Xem demo →</a>
+          </div>
+        </article>
+
+        <!-- 23. HyperFreight Global (Logistics) -->
+        <article class="sr-kit sr-reveal" data-cat="logistics">
+          <div class="sr-kit__preview">
+            <div class="blobill" style="background:radial-gradient(circle,#06b6d4,transparent 70%);"></div>
+            <div class="screen" style="background:#060b14;">
+              <div class="rowbar" style="width:70%;background:linear-gradient(90deg,#2563eb,#06b6d4);"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div style="height:60px;background:#0a1324;border-radius:8px;border:1px solid rgba(6,182,212,0.3);display:grid;place-items:center;color:#06b6d4;font-family:var(--font-mono);font-size:11px;">AIS Radar</div>
+                <div style="height:60px;background:#0a1324;border-radius:8px;border:1px solid rgba(245,158,11,0.3);display:grid;place-items:center;color:#f59e0b;font-family:var(--font-mono);font-size:11px;">Reefer -20°C</div>
+              </div>
+            </div>
+          </div>
+          <div class="sr-kit__body">
+            <div class="sr-kit__meta">
+              <h3 class="sr-kit__name">HyperFreight</h3>
+              <span class="badge badge--new">Logistics</span>
+            </div>
+            <p class="muted" style="font-size:var(--fs-sm);">Quản trị chuỗi cung ứng đa phương thức, radar tàu biển AIS, định tuyến tránh bão và kiểm tra chuỗi lạnh.</p>
+            <div class="sr-tag-row" style="display:flex;gap:6px;flex-wrap:wrap;margin:var(--s-2) 0;">
+              <span class="sr-tag">Global AIS Radar</span>
+              <span class="sr-tag">Route Optimizer</span>
+              <span class="sr-tag">Customs EDI</span>
+            </div>
+            <a class="btn btn--outline btn--sm" href="kits/logistics.html" style="margin-top:var(--s-3);">Xem demo →</a>
+          </div>
+        </article>
+
+        <!-- 24. Celeste Privé (Luxury Hospitality) -->
+        <article class="sr-kit sr-reveal" data-cat="luxury">
+          <div class="sr-kit__preview">
+            <div class="blobill" style="background:radial-gradient(circle,#e5c158,transparent 70%);"></div>
+            <div class="screen" style="background:#070707;">
+              <div class="rowbar" style="width:55%;background:linear-gradient(90deg,#e5c158,#c99b82);"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div style="height:60px;background:#100f0e;border-radius:8px;border:1px solid rgba(229,193,88,0.3);display:grid;place-items:center;color:#e5c158;font-family:var(--font-serif);font-size:12px;font-style:italic;">Penthouse 8801</div>
+                <div style="height:60px;background:#100f0e;border-radius:8px;border:1px solid rgba(201,155,130,0.3);display:grid;place-items:center;color:#c99b82;font-family:var(--font-serif);font-size:12px;font-style:italic;">Michelin 3★</div>
+              </div>
+            </div>
+          </div>
+          <div class="sr-kit__body">
+            <div class="sr-kit__meta">
+              <h3 class="sr-kit__name">Celeste Privé</h3>
+              <span class="badge badge--best">Ultra-Luxury</span>
+            </div>
+            <p class="muted" style="font-size:var(--fs-sm);">Nghỉ dưỡng thượng lưu, điều khiển không gian Penthouse 360, thực đơn Michelin Sommelier và quản gia 24/7.</p>
+            <div class="sr-tag-row" style="display:flex;gap:6px;flex-wrap:wrap;margin:var(--s-2) 0;">
+              <span class="sr-tag">Penthouse Mood</span>
+              <span class="sr-tag">Butler Messenger</span>
+              <span class="sr-tag">Black Card VIP</span>
+            </div>
+            <a class="btn btn--outline btn--sm" href="kits/luxury.html" style="margin-top:var(--s-3);">Xem demo →</a>
+          </div>
+        </article>
+
+        <!-- 26. Sói Đêm (Werewolf Party Game) -->
+        <article class="sr-kit sr-reveal" data-cat="party">
+          <div class="sr-kit__preview">
+            <div class="blobill" style="background:radial-gradient(circle,#ff2f55,transparent 70%);"></div>
+            <div class="screen" style="background:#05050e;">
+              <div class="rowbar" style="width:58%;background:linear-gradient(90deg,#ff2f55,#a78bfa);"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+                <div style="height:60px;background:#0b0b22;border-radius:8px;border:1px solid rgba(255,47,85,0.4);display:grid;place-items:center;color:#ff2f55;font-family:var(--font-mono);font-size:11px;">Sói</div>
+                <div style="height:60px;background:#0b0b22;border-radius:8px;border:1px solid rgba(255,209,102,0.35);display:grid;place-items:center;color:#ffd166;font-family:var(--font-mono);font-size:11px;">Tiên Tri</div>
+                <div style="height:60px;background:#0b0b22;border-radius:8px;border:1px solid rgba(167,139,250,0.4);display:grid;place-items:center;color:#a78bfa;font-family:var(--font-mono);font-size:11px;">Dân</div>
+              </div>
+            </div>
+          </div>
+          <div class="sr-kit__body">
+            <div class="sr-kit__meta">
+              <h3 class="sr-kit__name">Sói Đêm</h3>
+              <span class="badge badge--new">Party Game</span>
+            </div>
+            <p class="muted" style="font-size:var(--fs-sm);">Đấu trường Ma Sói 12 người: chu kỳ Đêm/Ngày, tranh biện trực tiếp, bỏ phiếu treo cổ và lật thẻ vai trò.</p>
+            <div class="sr-tag-row" style="display:flex;gap:6px;flex-wrap:wrap;margin:var(--s-2) 0;">
+              <span class="sr-tag">12-seat arena</span>
+              <span class="sr-tag">Web Audio SFX</span>
+              <span class="sr-tag">Role Reveal</span>
+            </div>
+            <a class="btn btn--outline btn--sm" href="kits/werewolf.html" style="margin-top:var(--s-3);">Xem demo →</a>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -1513,7 +1683,7 @@
           const t = Math.min(1, (now - start) / dur);
           const eased = 1 - Math.pow(1 - t, 3);
           const plus = target === 320 ? '+' : '';
-          el.textContent = Math.round(target * eased) + plus;
+          el.textContent = String(Math.round(target * eased));
           if (t < 1) requestAnimationFrame(tick);
           else el.textContent = target + plus;
         };

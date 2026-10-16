@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LexisMind AI — Autonomous Contract &amp; Legal Intelligence UI Kit</title>
+  <meta name="description" content="Bộ UI Kit phần mềm trí tuệ nhân tạo ngành luật (LegalTech), rà soát hợp đồng tự động, phát hiện rủi ro điều khoản, ký số mật mã học và quản lý vụ việc pháp lý." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/tokens.css" />
+
+  <style>
+    /* ================================================================
+       LEXISMIND AI — Autonomous LegalTech & Contract Intelligence
+       ================================================================ */
+    :root {
+      --bg-base: #060a14;
+      --bg-surface: #0a1122;
+      --bg-surface-2: #101c36;
+      --bg-card: rgba(12, 20, 39, 0.88);
+      --bg-glass: rgba(10, 17, 34, 0.92);
+
+      --border: rgba(212, 175, 55, 0.16);
+      --border-bright: rgba(212, 175, 55, 0.38);
+      --border-blue: rgba(59, 130, 246, 0.3);
+
+      --gold-primary: #d4af37;
+      --gold-bright: #f5d77f;
+      --gold-deep: #997c1e;
+      --legal-blue: #3b82f6;
+      --legal-emerald: #10b981;
+      --legal-crimson: #ef4444;
+      --legal-amber: #f59e0b;
+
+      --glow-gold: rgba(212, 175, 55, 0.28);
+      --glow-blue: rgba(59, 130, 246, 0.25);
+
+      --txt-primary: #f8fafc;
+      --txt-secondary: #cbd5e1;
+      --txt-muted: #64748b;
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-pill: 9999px;
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-2: #f1f5f9;
+      --bg-card: rgba(255, 255, 255, 0.95);
+      --bg-glass: rgba(255, 255, 255, 0.92);
+
+      --border: rgba(15, 23, 42, 0.12);
+      --border-bright: rgba(180, 83, 9, 0.35);
+      --border-blue: rgba(37, 99, 235, 0.3);
+
+      --gold-primary: #b45309;
+      --gold-bright: #d97706;
+      --gold-deep: #78350f;
+      --legal-blue: #2563eb;
+      --legal-emerald: #059669;
+      --legal-crimson: #dc2626;
+
+      --txt-primary: #0f172a;
+      --txt-secondary: #334155;
+      --txt-muted: #64748b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-base);
+      color: var(--txt-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Ambient Legal Pattern Background */
+    .legal-bg {
+      position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.07) 0%, transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(59, 130, 246, 0.07) 0%, transparent 50%),
+        radial-gradient(circle at 50% 85%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
+        linear-gradient(rgba(212, 175, 55, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212, 175, 55, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+    }
+
+    .container {
+      max-width: 1420px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header Nav */
+    .legal-header {
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      padding: 13px 0;
+    }
+    .legal-nav {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .brand-group {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .legal-logo-icon {
+      width: 44px; height: 44px; border-radius: var(--radius-md);
+      background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(59,130,246,0.2));
+      border: 1px solid var(--border-bright);
+      display: grid; place-items: center; color: var(--gold-bright);
+      box-shadow: 0 0 20px var(--glow-gold);
+    }
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.35rem; font-weight: 700;
+      letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px;
+    }
+    .brand-sub {
+      font-size: 0.72rem; color: var(--txt-muted); font-family: var(--font-mono); letter-spacing: 0.06em;
+    }
+    .matter-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 3px 12px; border-radius: var(--radius-pill);
+      font-family: var(--font-mono); font-size: 0.74rem; font-weight: 600;
+      background: rgba(212, 175, 55, 0.12); color: var(--gold-bright);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+
+    .nav-actions {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: var(--font-body); font-size: 0.82rem; font-weight: 600;
+      padding: 8px 16px; border-radius: var(--radius-md);
+      cursor: pointer; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid transparent; text-decoration: none;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-bright), var(--gold-primary));
+      color: #0b0f19; font-weight: 700;
+      box-shadow: 0 4px 18px var(--glow-gold);
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #ffea9f, #e5bf45);
+      box-shadow: 0 6px 24px rgba(212,175,55,0.5);
+    }
+    .btn-outline {
+      background: rgba(12, 20, 39, 0.6);
+      border: 1px solid var(--border); color: var(--txt-primary);
+    }
+    .btn-outline:hover {
+      border-color: var(--border-bright); background: var(--bg-surface-2);
+      color: var(--gold-bright);
+    }
+    .btn-icon {
+      width: 38px; height: 38px; padding: 0; border-radius: var(--radius-md);
+      background: rgba(12, 20, 39, 0.6); border: 1px solid var(--border);
+      color: var(--txt-secondary); display: grid; place-items: center;
+    }
+    .btn-icon:hover { border-color: var(--border-bright); color: var(--txt-primary); }
+
+    /* Top Case Banner */
+    .case-banner {
+      padding: 24px 0 16px;
+    }
+    .case-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px; backdrop-filter: blur(12px);
+      position: relative; overflow: hidden;
+    }
+    .case-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold-primary), var(--legal-blue), var(--legal-emerald));
+    }
+    .case-header-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 12px; flex-wrap: wrap; gap: 12px;
+    }
+    .case-tag {
+      font-size: 0.74rem; font-family: var(--font-mono); color: var(--gold-bright);
+      letter-spacing: 0.08em; text-transform: uppercase; display: flex; align-items: center; gap: 6px;
+    }
+    .case-title {
+      font-family: var(--font-display); font-size: 1.7rem; font-weight: 700;
+      letter-spacing: -0.01em; margin-top: 4px;
+    }
+
+    /* KPI Row */
+    .kpi-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+      margin-top: 18px;
+    }
+    .kpi-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 18px; transition: all 0.25s ease;
+      position: relative;
+    }
+    .kpi-card:hover {
+      border-color: var(--border-bright); transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+    .kpi-label {
+      font-size: 0.74rem; font-family: var(--font-mono); color: var(--txt-muted);
+      display: flex; justify-content: space-between; margin-bottom: 6px;
+    }
+    .kpi-val {
+      font-family: var(--font-mono); font-size: 1.65rem; font-weight: 700;
+      color: var(--txt-primary); letter-spacing: -0.02em;
+    }
+    .kpi-progress-track {
+      width: 100%; height: 5px; background: rgba(255,255,255,0.06);
+      border-radius: var(--radius-pill); margin-top: 10px; overflow: hidden;
+    }
+    .kpi-progress-bar { height: 100%; border-radius: var(--radius-pill); transition: width 0.4s ease; }
+
+    /* Main Workspace Grid */
+    .workspace-grid {
+      display: grid; grid-template-columns: 2.1fr 1.25fr; gap: 20px;
+      margin-top: 24px;
+    }
+
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(12px); overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .panel-header {
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(10, 17, 34, 0.5);
+    }
+    .panel-title {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .panel-title svg { color: var(--gold-bright); }
+    .panel-body { padding: 20px; flex: 1; }
+
+    /* Redline Diff Editor */
+    .clause-selector-bar {
+      display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px;
+      margin-bottom: 16px; border-bottom: 1px solid var(--border);
+    }
+    .clause-tab {
+      background: var(--bg-surface); border: 1px solid var(--border);
+      padding: 6px 14px; border-radius: var(--radius-pill);
+      font-size: 0.76rem; font-weight: 600; cursor: pointer; white-space: nowrap;
+      transition: all 0.2s ease; color: var(--txt-secondary);
+    }
+    .clause-tab:hover { border-color: var(--border-bright); color: var(--txt-primary); }
+    .clause-tab.is-active {
+      background: rgba(212, 175, 55, 0.15); border-color: var(--gold-primary);
+      color: var(--gold-bright);
+    }
+
+    .diff-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px; margin-bottom: 16px;
+    }
+    .diff-title {
+      font-family: var(--font-mono); font-size: 0.78rem; color: var(--txt-muted);
+      margin-bottom: 12px; display: flex; justify-content: space-between;
+    }
+    .clause-text {
+      font-size: 0.92rem; line-height: 1.7; color: var(--txt-primary);
+    }
+    .del-text {
+      background: rgba(239, 68, 68, 0.18); color: #fca5a5;
+      text-decoration: line-through; padding: 2px 4px; border-radius: 3px;
+    }
+    .ins-text {
+      background: rgba(16, 185, 129, 0.18); color: #6ee7b7;
+      padding: 2px 4px; border-radius: 3px; font-weight: 600;
+    }
+
+    .clause-action-bar {
+      display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+      padding-top: 14px; border-top: 1px solid var(--border);
+    }
+
+    /* Signature & Notary Pad */
+    .signature-wrap {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px; position: relative;
+    }
+    .signature-canvas {
+      width: 100%; height: 140px; background: rgba(6, 10, 20, 0.7);
+      border: 1px dashed var(--border-bright); border-radius: var(--radius-sm);
+      cursor: crosshair; touch-action: none;
+    }
+    .signature-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 10px; font-size: 0.75rem; font-family: var(--font-mono);
+      color: var(--txt-muted);
+    }
+
+    /* Notary Seal Badge */
+    .notary-seal-stamp {
+      display: none; align-items: center; gap: 10px;
+      margin-top: 12px; padding: 10px 14px; border-radius: var(--radius-md);
+      background: rgba(212, 175, 55, 0.12); border: 1px solid var(--gold-primary);
+      color: var(--gold-bright); font-size: 0.78rem; font-family: var(--font-mono);
+    }
+    .notary-seal-stamp.is-visible { display: flex; }
+
+    /* Case Evidence Docket Table */
+    .docket-section {
+      margin-top: 28px; margin-bottom: 40px;
+    }
+    .docket-table-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow-x: auto; backdrop-filter: blur(12px);
+    }
+    .docket-table {
+      width: 100%; border-collapse: collapse; text-align: left;
+      font-size: 0.84rem;
+    }
+    .docket-table th {
+      padding: 14px 18px; font-family: var(--font-mono); font-size: 0.74rem;
+      text-transform: uppercase; letter-spacing: 0.05em; color: var(--txt-muted);
+      border-bottom: 1px solid var(--border); background: rgba(10, 17, 34, 0.6);
+    }
+    .docket-table td {
+      padding: 13px 18px; border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+      vertical-align: middle;
+    }
+    .docket-table tr:hover td { background: rgba(212, 175, 55, 0.04); }
+
+    .badge-evidence {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 2px 8px; border-radius: var(--radius-pill);
+      font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600;
+      background: rgba(59, 130, 246, 0.15); color: var(--legal-blue);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    /* Toast Container */
+    .toast-container {
+      position: fixed; bottom: 24px; right: 24px; z-index: 2000;
+      display: flex; flex-direction: column; gap: 10px; pointer-events: none;
+    }
+    .toast {
+      background: rgba(10, 17, 34, 0.95);
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-md);
+      padding: 12px 18px; color: var(--txt-primary);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--glow-gold);
+      font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 10px;
+      backdrop-filter: blur(12px); pointer-events: auto;
+      animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes toastIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .workspace-grid { grid-template-columns: 1fr; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .kpi-row { grid-template-columns: 1fr; }
+      .nav-actions .btn-export { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="legal-bg"></div>
+
+  <!-- Header -->
+  <header class="legal-header">
+    <div class="container legal-nav">
+      <div class="brand-group">
+        <a href="../index.html" class="btn-icon" title="Quay lại Showroom">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </a>
+        <div class="legal-logo-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M12 3v18M3 9l9-6 9 6M6 13l-3 6h6l-3-6M18 13l-3 6h6l-3-6"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>LexisMind AI</h1>
+          <div class="brand-sub">AUTONOMOUS CONTRACT INTELLIGENCE &bull; LEGAL TECH</div>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <div class="matter-pill">
+          <span>Matter #LM-2026-M&amp;A</span>
+          &bull; <span>Cross-Border Tech Buyout</span>
+        </div>
+
+        <button id="btnSoundToggle" class="btn btn-icon" title="Bật/Tắt âm thanh Búa Công Lý &amp; Ký Tên">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+
+        <button id="btnThemeToggle" class="btn btn-icon" title="Chuyển chế độ Sáng / Tối">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+
+        <button id="btnExportPDF" class="btn btn-outline btn-export">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Xuất Báo Cáo Redline
+        </button>
+
+        <button id="btnNewReview" class="btn btn-gold">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          Tải Hợp Đồng Mới
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Top Banner -->
+    <section class="case-banner">
+      <div class="case-card">
+        <div class="case-header-row">
+          <div>
+            <div class="case-tag">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+              Master Services &amp; IP Assignment Agreement (v3.2 Final)
+            </div>
+            <h2 class="case-title">Thẩm Định Tự Động Rủi Ro Pháp Lý &amp; Điều Khoản Bồi Thường</h2>
+          </div>
+          <span style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:var(--radius-pill); font-family:var(--font-mono); font-size:0.8rem; background:rgba(16,185,129,0.15); color:var(--legal-emerald); border:1px solid rgba(16,185,129,0.35);">
+            <svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+            AI AUDIT STATUS: PASSED
+          </span>
+        </div>
+
+        <!-- 4 KPI Cards -->
+        <div class="kpi-row">
+          <div class="kpi-card">
+            <div class="kpi-label">
+              Chỉ số rủi ro pháp lý
+              <span style="color:var(--legal-emerald); font-weight:700;">An toàn</span>
+            </div>
+            <div class="kpi-val" id="statRiskScore">18 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">/ 100</span></div>
+            <div class="kpi-progress-track">
+              <div id="barRisk" class="kpi-progress-bar" style="width: 18%; background: var(--legal-emerald);"></div>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              Điều khoản cần sửa đổi
+              <span style="color:var(--gold-bright); font-weight:700;">3 Mục</span>
+            </div>
+            <div class="kpi-val" id="statClausesFlagged">03 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">Mục</span></div>
+            <div class="kpi-progress-track">
+              <div class="kpi-progress-bar" style="width: 25%; background: var(--gold-bright);"></div>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              Tuân thủ Luật Delaware &amp; GDPR
+              <span style="color:var(--legal-blue); font-weight:700;">99.4%</span>
+            </div>
+            <div class="kpi-val">99.4 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">%</span></div>
+            <div class="kpi-progress-track">
+              <div class="kpi-progress-bar" style="width: 99.4%; background: var(--legal-blue);"></div>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              Thời gian luật sư tiết kiệm
+              <span style="color:var(--gold-bright); font-weight:700;">+$8,400</span>
+            </div>
+            <div class="kpi-val">14.0 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">hrs</span></div>
+            <div class="kpi-progress-track">
+              <div class="kpi-progress-bar" style="width: 85%; background: var(--gold-bright);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Workspace -->
+    <section class="workspace-grid">
+      <!-- Smart Redline Diff Editor -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            Bộ So Soạn Redline Tự Động (AI Contract Diff)
+          </div>
+          <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--txt-muted);">Điều khoản 8.2 &bull; Giới Hạn Trách Nhiệm</span>
+        </div>
+
+        <div class="panel-body">
+          <div class="clause-selector-bar">
+            <button class="clause-tab is-active" data-clause="liability">Điều 8.2: Giới Hạn Trách Nhiệm</button>
+            <button class="clause-tab" data-clause="ip">Điều 11.4: Quyền Sở Hữu Trí Tuệ</button>
+            <button class="clause-tab" data-clause="termination">Điều 14.1: Chấm Dứt &amp; Bồi Thường</button>
+            <button class="clause-tab" data-clause="noncompete">Điều 16.3: Cam Kết Không Cạnh Tranh</button>
+          </div>
+
+          <!-- Diff Inspection View -->
+          <div class="diff-box">
+            <div class="diff-title">
+              <span>ĐỐI CHIẾU ĐIỀU KHOẢN (NGUYÊN BẢN vs ĐỀ XUẤT AI)</span>
+              <span style="color:var(--legal-emerald); font-weight:700;">Giảm 80% rủi ro kiện tụng</span>
+            </div>
+
+            <div class="clause-text" id="clauseTextContent">
+              "Trong mọi trường hợp, tổng trách nhiệm pháp lý lũy kế của Bên Cung Cấp Dịch Vụ sẽ <span class="del-text">không bị giới hạn và chịu trách nhiệm vô hạn đối với mọi thiệt hại gián tiếp phát sinh</span> <span class="ins-text">được giới hạn tối đa ở mức phí dịch vụ thực tế mà Bên Mua đã thanh toán trong vòng mười hai (12) tháng ngay trước thời điểm phát sinh khiếu nại, loại trừ hoàn toàn các thiệt hại mang tính trừng phạt hoặc hậu quả gián tiếp</span>."
+            </div>
+          </div>
+
+          <div class="clause-action-bar">
+            <button id="btnAcceptDiff" class="btn btn-gold">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Chấp Nhận Sửa Đổi Của AI
+            </button>
+            <button id="btnRejectDiff" class="btn btn-outline">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Giữ Nguyên Bản Gốc
+            </button>
+            <button id="btnCommentDiff" class="btn btn-outline" style="margin-left:auto;">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Thêm Ghi Chú Đàm Phán
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cryptographic Digital Signature & Notary Pad -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M12 18h.01"/><path d="m10 14 2 2 4-4"/></svg>
+            Ký Số Pháp Lý &amp; Con Dấu Mật Mã (eIDAS / RSA-4096)
+          </div>
+          <span class="badge-status" style="color:var(--gold-bright);">Notary Ready</span>
+        </div>
+
+        <div class="panel-body">
+          <div class="signature-wrap">
+            <canvas id="sigCanvas" class="signature-canvas" width="400" height="140"></canvas>
+            <div class="signature-footer">
+              <span>Dùng chuột hoặc ngón tay để ký vào khung</span>
+              <button id="btnClearSig" class="btn btn-outline" style="padding:2px 8px; font-size:0.72rem;">Xóa nét ký</button>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px;">
+            <button id="btnApplySeal" class="btn btn-gold" style="flex:1;">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><polygon points="12 6 13.8 10.4 18.5 10.8 15 14 16 18.5 12 16 8 18.5 9 14 5.5 10.8 10.2 10.4 12 6"/></svg>
+              Đóng Dấu Mộc Điện Tử &amp; Ký Số
+            </button>
+          </div>
+
+          <div id="notarySealBox" class="notary-seal-stamp">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            <div>
+              <div style="font-weight:700;">CHỨNG THỰC BỞI LEXISMIND NOTARY AUTHORITY</div>
+              <div style="font-size:0.7rem; color:var(--txt-muted);">SHA256: 8f9b2a7d10e45c389f4b0081d... &bull; Thời gian: 22:15 UTC</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Litigation Docket & Case Timeline Table -->
+    <section class="docket-section">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:12px;">
+        <div>
+          <h3 style="font-family:var(--font-display); font-size:1.3rem; font-weight:700;">Hồ Sơ Vụ Việc &amp; Bằng Chứng Tố Tụng (Litigation Docket)</h3>
+          <p style="font-size:0.85rem; color:var(--txt-muted);">Tra cứu tiến trình nộp đơn, lấy lời khai, phiên giải trình trước tòa án thương mại.</p>
+        </div>
+      </div>
+
+      <div class="docket-table-container">
+        <table class="docket-table">
+          <thead>
+            <tr>
+              <th>Mã Chứng Cứ / Văn Bản</th>
+              <th>Loại Tài Liệu</th>
+              <th>Ngày Nộp Lưu Chiểu</th>
+              <th>Thẩm Phán / Bên Tiếp Nhận</th>
+              <th>Tình Trạng Thẩm Tra</th>
+              <th>Hành Động</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong style="color:var(--txt-primary);">DOC-2026-081</strong></td>
+              <td><span class="badge-evidence">Thư bảo mật NDA Đã Ký</span></td>
+              <td>12/10/2026</td>
+              <td>Tòa án Delaware Chancery Court</td>
+              <td><span style="color:var(--legal-emerald); font-weight:600;">Hợp lệ</span></td>
+              <td><button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem;" onclick="viewDocketDoc('DOC-2026-081')">Xem tài liệu</button></td>
+            </tr>
+
+            <tr>
+              <td><strong style="color:var(--txt-primary);">DOC-2026-094</strong></td>
+              <td><span class="badge-evidence">Biên bản thẩm tra kỹ thuật IP</span></td>
+              <td>14/10/2026</td>
+              <td>Hội đồng Sở Hữu Trí Tuệ USPTO</td>
+              <td><span style="color:var(--legal-emerald); font-weight:600;">Hợp lệ</span></td>
+              <td><button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem;" onclick="viewDocketDoc('DOC-2026-094')">Xem tài liệu</button></td>
+            </tr>
+
+            <tr>
+              <td><strong style="color:var(--txt-primary);">DOC-2026-102</strong></td>
+              <td><span class="badge-evidence">Trát lấy lời khai nhân chứng (Subpoena)</span></td>
+              <td>15/10/2026</td>
+              <td>Văn phòng Luật Sư Trưởng</td>
+              <td><span style="color:var(--legal-amber); font-weight:600;">Đang xử lý</span></td>
+              <td><button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem;" onclick="viewDocketDoc('DOC-2026-102')">Xem tài liệu</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    // Theme Management
+    const themeToggleBtn = document.getElementById('btnThemeToggle');
+    let currentTheme = localStorage.getItem('legal-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      localStorage.setItem('legal-theme', currentTheme);
+      showToast(`Chuyển giao diện: ${currentTheme === 'dark' ? 'Dark Oxford Navy' : 'Light Parchment'}`, '⚖️');
+      playLegalAudio('click');
+    });
+
+    // Web Audio Synthesizer
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    const soundToggleBtn = document.getElementById('btnSoundToggle');
+    soundToggleBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      soundToggleBtn.style.color = soundEnabled ? 'var(--gold-bright)' : 'var(--txt-muted)';
+      showToast(soundEnabled ? 'Đã bật hiệu ứng âm thanh pháp lý' : 'Đã tắt âm thanh', '🔔');
+    });
+
+    function playLegalAudio(type) {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'gavel') {
+          // Resonant wooden gavel strike
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(140, now);
+          osc.frequency.exponentialRampToValueAtTime(35, now + 0.35);
+          gain.gain.setValueAtTime(0.35, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } else if (type === 'seal') {
+          // Rich brass bell confirmation
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(587.33, now); // D5
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+          osc.start(now);
+          osc.stop(now + 0.6);
+        } else if (type === 'pen') {
+          // Soft scratch tone
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(800 + Math.random() * 400, now);
+          gain.gain.setValueAtTime(0.04, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'click') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(450, now);
+          gain.gain.setValueAtTime(0.05, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        }
+      } catch (e) {
+        console.warn('Audio blocked:', e);
+      }
+    }
+
+    function showToast(msg, icon = '⚖️') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<span>${icon}</span><span>${msg}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.transition = 'opacity 0.3s, transform 0.3s';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    // Clause Redline Switching
+    const clauseTabs = document.querySelectorAll('.clause-tab');
+    const clauseData = {
+      liability: {
+        title: "Điều 8.2: Giới Hạn Trách Nhiệm",
+        text: '"Trong mọi trường hợp, tổng trách nhiệm pháp lý lũy kế của Bên Cung Cấp Dịch Vụ sẽ <span class="del-text">không bị giới hạn và chịu trách nhiệm vô hạn đối với mọi thiệt hại gián tiếp phát sinh</span> <span class="ins-text">được giới hạn tối đa ở mức phí dịch vụ thực tế mà Bên Mua đã thanh toán trong vòng mười hai (12) tháng ngay trước thời điểm phát sinh khiếu nại, loại trừ hoàn toàn các thiệt hại mang tính trừng phạt hoặc hậu quả gián tiếp</span>."'
+      },
+      ip: {
+        title: "Điều 11.4: Quyền Sở Hữu Trí Tuệ",
+        text: '"Bên Cung Cấp Dịch Vụ đồng ý <span class="del-text">chuyển giao vĩnh viễn toàn bộ quyền sở hữu trí tuệ nền tảng (Background IP)</span> <span class="ins-text">cấp giấy phép sử dụng không độc quyền, có hiệu lực toàn cầu đối với sản phẩm phái sinh phát sinh trong phạm vi dự án</span>."'
+      },
+      termination: {
+        title: "Điều 14.1: Chấm Dứt & Bồi Thường",
+        text: '"Bất kỳ bên nào cũng có quyền chấm dứt hợp đồng <span class="del-text">ngay lập tức mà không cần báo trước nếu xảy ra bất đồng</span> <span class="ins-text">bằng văn bản thông báo trước tối thiểu ba mươi (30) ngày kèm thời hạn ba mươi (30) ngày để khắc phục vi phạm</span>."'
+      },
+      noncompete: {
+        title: "Điều 16.3: Cam Kết Không Cạnh Tranh",
+        text: '"Cam kết không cạnh tranh sẽ <span class="del-text">có hiệu lực trong thời hạn năm (5) năm trên phạm vi toàn thế giới</span> <span class="ins-text">áp dụng trong thời hạn mười hai (12) tháng giới hạn trong lãnh thổ hoạt động kinh doanh trực tiếp</span>."'
+      }
+    };
+
+    clauseTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        clauseTabs.forEach(t => t.classList.remove('is-active'));
+        tab.classList.add('is-active');
+        const key = tab.getAttribute('data-clause');
+        if (clauseData[key]) {
+          document.getElementById('clauseTextContent').innerHTML = clauseData[key].text;
+          showToast(`Đã tải nội dung so chiếu: ${clauseData[key].title}`, '📄');
+          playLegalAudio('click');
+        }
+      });
+    });
+
+    // Accept / Reject Redline
+    document.getElementById('btnAcceptDiff').addEventListener('click', () => {
+      playLegalAudio('gavel');
+      document.getElementById('statRiskScore').innerHTML = '08 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">/ 100</span>';
+      document.getElementById('barRisk').style.width = '8%';
+      document.getElementById('statClausesFlagged').innerHTML = '02 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">Mục</span>';
+      showToast('Đã áp dụng đề xuất của AI vào văn bản chính thức!', '✓');
+    });
+
+    document.getElementById('btnRejectDiff').addEventListener('click', () => {
+      playLegalAudio('click');
+      showToast('Đã từ chối sửa đổi. Giữ nguyên ngôn từ nguyên bản.', '✕');
+    });
+
+    document.getElementById('btnCommentDiff').addEventListener('click', () => {
+      playLegalAudio('pen');
+      showToast('Đã gắn nhãn ghi chú đàm phán vào biên bản xem xét hợp đồng.', '💬');
+    });
+
+    // Canvas Signature Pad
+    const canvas = document.getElementById('sigCanvas');
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = currentTheme === 'dark' ? '#f5d77f' : '#b45309';
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    canvas.addEventListener('mousedown', (e) => {
+      isDrawing = true;
+      ctx.beginPath();
+      ctx.moveTo(e.offsetX, e.offsetY);
+      playLegalAudio('pen');
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+      if (!isDrawing) return;
+      ctx.lineTo(e.offsetX, e.offsetY);
+      ctx.stroke();
+    });
+
+    canvas.addEventListener('mouseup', () => { isDrawing = false; });
+    canvas.addEventListener('mouseleave', () => { isDrawing = false; });
+
+    // Touch events for mobile/tablet
+    canvas.addEventListener('touchstart', (e) => {
+      isDrawing = true;
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      ctx.beginPath();
+      ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+      e.preventDefault();
+    });
+
+    canvas.addEventListener('touchmove', (e) => {
+      if (!isDrawing) return;
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+      ctx.stroke();
+      e.preventDefault();
+    });
+
+    canvas.addEventListener('touchend', () => { isDrawing = false; });
+
+    document.getElementById('btnClearSig').addEventListener('click', () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      document.getElementById('notarySealBox').classList.remove('is-visible');
+      showToast('Đã xóa khung chữ ký', '🗑️');
+      playLegalAudio('click');
+    });
+
+    // Apply Notary Seal
+    document.getElementById('btnApplySeal').addEventListener('click', () => {
+      document.getElementById('notarySealBox').classList.add('is-visible');
+      playLegalAudio('seal');
+      showToast('Đã chứng thực chữ ký số bằng mã băm SHA-256 & dấu mộc điện tử!', '🏛️');
+    });
+
+    document.getElementById('btnExportPDF').addEventListener('click', () => {
+      playLegalAudio('click');
+      showToast('Đang tạo báo cáo Redline PDF thẩm định pháp lý...', '📑');
+    });
+
+    document.getElementById('btnNewReview').addEventListener('click', () => {
+      playLegalAudio('gavel');
+      showToast('Sẵn sàng tải lên hợp đồng mới dạng DOCX / PDF để AI rà soát.', '⚖️');
+    });
+
+    function viewDocketDoc(id) {
+      playLegalAudio('click');
+      showToast(`Mở tài liệu lưu trữ điện tử: ${id}`, '🔍');
+    }
+  </script>
+</body>
+</html>

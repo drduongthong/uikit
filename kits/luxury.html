@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Celeste Privé — Ultra-Luxury Hospitality &amp; Bespoke VIP Concierge UI Kit</title>
+  <meta name="description" content="Bộ UI Kit khách sạn và dịch vụ thượng lưu (Ultra-Luxury Hospitality), căn hộ Penthouse tổng thống, thực đơn Michelin Sommelier cá nhân hóa, quản gia riêng 24/7 và thẻ hội viên Black Card." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/tokens.css" />
+
+  <style>
+    /* ================================================================
+       CELESTE PRIVÉ — Ultra-Luxury Hospitality & Bespoke Concierge
+       ================================================================ */
+    :root {
+      --bg-base: #070707;
+      --bg-surface: #100f0e;
+      --bg-surface-2: #181614;
+      --bg-card: rgba(18, 16, 14, 0.88);
+      --bg-glass: rgba(14, 12, 10, 0.92);
+
+      --border: rgba(212, 175, 55, 0.2);
+      --border-bright: rgba(229, 193, 88, 0.45);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+
+      --gold-primary: #d4af37;
+      --gold-foil: #e5c158;
+      --gold-deep: #9c7a14;
+      --gold-bright: #f9e7a2;
+      --silk-rose: #c99b82;
+      --pearl-ivory: #faf6f0;
+
+      --glow-gold: rgba(212, 175, 55, 0.32);
+      --glow-foil: rgba(229, 193, 88, 0.45);
+
+      --txt-primary: #faf6f0;
+      --txt-secondary: #c7bcaf;
+      --txt-muted: #7d7265;
+
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-cormorant: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-pill: 9999px;
+    }
+
+    [data-theme="light"] {
+      --bg-base: #fcfaf7;
+      --bg-surface: #ffffff;
+      --bg-surface-2: #f4eee5;
+      --bg-card: rgba(255, 255, 255, 0.95);
+      --bg-glass: rgba(255, 255, 255, 0.92);
+
+      --border: rgba(180, 131, 22, 0.2);
+      --border-bright: rgba(180, 131, 22, 0.45);
+      --border-subtle: rgba(0, 0, 0, 0.08);
+
+      --gold-primary: #b48316;
+      --gold-foil: #996e10;
+      --gold-deep: #785305;
+      --gold-bright: #d99f1f;
+      --silk-rose: #a36f56;
+
+      --txt-primary: #1c150f;
+      --txt-secondary: #4a3e35;
+      --txt-muted: #827265;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-base);
+      color: var(--txt-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Ambient Opulent Gold Foil & Shadow Background */
+    .luxe-bg {
+      position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background-image:
+        radial-gradient(circle at 20% 15%, rgba(212, 175, 55, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 25%, rgba(201, 155, 130, 0.07) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(229, 193, 88, 0.06) 0%, transparent 50%),
+        linear-gradient(rgba(212, 175, 55, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212, 175, 55, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 54px 54px, 54px 54px;
+    }
+
+    .container {
+      max-width: 1420px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header Nav */
+    .luxe-header {
+      background: var(--bg-glass);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      padding: 14px 0;
+    }
+    .luxe-nav {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .brand-group {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .luxe-crest-icon {
+      width: 44px; height: 44px; border-radius: var(--radius-md);
+      background: linear-gradient(135deg, rgba(229,193,88,0.25), rgba(212,175,55,0.15));
+      border: 1px solid var(--border-bright);
+      display: grid; place-items: center; color: var(--gold-foil);
+      box-shadow: 0 0 24px var(--glow-gold);
+    }
+    .brand-text h1 {
+      font-family: var(--font-serif);
+      font-size: 1.35rem; font-weight: 700; font-style: italic;
+      letter-spacing: 0.02em; display: flex; align-items: center; gap: 10px;
+    }
+    .brand-sub {
+      font-size: 0.72rem; color: var(--txt-muted); font-family: var(--font-mono); letter-spacing: 0.1em;
+    }
+
+    .member-tier-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 14px; border-radius: var(--radius-pill);
+      font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700;
+      background: rgba(229, 193, 88, 0.12); color: var(--gold-foil);
+      border: 1px solid rgba(229, 193, 88, 0.4);
+      box-shadow: 0 0 16px var(--glow-gold);
+    }
+
+    .nav-actions {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: var(--font-body); font-size: 0.82rem; font-weight: 600;
+      padding: 8px 16px; border-radius: var(--radius-md);
+      cursor: pointer; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid transparent; text-decoration: none;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-foil), var(--gold-deep));
+      color: #0b0906; font-weight: 700;
+      box-shadow: 0 4px 18px var(--glow-gold);
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #ffea9f, #d4af37);
+      box-shadow: 0 6px 26px var(--glow-foil);
+    }
+    .btn-outline {
+      background: rgba(18, 16, 14, 0.6);
+      border: 1px solid var(--border); color: var(--txt-primary);
+    }
+    .btn-outline:hover {
+      border-color: var(--border-bright); background: var(--bg-surface-2);
+      color: var(--gold-foil);
+    }
+    .btn-icon {
+      width: 38px; height: 38px; padding: 0; border-radius: var(--radius-md);
+      background: rgba(18, 16, 14, 0.6); border: 1px solid var(--border);
+      color: var(--txt-secondary); display: grid; place-items: center;
+    }
+    .btn-icon:hover { border-color: var(--border-bright); color: var(--txt-primary); }
+
+    /* Top Hero Banner */
+    .luxe-banner { padding: 24px 0 16px; }
+    .luxe-hero-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 26px; backdrop-filter: blur(14px);
+      position: relative; overflow: hidden;
+    }
+    .luxe-hero-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold-foil), var(--silk-rose), var(--gold-deep));
+    }
+    .banner-top-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 12px; flex-wrap: wrap; gap: 12px;
+    }
+    .luxe-tag {
+      font-size: 0.74rem; font-family: var(--font-mono); color: var(--gold-foil);
+      letter-spacing: 0.12em; text-transform: uppercase; display: flex; align-items: center; gap: 6px;
+    }
+    .luxe-title {
+      font-family: var(--font-serif); font-size: 1.85rem; font-weight: 700;
+      letter-spacing: -0.01em; margin-top: 4px; line-height: 1.25;
+    }
+
+    /* 4 KPI Cards */
+    .kpi-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+      margin-top: 20px;
+    }
+    .kpi-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 18px; transition: all 0.25s ease;
+      position: relative;
+    }
+    .kpi-card:hover {
+      border-color: var(--border-bright); transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .kpi-label {
+      font-size: 0.74rem; font-family: var(--font-mono); color: var(--txt-muted);
+      display: flex; justify-content: space-between; margin-bottom: 6px;
+    }
+    .kpi-val {
+      font-family: var(--font-serif); font-size: 1.65rem; font-weight: 700;
+      color: var(--txt-primary); letter-spacing: -0.01em;
+    }
+    .kpi-progress-track {
+      width: 100%; height: 4px; background: rgba(255,255,255,0.06);
+      border-radius: var(--radius-pill); margin-top: 10px; overflow: hidden;
+    }
+    .kpi-progress-bar { height: 100%; border-radius: var(--radius-pill); transition: width 0.4s ease; }
+
+    /* Main Grid */
+    .main-grid {
+      display: grid; grid-template-columns: 2fr 1.25fr; gap: 20px;
+      margin-top: 24px;
+    }
+
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(12px); overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .panel-header {
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(14, 12, 10, 0.5);
+    }
+    .panel-title {
+      font-family: var(--font-serif); font-size: 1.15rem; font-weight: 700;
+      display: flex; align-items: center; gap: 10px; font-style: italic;
+    }
+    .panel-title svg { color: var(--gold-foil); }
+    .panel-body { padding: 20px; flex: 1; }
+
+    /* Mood Controller Visualizer */
+    .ambience-stage {
+      background: linear-gradient(135deg, #1c1712, #0d0b08);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px; text-align: center;
+      transition: background 0.5s ease;
+      position: relative; overflow: hidden;
+    }
+    .mood-title {
+      font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700;
+      color: var(--gold-foil); margin-bottom: 6px;
+    }
+    .mood-sub { font-size: 0.85rem; color: var(--txt-secondary); max-width: 480px; margin: 0 auto 16px; }
+
+    .lighting-pills {
+      display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .light-btn {
+      background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border);
+      color: var(--txt-secondary); padding: 6px 14px; border-radius: var(--radius-pill);
+      font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+    }
+    .light-btn:hover { border-color: var(--border-bright); color: var(--txt-primary); }
+    .light-btn.is-active {
+      background: rgba(229, 193, 88, 0.2); border-color: var(--gold-foil);
+      color: var(--gold-foil); box-shadow: 0 0 14px var(--glow-gold);
+    }
+
+    /* Michelin Tasting Menu & Sommelier Selection */
+    .dining-selection-grid {
+      display: flex; flex-direction: column; gap: 12px; margin-top: 16px;
+    }
+    .course-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 16px; border-radius: var(--radius-md);
+      background: var(--bg-surface); border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+    .course-item:hover {
+      border-color: var(--border-bright); transform: translateX(3px);
+    }
+    .course-num {
+      font-family: var(--font-serif); font-style: italic; font-weight: 700;
+      color: var(--gold-foil); font-size: 0.95rem; margin-right: 12px;
+    }
+    .course-name { font-weight: 600; color: var(--txt-primary); font-size: 0.88rem; }
+    .course-wine { font-family: var(--font-cormorant); font-size: 0.88rem; color: var(--silk-rose); font-style: italic; }
+
+    /* Butler Live Concierge Chat */
+    .concierge-chat-box {
+      display: flex; flex-direction: column; height: 320px;
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); overflow: hidden;
+    }
+    .chat-messages {
+      flex: 1; padding: 14px; overflow-y: auto;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .chat-bubble {
+      max-width: 80%; padding: 10px 14px; border-radius: 12px;
+      font-size: 0.82rem; line-height: 1.45;
+    }
+    .bubble-butler {
+      align-self: flex-start; background: rgba(229, 193, 88, 0.12);
+      border: 1px solid rgba(229, 193, 88, 0.3); color: var(--txt-primary);
+    }
+    .bubble-user {
+      align-self: flex-end; background: var(--bg-surface-2);
+      border: 1px solid var(--border); color: var(--gold-foil);
+    }
+
+    .instant-pills-bar {
+      display: flex; gap: 6px; overflow-x: auto; padding: 8px 12px;
+      background: rgba(14, 12, 10, 0.7); border-top: 1px solid var(--border);
+    }
+    .req-pill {
+      background: var(--bg-surface); border: 1px solid var(--border);
+      color: var(--txt-secondary); padding: 4px 10px; border-radius: var(--radius-pill);
+      font-size: 0.72rem; cursor: pointer; white-space: nowrap; transition: all 0.15s ease;
+    }
+    .req-pill:hover {
+      border-color: var(--gold-foil); color: var(--gold-foil);
+    }
+
+    /* 3D Holographic Metallic Card */
+    .vip-card-wrap {
+      perspective: 800px; margin-top: 16px;
+    }
+    .vip-black-card {
+      width: 100%; height: 180px; border-radius: 14px;
+      background: linear-gradient(135deg, #1f1b14 0%, #0d0c0a 50%, #282116 100%);
+      border: 1px solid var(--gold-foil);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.6), 0 0 20px var(--glow-gold);
+      padding: 20px; display: flex; flex-direction: column; justify-content: space-between;
+      position: relative; overflow: hidden; transition: transform 0.3s ease;
+    }
+    .vip-card-chip {
+      width: 36px; height: 26px; border-radius: 4px;
+      background: linear-gradient(135deg, #d4af37, #f9e7a2);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.4);
+    }
+    .vip-card-num {
+      font-family: var(--font-mono); font-size: 1.05rem; letter-spacing: 0.15em;
+      color: var(--gold-bright); text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    }
+    .vip-card-holder {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      font-size: 0.74rem; font-family: var(--font-mono); color: var(--txt-secondary);
+      text-transform: uppercase; letter-spacing: 0.1em;
+    }
+
+    /* Toast Container */
+    .toast-container {
+      position: fixed; bottom: 24px; right: 24px; z-index: 2000;
+      display: flex; flex-direction: column; gap: 10px; pointer-events: none;
+    }
+    .toast {
+      background: rgba(18, 16, 14, 0.95);
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-md);
+      padding: 12px 18px; color: var(--txt-primary);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--glow-gold);
+      font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 10px;
+      backdrop-filter: blur(12px); pointer-events: auto;
+      animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes toastIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .main-grid { grid-template-columns: 1fr; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .kpi-row { grid-template-columns: 1fr; }
+      .nav-actions .btn-export { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="luxe-bg"></div>
+
+  <!-- Header Nav -->
+  <header class="luxe-header">
+    <div class="container luxe-nav">
+      <div class="brand-group">
+        <a href="../index.html" class="btn-icon" title="Quay lại Showroom">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </a>
+        <div class="luxe-crest-icon">
+          <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2L15 8L21 9L17 14L18 20L12 17L6 20L7 14L3 9L9 8L12 2Z"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Celeste Privé</h1>
+          <div class="brand-sub">HAUTE HOSPITALITY &bull; BESPOKE VIP CONCIERGE</div>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <div class="member-tier-pill">
+          <span>★ Black Diamond Centurion</span>
+        </div>
+
+        <button id="btnSoundToggle" class="btn btn-icon" title="Bật/Tắt âm thanh Chuông Vàng &amp; Pha Lê">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+
+        <button id="btnThemeToggle" class="btn btn-icon" title="Chuyển chế độ Sáng / Tối">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+
+        <button id="btnBookYacht" class="btn btn-outline btn-export">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24M14.83 14.83l4.24 4.24M14.83 9.17l4.24-4.24M4.93 19.07l4.24-4.24"/></svg>
+          Du Thuyền Riêng Monaco
+        </button>
+
+        <button id="btnCallButler" class="btn btn-gold">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Gọi Quản Gia Riêng
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="luxe-banner">
+      <div class="luxe-hero-card">
+        <div class="banner-top-row">
+          <div>
+            <div class="luxe-tag">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+              Amalfi Coast &bull; Presidential Cliffside Villa Suite #8801
+            </div>
+            <h2 class="luxe-title">Trải Nghiệm Nghỉ Dưỡng Tối Thượng &amp; Quản Gia Riêng Cá Nhân Hóa</h2>
+          </div>
+          <span style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:var(--radius-pill); font-family:var(--font-mono); font-size:0.8rem; background:rgba(229,193,88,0.15); color:var(--gold-foil); border:1px solid rgba(229,193,88,0.4);">
+            24/7 DEDICATED CONCIERGE: ACTIVE
+          </span>
+        </div>
+
+        <div class="kpi-row">
+          <div class="kpi-card">
+            <div class="kpi-label">
+              Diện tích Dinh thự Penthouse
+              <span style="color:var(--gold-foil); font-weight:700;">Cliffside</span>
+            </div>
+            <div class="kpi-val">480 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">m²</span></div>
+            <div class="kpi-progress-track">
+              <div class="kpi-progress-bar" style="width: 100%; background: var(--gold-foil);"></div>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              Nhiệt độ &amp; Tinh dầu thơm
+              <span style="color:var(--silk-rose); font-weight:700;">Santal 33</span>
+            </div>
+            <div class="kpi-val" id="statTemp">22.5 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">°C</span></div>
+            <div class="kpi-progress-track">
+              <div class="kpi-progress-bar" style="width: 70%; background: var(--silk-rose);"></div>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              Du thuyền Benetti 65m
+              <span style="color:var(--gold-foil); font-weight:700;">Ready</span>
+            </div>
+            <div class="kpi-val">Monaco <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">Port</span></div>
+            <div class="kpi-progress-track">
+              <div class="kpi-progress-bar" style="width: 90%; background: var(--gold-foil);"></div>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              Bếp trưởng &amp; Sommelier
+              <span style="color:var(--gold-bright); font-weight:700;">Michelin 3★</span>
+            </div>
+            <div class="kpi-val">Ch. Margaux <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">1982</span></div>
+            <div class="kpi-progress-track">
+              <div class="kpi-progress-bar" style="width: 100%; background: var(--gold-bright);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Grid -->
+    <section class="main-grid">
+      <!-- Ambience & Fine Dining -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            Bộ Điều Khiển Không Gian Penthouse (360 Ambience &amp; Suite Mood)
+          </div>
+          <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--txt-muted);">Master Suite 8801</span>
+        </div>
+
+        <div class="panel-body">
+          <div class="ambience-stage" id="ambienceBox">
+            <div class="mood-title" id="moodTitleText">Candlelight Romance &bull; Ánh Nến Lãng Mạn</div>
+            <div class="mood-sub" id="moodSubText">
+              Hệ thống đèn sợi đốt ấm 2,200K, tinh dầu Santal 33 lan tỏa cùng tiếng nhạc harp du dương trên nền ban công nhìn ra vịnh biển.
+            </div>
+
+            <div class="lighting-pills">
+              <button class="light-btn" onclick="setMood('dawn')">🌅 Hoàng Hôn Vàng (Sunset Gold)</button>
+              <button class="light-btn is-active" onclick="setMood('candle')">🕯️ Ánh Nến Lãng Mạn</button>
+              <button class="light-btn" onclick="setMood('twilight')">✨ Đêm Sao Lấp Lánh (Starlight)</button>
+              <button class="light-btn" onclick="setMood('nocturne')">🌙 Giấc Ngủ Êm Dịu (Nocturne)</button>
+            </div>
+          </div>
+
+          <!-- Fine Dining Tasting Menu -->
+          <div style="margin-top:20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <h4 style="font-family:var(--font-serif); font-size:1.1rem; font-style:italic;">Thực Đơn Tasting Menu 4 Món Chuẩn Michelin 3 Sao</h4>
+              <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--gold-foil);">Bếp trưởng Jean-Luc</span>
+            </div>
+
+            <div class="dining-selection-grid">
+              <div class="course-item">
+                <div style="display:flex; align-items:center;">
+                  <span class="course-num">I.</span>
+                  <div>
+                    <div class="course-name">Beluga Caviar &amp; Bánh Tartlet Vàng Lá 24K</div>
+                    <div style="font-size:0.75rem; color:var(--txt-muted);">Trứng cá tầm hoàng gia, kem chua yuzu</div>
+                  </div>
+                </div>
+                <div class="course-wine">Dom Pérignon P2 2004</div>
+              </div>
+
+              <div class="course-item">
+                <div style="display:flex; align-items:center;">
+                  <span class="course-num">II.</span>
+                  <div>
+                    <div class="course-name">Tôm Hùm Xanh Brittany Nấu Nhẹ Bơ Saffron</div>
+                    <div style="font-size:0.75rem; color:var(--txt-muted);">Bọt nhụy hoa nghệ tây, bắp non nướng củi</div>
+                  </div>
+                </div>
+                <div class="course-wine">Bâtard-Montrachet Grand Cru</div>
+              </div>
+
+              <div class="course-item">
+                <div style="display:flex; align-items:center;">
+                  <span class="course-num">III.</span>
+                  <div>
+                    <div class="course-name">Thăn Bò A5 Miyazaki Nướng Gỗ Sồi Périgord</div>
+                    <div style="font-size:0.75rem; color:var(--txt-muted);">Nấm truffle đen cạo tươi, sốt vang đỏ cô đặc</div>
+                  </div>
+                </div>
+                <div class="course-wine">Château Margaux Premier Cru 1982</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Butler Chat & VIP Black Card -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Kênh Thoại Trực Tuyến Với Quản Gia Jean-Paul
+          </div>
+          <span class="badge-status" style="color:var(--gold-foil);">● Online</span>
+        </div>
+
+        <div class="panel-body" style="display:flex; flex-direction:column; gap:14px;">
+          <!-- Chat box -->
+          <div class="concierge-chat-box">
+            <div class="chat-messages" id="chatStream">
+              <div class="chat-bubble bubble-butler">
+                Kính chào Quý khách. Tôi là Jean-Paul, Quản gia trưởng của Suite 8801. Chai Dom Pérignon 2004 đã được ướp lạnh ở 8°C. Tôi có thể hỗ trợ Quý khách điều gì tiếp theo?
+              </div>
+            </div>
+
+            <!-- Fast request pills -->
+            <div class="instant-pills-bar">
+              <button class="req-pill" onclick="sendQuickReq('Chuẩn bị trực thăng đón tại Nice')">🚁 Trực thăng Nice</button>
+              <button class="req-pill" onclick="sendQuickReq('Ướp thêm 1 chai Champagne Dom Pérignon')">🍾 Champagne</button>
+              <button class="req-pill" onclick="sendQuickReq('Đặt bàn tiệc riêng ngắm hoàng hôn')">🌅 Tiệc riêng</button>
+              <button class="req-pill" onclick="sendQuickReq('Chuẩn bị phòng tắm bồn nước nóng với cánh hoa hồng')">🌹 Bồn tắm hoa hồng</button>
+            </div>
+          </div>
+
+          <!-- VIP Centurion Black Card -->
+          <div class="vip-card-wrap">
+            <div class="vip-black-card" id="vipCard">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                <div class="vip-card-chip"></div>
+                <div style="font-family:var(--font-serif); font-size:1.1rem; font-style:italic; color:var(--gold-foil); font-weight:700;">CELESTE PRIVÉ</div>
+              </div>
+              <div class="vip-card-num">8800 &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 2026</div>
+              <div class="vip-card-holder">
+                <span>VIP CENTURION MEMBER</span>
+                <span>EXP: 12/30</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    // Theme Management
+    const themeToggleBtn = document.getElementById('btnThemeToggle');
+    let currentTheme = localStorage.getItem('luxe-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      localStorage.setItem('luxe-theme', currentTheme);
+      showToast(`Chuyển giao diện: ${currentTheme === 'dark' ? 'Dark Haute Obsidian' : 'Light Ivory Alabaster'}`, '✨');
+      playLuxeAudio('click');
+    });
+
+    // Web Audio Synthesizer
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    const soundToggleBtn = document.getElementById('btnSoundToggle');
+    soundToggleBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      soundToggleBtn.style.color = soundEnabled ? 'var(--gold-foil)' : 'var(--txt-muted)';
+      showToast(soundEnabled ? 'Đã bật âm thanh Chuông Vàng & Pha Lê' : 'Đã tắt âm thanh', '🔔');
+    });
+
+    function playLuxeAudio(type) {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'bell') {
+          // Pure hotel concierge brass bell ding
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1760, now); // A6
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+          osc.start(now);
+          osc.stop(now + 1.2);
+        } else if (type === 'crystal') {
+          // Crystal champagne glass clink
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(2637, now); // E7
+          gain.gain.setValueAtTime(0.18, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+          osc.start(now);
+          osc.stop(now + 0.8);
+        } else if (type === 'harp') {
+          // Warm harp chord note
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(440, now);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+          osc.start(now);
+          osc.stop(now + 0.5);
+        } else if (type === 'click') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(520, now);
+          gain.gain.setValueAtTime(0.05, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        }
+      } catch (e) {
+        console.warn('Audio blocked:', e);
+      }
+    }
+
+    function showToast(msg, icon = '✨') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<span>${icon}</span><span>${msg}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.transition = 'opacity 0.3s, transform 0.3s';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    // Mood Controller
+    function setMood(mode) {
+      const box = document.getElementById('ambienceBox');
+      const title = document.getElementById('moodTitleText');
+      const sub = document.getElementById('moodSubText');
+      const btns = document.querySelectorAll('.light-btn');
+
+      btns.forEach(b => b.classList.remove('is-active'));
+      event.target.classList.add('is-active');
+
+      if (mode === 'dawn') {
+        box.style.background = 'linear-gradient(135deg, #2b1f14, #120d09)';
+        title.textContent = 'Hoàng Hôn Vàng &bull; Sunset Gold';
+        sub.textContent = 'Ánh sáng cam hổ phách dịu êm hòa cùng hương Neroli Portofino tươi mát của bờ biển Địa Trung Hải.';
+        document.getElementById('statTemp').innerHTML = '23.0 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">°C</span>';
+      } else if (mode === 'candle') {
+        box.style.background = 'linear-gradient(135deg, #1c1712, #0d0b08)';
+        title.textContent = 'Ánh Nến Lãng Mạn &bull; Candlelight Romance';
+        sub.textContent = 'Đèn sợi đốt ấm 2,200K, tinh dầu Santal 33 lan tỏa cùng tiếng nhạc harp du dương trên nền ban công nhìn ra vịnh.';
+        document.getElementById('statTemp').innerHTML = '22.5 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">°C</span>';
+      } else if (mode === 'twilight') {
+        box.style.background = 'linear-gradient(135deg, #141226, #090812)';
+        title.textContent = 'Đêm Sao Lấp Lánh &bull; Twilight Starlight';
+        sub.textContent = 'Hiệu ứng bầu trời ngàn sao sợi quang trần nhà cùng hương hoa nhài đêm Jasmine Sambac quý hiếm.';
+        document.getElementById('statTemp').innerHTML = '21.8 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">°C</span>';
+      } else if (mode === 'nocturne') {
+        box.style.background = 'linear-gradient(135deg, #0e0d0c, #050505)';
+        title.textContent = 'Giấc Ngủ Êm Dịu &bull; Nocturne Velvet';
+        sub.textContent = 'Rèm lụa tự động đóng 100%, nhiệt độ phòng tối ưu 20.5°C kèm âm thanh sóng biển ru giấc ngủ sâu.';
+        document.getElementById('statTemp').innerHTML = '20.5 <span style="font-size:0.9rem; font-weight:500; color:var(--txt-muted);">°C</span>';
+      }
+
+      playLuxeAudio('harp');
+      showToast(`Đã áp dụng chế độ không gian Penthouse: ${title.textContent}`, '🕯️');
+    }
+
+    // Butler Quick Requests
+    function sendQuickReq(text) {
+      const stream = document.getElementById('chatStream');
+
+      const userMsg = document.createElement('div');
+      userMsg.className = 'chat-bubble bubble-user';
+      userMsg.textContent = text;
+      stream.appendChild(userMsg);
+
+      playLuxeAudio('click');
+      stream.scrollTop = stream.scrollHeight;
+
+      setTimeout(() => {
+        const butlerMsg = document.createElement('div');
+        butlerMsg.className = 'chat-bubble bubble-butler';
+        butlerMsg.textContent = `Vâng thưa Quý khách, yêu cầu "${text}" đã được sắp xếp ngay lập tức. Đội ngũ quản gia đang thực hiện chu đáo.`;
+        stream.appendChild(butlerMsg);
+        playLuxeAudio('bell');
+        stream.scrollTop = stream.scrollHeight;
+        showToast('Quản gia Jean-Paul đã tiếp nhận và đang tiến hành phục vụ!', '🛎️');
+      }, 700);
+    }
+
+    // Buttons
+    document.getElementById('btnBookYacht').addEventListener('click', () => {
+      playLuxeAudio('crystal');
+      showToast('Du thuyền Benetti 65m sẵn sàng tại bến Monaco Port Hercules với thủy thủ đoàn 12 người.', '🛥️');
+    });
+
+    document.getElementById('btnCallButler').addEventListener('click', () => {
+      playLuxeAudio('bell');
+      showToast('Đang kết nối đường dây ưu tiên tới Quản gia trưởng Jean-Paul...', '📞');
+    });
+
+    // 3D Card Hover Tilt Effect
+    const vipCard = document.getElementById('vipCard');
+    vipCard.addEventListener('mousemove', (e) => {
+      const rect = vipCard.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      vipCard.style.transform = `rotateY(${x / 14}deg) rotateX(${-y / 14}deg) scale(1.02)`;
+    });
+    vipCard.addEventListener('mouseleave', () => {
+      vipCard.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
+    });
+  </script>
+</body>
+</html>
